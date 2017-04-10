@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportEvNot" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8e0e97ee-c917-4b7c-9ce8-4e0de0af4d70">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     noticia.`idNoticia` AS noticia_idNoticia,
+     noticia.`data` AS noticia_data,
+     noticia.`descricao` AS noticia_descricao,
+     noticia.`Evento_idEvento` AS noticia_Evento_idEvento,
+     evento.`idEvento` AS evento_idEvento,
+     evento.`nomeEvento` AS evento_nomeEvento,
+     evento.`duracao` AS evento_duracao,
+     evento.`tema` AS evento_tema,
+     evento.`dataInicioEvento` AS evento_dataInicioEvento,
+     evento.`dataFimEvento` AS evento_dataFimEvento,
+     evento.`Administrador_codAdministrador` AS evento_Administrador_codAdministrador,
+     administrador.`codAdministrador` AS administrador_codAdministrador,
+     administrador.`nome` AS administrador_nome,
+     administrador.`dataNascimento` AS administrador_dataNascimento,
+     administrador.`email` AS administrador_email,
+     administrador.`senha` AS administrador_senha,
+     administrador_A.`codAdministrador` AS administrador_A_codAdministrador,
+     administrador_A.`nome` AS administrador_A_nome,
+     administrador_A.`dataNascimento` AS administrador_A_dataNascimento,
+     administrador_A.`email` AS administrador_A_email,
+     administrador_A.`senha` AS administrador_A_senha
+FROM
+     `evento` evento INNER JOIN `noticia` noticia ON evento.`idEvento` = noticia.`Evento_idEvento`
+     INNER JOIN `administrador` administrador ON evento.`Administrador_codAdministrador` = administrador.`codAdministrador`
+     INNER JOIN `administrador` administrador_A ON evento.`Administrador_codAdministrador` = administrador_A.`codAdministrador`]]>
+	</queryString>
+	<field name="evento_nomeEvento" class="java.lang.String"/>
+	<field name="evento_tema" class="java.lang.String"/>
+	<field name="evento_dataInicioEvento" class="java.lang.String"/>
+	<field name="noticia_descricao" class="java.lang.String"/>
+	<field name="administrador_nome" class="java.lang.String"/>
+	<field name="administrador_A_email" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="-20" y="0" width="595" height="64" uuid="dcf77ad5-5b73-4f8b-ac68-0be36bd673e2"/>
+				<imageExpression><![CDATA["wood.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="263" height="33" uuid="ca670338-608a-4451-aadf-028726de9933"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Wood Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="63" y="39" width="200" height="22" forecolor="#FFFFFF" uuid="ab421c16-8088-4950-be56-418e97f4eb19"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Wood SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="67b8994c-ca5a-49ce-8752-18f5c35ca089"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="21083aee-75e8-4768-bf51-79dc2edb803a"/>
+				<text><![CDATA[evento_nomeEvento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="11548b2c-12ac-43a7-b284-7b755403275a"/>
+				<text><![CDATA[evento_tema]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="7757bf00-8ab2-4be0-91f9-4392af4a9373"/>
+				<text><![CDATA[evento_dataInicioEvento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="bebdd4a0-e205-4718-aab5-242eb637693c"/>
+				<text><![CDATA[noticia_descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="794a2839-aa88-47e5-a30b-7c1d48416e43"/>
+				<text><![CDATA[administrador_nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="18dde388-9da3-4e91-a7ca-fceee38f3c95"/>
+				<text><![CDATA[administrador_A_email]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="273d4750-8dc9-4205-b50d-0e8b59c4bc72"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="de4b8edb-12b5-4838-9fb6-dadd7b30b555"/>
+				<textFieldExpression><![CDATA[$F{evento_nomeEvento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="92" y="0" width="92" height="15" uuid="b1a4bfc9-c291-49ec-b78c-d92f8b2f517b"/>
+				<textFieldExpression><![CDATA[$F{evento_tema}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="421a7aee-ed20-4ff9-ae05-66feddde7dbb"/>
+				<textFieldExpression><![CDATA[$F{evento_dataInicioEvento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="57779477-e614-4d1d-b71f-65ea17d0ff11"/>
+				<textFieldExpression><![CDATA[$F{noticia_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="a5181c52-9bd5-4646-9d3d-6e93a454ee41"/>
+				<textFieldExpression><![CDATA[$F{administrador_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="dc0da1ad-6e84-4a31-82b0-e1a7388e03b0"/>
+				<textFieldExpression><![CDATA[$F{administrador_A_email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="005d8078-f3dd-48e1-a70a-867cef720f83"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="8bb6f922-a591-49c7-9a0a-4d02f7c70f4d"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="cab207f5-451a-4265-b16e-d0678dee7319"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="e1a3f65e-3e8a-4007-99e6-3f1745089180"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

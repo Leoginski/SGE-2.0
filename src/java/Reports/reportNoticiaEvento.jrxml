@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportNoticiaEvento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0f963df-79b2-4059-9d11-45863fbc7a7f">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     evento.`idEvento` AS evento_idEvento,
+     evento.`nomeEvento` AS evento_nomeEvento,
+     evento.`duracao` AS evento_duracao,
+     evento.`tema` AS evento_tema,
+     evento.`dataInicioEvento` AS evento_dataInicioEvento,
+     evento.`dataFimEvento` AS evento_dataFimEvento,
+     evento.`dataInicioInscricao` AS evento_dataInicioInscricao,
+     evento.`dataFimInscricao` AS evento_dataFimInscricao,
+     evento.`Administrador_codAdministrador` AS evento_Administrador_codAdministrador,
+     noticia.`idNoticia` AS noticia_idNoticia,
+     noticia.`data` AS noticia_data,
+     noticia.`descricao` AS noticia_descricao,
+     noticia.`Evento_idEvento` AS noticia_Evento_idEvento
+FROM
+     `evento` evento INNER JOIN `noticia` noticia ON evento.`idEvento` = noticia.`Evento_idEvento`]]>
+	</queryString>
+	<field name="evento_nomeEvento" class="java.lang.String"/>
+	<field name="evento_tema" class="java.lang.String"/>
+	<field name="noticia_data" class="java.lang.String"/>
+	<field name="noticia_descricao" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="fb8a3c87-e6fc-421c-93e4-684996a2a67b"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="dcef3c7d-e14c-4c33-8ba0-cff7c3a430bf"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="51006106-976f-4d95-af2c-223065fadba0"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="545efb25-40f7-4627-a214-5bf49a7e51c0"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="315c2a09-b510-420c-b5ff-5b4d3b0e70f8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[evento_nomeEvento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c3c9d909-02c7-4a5d-a57a-5fa5109ef65b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[evento_tema]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="32787952-f83b-459d-b10b-1bd354ce9343"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[noticia_data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="414" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="986bf558-52fa-4ea1-b5cd-50ece9091e6a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[noticia_descricao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="53ed3b08-3ece-4e84-958b-fcb48bd9b224"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="138" height="20" uuid="ac792891-4094-4d38-aa3e-03a41a9fba82"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{evento_nomeEvento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="138" y="0" width="138" height="20" uuid="16600c19-ebbb-4627-b6a6-f1ce2abc656f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{evento_tema}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="276" y="0" width="138" height="20" uuid="570fef6b-0843-4d2f-9e01-3392de658d7e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noticia_data}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="414" y="0" width="138" height="20" uuid="3800ec40-cae5-4b1c-ad0f-63d1fcab9e3d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noticia_descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="446d1f97-d922-428a-9282-3f172a2e25ec"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="427600a9-e59c-4fcb-8df3-88b9c294fa94"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="e03ba1a1-d62a-40b8-bfa8-20a295b4fdb2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
