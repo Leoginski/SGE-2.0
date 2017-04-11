@@ -7,33 +7,60 @@ and open the template in the editor.
 <html>
     <head>
         <title>Index e essa</title>
+        <!--Css Materialize-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <!--Fontes e Ícones Materialize-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Css SGE-->
+        <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+        <!--Informe o Browser sobre a compatibilidade-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-			<!--cabeÃ§alho comentario-->
-			<table>
-				<tr>
-                                    <th colspan="7"><h1>Sistema de Gerenciamento de Eventos</h1></th>
-				</tr>
-				<tr>
-                                        <td><a href="PesquisaNoticiaController"><button>Noticias</button></a></td>
-					<td><a href="PesquisaPropostaController"><button>Propostas</button></a></td>
-                                        <td><a href="PesquisaAlunoController"><button> Alunos</button></a></td>
-                                        <td><a href="PesquisaAdministradorController"><button> Administrador</button></a></td>
-                                        <td><a href="PesquisaEventoController"><button> Evento</button></a></td>
-                                        <td><a href="PesquisaExternoController"><button> Externo </button></a></td>
-                                        <td><a href="PesquisaGerenteController"><button> Gerente</button></a></td>
-                                        <td><a href="PesquisaLocalController"><button> Local</button></a></td>
-                                        
-                                        
-                                        <!--					
-                                        <td><button><a href="manterAluno.jsp">Programacao</a></button></td>
-					<td><button><a href="manterAluno.jsp">Noticias</a></button></td>
-					<td><button><a href="manterAluno.jsp">Edicoes</a></button></td>
-					<td><button><a href="manterAluno.jsp">Fotos</a></button></td>
-					<td><button><a href="manterAluno.jsp">Conheca</a></button></td>-->
-				</tr>
-			</table>
+        <header>
+            <nav class="nav-extended light-green lighten-1">
+                <div class="nav-wrapper">
+                    <img class="responsive" src="img/if_icon.png">
+                    <a href="#" class="brand-logo">Sistema de Gerenciamento de Eventos</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="VoltarInicioController">Início</a></li>
+                        <li class="tab"><a href="PesquisaNoticiaController">Noticias</a></li>
+                        <li class="tab"><a href="PesquisaPropostaController">Propostas</a></li>
+                        <li class="tab"><a href="PesquisaAlunoController">Alunos</a></li>
+                        <li class="tab"><a href="PesquisaAdministradorController">Administrador</a></li>
+                        <li class="tab"><a href="PesquisaEventoController">Evento</a></li>
+                        <li class="tab"><a href="PesquisaExternoController">Externo</a></li>
+                        <li class="tab"><a href="PesquisaGerenteController">Gerente</a></li>
+                        <li class="tab"><a href="PesquisaLocalController">Local</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div>
+                Esse sistema foi desenvolvido para gerenciar Eventos Institucionais de forma a facilitar os eventos.
+            </div>
+        </header>
+        <main>
+        </main>
+        <footer class="page-footer light-green lighten-1">
+            <div class="footer-copyright grey-text text-lighten-4">
+                © 2016 Copyright - Modelagem e Programação: Leonardo Smoginski Fernandes | Luiz Filipy Damaceno | Matheus Souza Leao
+            </div>
+        </footer>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+        <!-- JavaScript SGE-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
 </html>

@@ -44,6 +44,10 @@
         <servlet-name>PesquisaPropostaController</servlet-name>
         <servlet-class>controller.PesquisaPropostaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TratamentoExcecao</servlet-name>
+        <servlet-class>exception.TratamentoExcecao</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaAlunoController</servlet-name>
         <url-pattern>/PesquisaAlunoController</url-pattern>
@@ -88,9 +92,27 @@
         <servlet-name>PesquisaPropostaController</servlet-name>
         <url-pattern>/PesquisaPropostaController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TratamentoExcecao</servlet-name>
+        <url-pattern>/TratamentoExcecao</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <error-page>
+        <error-code>404</error-code>
+        <location>
+            /TratamentoExcecao
+        </location>
+    </error-page>
+    <error-page>
+        <exception-type>
+            java.lang.Exception
+        </exception-type>
+        <location>
+            /TratamentoExcecao
+        </location>
+    </error-page>
 </web-app>
