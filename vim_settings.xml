@@ -6,6 +6,7 @@
       <file name="/Dummy.txt" timestamp="1492328366628">
         <mark key="[" line="0" column="0" />
       </file>
+      <file name="F:/SGE - atualizado/src/java/modelo/Administrador.java" timestamp="1492561160945" />
       <file name="/fragment.java" timestamp="1492328413560">
         <mark key="[" line="0" column="0" />
       </file>
@@ -16,7 +17,16 @@
       <last-dir>0</last-dir>
       <show-last>false</show-last>
     </search>
-    <history />
-    <shortcut-conflicts />
+    <history>
+      <history-search />
+      <history-cmd />
+      <history-expr />
+      <history-input />
+    </history>
+    <shortcut-conflicts>
+      <shortcut-conflict owner="ide">
+        <text>ctrl pressed S</text>
+      </shortcut-conflict>
+    </shortcut-conflicts>
   </component>
 </application>
