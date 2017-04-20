@@ -44,7 +44,7 @@ public class RelatorioNoticiaEventoController extends HttpServlet {
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
             parametros.put("PAR idEvento", Integer.parseInt(request.getParameter("txtIdEvento")));
-            String relatorio = getServletContext().getRealPath("src\\java\\Reports")+"\\reportNoticiaEvento.jasper";
+            String relatorio = getServletContext().getRealPath("\\WEB-INF\\classes\\Reports")+"\\reportNoticiaEvento.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
             response.setHeader("Content-Disposition", "attachment;filename=" + "reportNoticiaEvento"+".pdf");

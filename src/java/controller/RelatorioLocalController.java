@@ -44,7 +44,7 @@ public class RelatorioLocalController extends HttpServlet {
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
             //parametros.put("PAR codAdministrador", Integer.parseInt(request.getParameter("txtCodAdministrador")));
-            String relatorio = getServletContext().getRealPath("src\\java\\Reports")+"\\reportLocal.jasper";
+            String relatorio = getServletContext().getRealPath("\\WEB-INF\\classes\\Reports")+"\\reportLocal.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
             response.setHeader("Content-Disposition", "attachment;filename=" + "reportLocal"+".pdf");

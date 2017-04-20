@@ -80,6 +80,11 @@
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>
+            
+            <div class="container center">
+                    <a href="RelatorioAdministradorController"> <button class="btn waves-effect waves-light center" >Relatorio </button></a>
+            </div>
+            
         </main>
         <footer class="page-footer light-green lighten-1">
             <div class="footer-copyright grey-text text-lighten-4">
