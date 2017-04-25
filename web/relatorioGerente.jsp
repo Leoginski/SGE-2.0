@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Index</title>
+        <title>Relatorio Gerentes</title>
         <!--Css Materialize-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
         <!--Fontes e Ícones Materialize-->
@@ -51,16 +51,25 @@ and open the template in the editor.
                 Esse sistema foi desenvolvido para gerenciar Eventos Institucionais de forma a facilitar os eventos.
             </div>
         </header>
-        <main>
-        </main>
-        <footer class="page-footer light-green lighten-1">
-            <div class="footer-copyright grey-text text-lighten-4">
-                © 2016 Copyright - Modelagem e Programação: Leonardo Smoginski Fernandes | Luiz Filipy Damaceno | Matheus Souza Leao
-            </div>
-        </footer>
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-        <!-- JavaScript SGE-->
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-    </body>
+    <main>
+        <div class="input-field row">
+            <select name="optGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                <option value="0" <c:if test="${gerente.codGerente == null}"> selected</c:if>></option>
+                <c:forEach items="${gerentes}" var="gerente">
+                    <option value="${gerente.codGerente}" <c:if test="${proposta.gerente.codGerente == gerente.codGerente}"> selected</c:if>>${gerente.nome}</option>
+                </c:forEach>
+            </select>
+            <label>Gerente</label>
+        </div> 
+    </main>
+    <footer class="page-footer light-green lighten-1">
+        <div class="footer-copyright grey-text text-lighten-4">
+            © 2016 Copyright - Modelagem e Programação: Leonardo Smoginski Fernandes | Luiz Filipy Damaceno | Matheus Souza Leao
+        </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <!-- JavaScript SGE-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
 </html>

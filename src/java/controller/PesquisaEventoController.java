@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Administrador;
 import modelo.Evento;
 
 /**
@@ -33,6 +34,7 @@ public class PesquisaEventoController extends HttpServlet {
             throws ServletException, IOException {
         try {
             request.setAttribute("eventos", Evento.obterEventos());
+            request.setAttribute("administradores", Administrador.obterAdministradores());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaEvento.jsp");
             view.forward(request, response);
         } catch (ClassNotFoundException ex){

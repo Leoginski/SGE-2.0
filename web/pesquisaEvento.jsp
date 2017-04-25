@@ -77,7 +77,7 @@
                         <td><c:out value="${evento.dataFimEvento}"/></td>
                         <td><c:out value="${evento.dataInicioInscricao}"/></td>
                         <td><c:out value="${evento.dataFimInscricao}"/></td>
-    <!--                    <td><c:out value="${evento.administrador.nome}"/></td>-->
+                        <td><c:out value="${evento.administrador.nome}"/></td>
                         <td><a href="ManterEventoController?acao=prepararEditar&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
                         <td><a href="ManterEventoController?acao=prepararExcluir&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>      

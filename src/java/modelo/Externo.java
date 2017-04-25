@@ -1,6 +1,7 @@
 package modelo;
 
 import DAO.ExternoDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -40,13 +41,29 @@ public class Externo extends Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public Externo(String nome, String email, String senha, String dataNascimento, String conheceu, int idExterno) {
+    public Externo(int idExterno, String conhecimento, String nome, String email,String dataNascimento, String senha  ) {
         super(nome, email, senha, dataNascimento);
         this.conhecimento = conhecimento;
-        this.idExterno=idExterno;;
+        this.idExterno=idExterno;
     }
     public static List<Externo> obterExternos() throws ClassNotFoundException{
         return ExternoDAO.obterExternos();
+    }
+
+    public static Externo obterExterno(int idExterno) throws ClassNotFoundException{
+        return ExternoDAO.obterExterno(idExterno);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        ExternoDAO.gravar(this);
+    }
+    
+    public void alterar() throws SQLException, ClassNotFoundException {
+        ExternoDAO.alterar(this);
+    }
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        ExternoDAO.excluir(this);
     }
 
 }

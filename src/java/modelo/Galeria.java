@@ -7,6 +7,7 @@
 package modelo;
 
 import DAO.GaleriaDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Aluno
  */
 public class Galeria {
-    private final int idGaleria;
+    private int idGaleria;
     private String data;
     private int idEvento;
     private Evento evento;
@@ -56,4 +57,20 @@ public class Galeria {
         return GaleriaDAO.obterGalerias();
     }
 
+    public static Galeria obterGaleria(int idGaleria) throws ClassNotFoundException{
+        return GaleriaDAO.obterGaleria(idGaleria);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        GaleriaDAO.gravar(this);
+    }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        GaleriaDAO.alterar(this);
+    }
+
+//    public void excluir() throws SQLException, ClassNotFoundException {
+//        GaleriaDAO.excluir(this);
+//    }
+    
 }

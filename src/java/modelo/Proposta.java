@@ -5,6 +5,7 @@
 package modelo;
 
 import DAO.PropostaDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -24,12 +25,10 @@ public class Proposta {
     private String emailConvidado;
     private String formacaoConvidado;
     private String origem;
-    private String informacoesComplemetares;
+    private String informacoesComplementares;
     private int diaria;
     private String estado;
-    private int exclusiva;
-    private int preferencial;
-    private int especifica;
+    private String publico_alvo;
     private int publico_todos;
     private int publico_informatica;
     private int publico_edificacoes;
@@ -42,7 +41,7 @@ public class Proposta {
     private int publico_designMoveis;
     private int publico_eletronica;
     private int publico_transacoesImobiliarias;
-    private int publico_trasporteFerroviario;
+    private int publico_transporteFerroviario;
     private int publico_sistemasInformacao;
     private int publico_engMecatronica;
     private int publico_engMetalurgica;
@@ -53,13 +52,17 @@ public class Proposta {
     private int quinta;
     private int sexta;
     private int sabado;
-    private Evento idEvento;
-    private Local idLocal;
-    private Gerente idGerente;
+    private int idEvento;
+    private int idLocal;
+    private int idGerente;
     private String dataInicio;
     private String dataFim; 
+    
+    private Evento evento;
+    private Local local;
+    private Gerente gerente;
 
-    public Proposta(int idProposta, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, int vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplemetares, int diaria, String estado, int exclusiva, int preferencial, int especifica, int publico_todos, int publico_informatica, int publico_edificacoes, int publico_eletromecanica, int publico_eletrotecnica, int publico_mecanica, int publico_metalurgia, int publico_eventos, int publico_secretariado, int publico_designMoveis, int publico_eletronica, int publico_transacoesImobiliarias, int publico_trasporteFerroviario, int publico_sistemasInformacao, int publico_engMecatronica, int publico_engMetalurgica, int publico_fisica, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, Evento idEvento, Local idLocal, Gerente idGerente, String dataInicio, String dataFim) {
+    public Proposta(int idProposta, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, int vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publico_alvo, int publico_todos, int publico_informatica, int publico_edificacoes, int publico_eletromecanica, int publico_eletrotecnica, int publico_mecanica, int publico_metalurgia, int publico_eventos, int publico_secretariado, int publico_designMoveis, int publico_eletronica, int publico_transacoesImobiliarias, int publico_transporteFerroviario, int publico_sistemasInformacao, int publico_engMecatronica, int publico_engMetalurgica, int publico_fisica, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, int idEvento, int idLocal, int idGerente, String dataInicio, String dataFim) {
         this.idProposta = idProposta;
         this.proponente = proponente;
         this.emailProponente = emailProponente;
@@ -72,12 +75,10 @@ public class Proposta {
         this.emailConvidado = emailConvidado;
         this.formacaoConvidado = formacaoConvidado;
         this.origem = origem;
-        this.informacoesComplemetares = informacoesComplemetares;
+        this.informacoesComplementares = informacoesComplementares;
         this.diaria = diaria;
         this.estado = estado;
-        this.exclusiva = exclusiva;
-        this.preferencial = preferencial;
-        this.especifica = especifica;
+        this.publico_alvo = publico_alvo;
         this.publico_todos = publico_todos;
         this.publico_informatica = publico_informatica;
         this.publico_edificacoes = publico_edificacoes;
@@ -90,7 +91,7 @@ public class Proposta {
         this.publico_designMoveis = publico_designMoveis;
         this.publico_eletronica = publico_eletronica;
         this.publico_transacoesImobiliarias = publico_transacoesImobiliarias;
-        this.publico_trasporteFerroviario = publico_trasporteFerroviario;
+        this.publico_transporteFerroviario = publico_transporteFerroviario;
         this.publico_sistemasInformacao = publico_sistemasInformacao;
         this.publico_engMecatronica = publico_engMecatronica;
         this.publico_engMetalurgica = publico_engMetalurgica;
@@ -109,6 +110,14 @@ public class Proposta {
     }
 
     
+    
+    public String getPublico_alvo() {
+        return publico_alvo;
+    }
+
+    public void setPublico_alvo(String publico_alvo) {
+        this.publico_alvo = publico_alvo;
+    }
     
     public String getProponente() {
         return proponente;
@@ -198,12 +207,12 @@ public class Proposta {
         this.origem = origem;
     }
 
-    public String getInformacoesComplemetares() {
-        return informacoesComplemetares;
+    public String getInformacoesComplementares() {
+        return informacoesComplementares;
     }
 
-    public void setInformacoesComplemetares(String informacoesComplemetares) {
-        this.informacoesComplemetares = informacoesComplemetares;
+    public void setInformacoesComplementares(String informacoesComplementares) {
+        this.informacoesComplementares = informacoesComplementares;
     }
 
     public int getDiaria() {
@@ -221,31 +230,7 @@ public class Proposta {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public int getExclusiva() {
-        return exclusiva;
-    }
-
-    public void setExclusiva(int exclusiva) {
-        this.exclusiva = exclusiva;
-    }
-
-    public int getPreferencial() {
-        return preferencial;
-    }
-
-    public void setPreferencial(int preferencial) {
-        this.preferencial = preferencial;
-    }
-
-    public int getEspecifica() {
-        return especifica;
-    }
-
-    public void setEspecifica(int especifica) {
-        this.especifica = especifica;
-    }
-
+    
     public int getPublico_todos() {
         return publico_todos;
     }
@@ -342,12 +327,12 @@ public class Proposta {
         this.publico_transacoesImobiliarias = publico_transacoesImobiliarias;
     }
 
-    public int getPublico_trasporteFerroviario() {
-        return publico_trasporteFerroviario;
+    public int getPublico_transporteFerroviario() {
+        return publico_transporteFerroviario;
     }
 
-    public void setPublico_trasporteFerroviario(int publico_trasporteFerroviario) {
-        this.publico_trasporteFerroviario = publico_trasporteFerroviario;
+    public void setPublico_transporteFerroviario(int publico_transporteFerroviario) {
+        this.publico_transporteFerroviario = publico_transporteFerroviario;
     }
 
     public int getPublico_sistemasInformacao() {
@@ -430,27 +415,27 @@ public class Proposta {
         this.sabado = sabado;
     }
 
-    public Evento getIdEvento() {
+    public int getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(Evento idEvento) {
+    public void setIdEvento(int idEvento) {
         this.idEvento = idEvento;
     }
 
-    public Local getIdLocal() {
+    public int getIdLocal() {
         return idLocal;
     }
 
-    public void setIdLocal(Local idLocal) {
+    public void setIdLocal(int idLocal) {
         this.idLocal = idLocal;
     }
 
-    public Gerente getIdGerente() {
+    public int getIdGerente() {
         return idGerente;
     }
 
-    public void setIdGerente(Gerente idGerente) {
+    public void setIdGerente(int idGerente) {
         this.idGerente = idGerente;
     }
 
@@ -469,6 +454,42 @@ public class Proposta {
     public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
+
+    public Evento getEvento() throws ClassNotFoundException {
+        if ((evento == null) && (idEvento != 0)) {
+            evento = Evento.obterEvento(idEvento);
+        }
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public Local getLocal() throws ClassNotFoundException {
+        if ((local == null) && (idLocal != 0)) {
+            local = Local.obterLocal(idLocal);
+        }
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public Gerente getGerente() throws ClassNotFoundException {
+        if ((gerente == null) && (idGerente != 0)) {
+            gerente = Gerente.obterGerente(idGerente);
+        }
+        return gerente;
+    }
+
+    public void setGerente(Gerente gerente) {
+        this.gerente = gerente;
+    }
+    
+    
+    
  public static List<Proposta> obterPropostas() throws ClassNotFoundException{
         return PropostaDAO.obterPropostas();
     } 
@@ -487,4 +508,19 @@ public class Proposta {
         this.idProposta = idProposta;
     }
 
+    public static Proposta obterProposta(int idProposta) throws ClassNotFoundException{
+        return PropostaDAO.obterProposta(idProposta);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        PropostaDAO.gravar(this);
+    }
+    public void alterar() throws SQLException, ClassNotFoundException {
+        PropostaDAO.alterar(this);
+    }
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        PropostaDAO.excluir(this);
+    }
+    
 }

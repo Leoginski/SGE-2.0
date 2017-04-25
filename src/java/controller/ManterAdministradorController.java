@@ -7,12 +7,14 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Administrador;
 /**
  *
  * @author Math
@@ -36,19 +38,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             prepararIncluir(request, response);
         }else{
             if(acao.equals("confirmarIncluir")){
-//                confirmarIncluir(request, response);
+                confirmarIncluir(request, response);
             }else{
                 if(acao.equals("prepararEditar")){
-  //                  prepararEditar(request, response);
+                    prepararEditar(request, response);
                 }else{
                     if(acao.equals("confirmarEditar")){
-    //                    confirmarEditar(request, response);
+                        confirmarEditar(request, response);
                     }else{
                         if (acao.equals("prepararExcluir")){
-      //                      prepararExcluir(request, response);
+                            prepararExcluir(request, response);
                         }else{
                             if(acao.equals("confirmarExcluir")){
-        //                        confirmarExcluir(request, response);
+                                confirmarExcluir(request, response);
                             }
                         }
                     }
@@ -110,6 +112,89 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }catch(IOException ex){
         }//catch(ClassNotFoundException ex){
         }
+
+    private void confirmarIncluir(HttpServletRequest request, HttpServletResponse response) {
+        int codAdministrador = Integer.parseInt(request.getParameter("txtCodAdministrador"));
+        String nome = request.getParameter("txtNomeAdministrador");
+        String email = request.getParameter("txtEmailAdministrador");
+        String senha = request.getParameter("txtSenhaAdministrador");
+        String dataNascimento = request.getParameter("txtDataNascimentoAdministrador");
+        try{
+            Administrador administrador = new Administrador(codAdministrador, nome, email, senha, dataNascimento);
+            administrador.gravar();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaAdministradorController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
     }
 
-//}
+    private void prepararEditar(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Editar");
+            //request.setAttribute("professores"), Professor.obterProfessores();
+            int codAdministrador = Integer.parseInt(request.getParameter("codAdministrador"));
+            Administrador administrador = Administrador.obterAdministrador(codAdministrador);
+            request.setAttribute("administrador", administrador);
+            RequestDispatcher view = request.getRequestDispatcher("/manterAdministrador.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
+        }
+    }
+    
+    private void confirmarEditar(HttpServletRequest request, HttpServletResponse response) {
+        int codAdministrador = Integer.parseInt(request.getParameter("txtCodAdministrador"));
+        String nome = request.getParameter("txtNomeAdministrador");
+        String email = request.getParameter("txtEmailAdministrador");
+        String senha = request.getParameter("txtSenhaAdministrador");
+        String dataNascimento = request.getParameter("txtDataNascimentoAdministrador");
+        try{
+            Administrador administrador = new Administrador(codAdministrador, nome, email, senha, dataNascimento);
+            administrador.alterar();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaAdministradorController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
+    
+    private void prepararExcluir(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Excluir");
+            //request.setAttribute("professores"), Professor.obterProfessores();
+            int codAdministrador = Integer.parseInt(request.getParameter("codAdministrador"));
+            Administrador administrador = Administrador.obterAdministrador(codAdministrador);
+            request.setAttribute("administrador", administrador);
+            RequestDispatcher view = request.getRequestDispatcher("/manterAdministrador.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
+        }
+    }
+    
+    private void confirmarExcluir(HttpServletRequest request, HttpServletResponse response) {
+        int codAdministrador = Integer.parseInt(request.getParameter("txtCodAdministrador"));
+        String nome = request.getParameter("txtNomeAdministrador");
+        String email = request.getParameter("txtEmailAdministrador");
+        String senha = request.getParameter("txtSenhaAdministrador");
+        String dataNascimento = request.getParameter("txtDataNascimentoAdministrador");
+        try{
+            Administrador administrador = new Administrador(codAdministrador, nome, email, senha, dataNascimento);
+            administrador.excluir();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaAdministradorController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
+    
+}

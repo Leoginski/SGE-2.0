@@ -15,8 +15,7 @@ import java.sql.SQLException;
  */
 public class BD {
 
-    public static Connection getConexao()
-            throws ClassNotFoundException, SQLException {
+    public static Connection getConexao() throws ClassNotFoundException, SQLException {
         Connection conexao = null;
         Class.forName("com.mysql.jdbc.Driver");
         conexao = DriverManager.getConnection("jdbc:mysql://localhost/sge", "root", "");

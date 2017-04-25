@@ -1,6 +1,7 @@
 package modelo;
 
 import DAO.GerenteDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -16,14 +17,9 @@ public class Gerente extends Usuario {
 
     private int codGerente;
 
-    public Gerente(String nome, String email, String senha, String dataNascimento, int codGerente) {
+    public Gerente(int codGerente, String nome, String email, String senha, String dataNascimento ) {
         super(nome, email, senha, dataNascimento);
         this.codGerente = codGerente;
-    }
-
-    //Novos Metodos
-    public int getcodGerente() {
-        return this.codGerente;
     }
 
     public int getCodGerente() {
@@ -45,9 +41,22 @@ public class Gerente extends Usuario {
     public static List<Gerente> obterGerentes() throws ClassNotFoundException{
         return GerenteDAO.obterGerentes();
     }
-    
-    public void setcodDocente(int codDocente) {
-        this.codGerente = codGerente;
+
+    public static Gerente obterGerente(int codGerente) throws ClassNotFoundException{
+        return GerenteDAO.obterGerente(codGerente);
     }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        GerenteDAO.gravar(this);
+    }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        GerenteDAO.alterar(this);
+    }
+
+    public void excluir() throws SQLException, ClassNotFoundException {
+        GerenteDAO.excluir(this);
+    }
+    
     
 }

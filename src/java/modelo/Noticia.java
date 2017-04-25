@@ -6,6 +6,7 @@
 package modelo;
 
 import DAO.NoticiaDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,12 +17,36 @@ public class Noticia {
     private int idNoticia;
     private String data;
     private String descricao;
+    private int idEvento;
+    private Evento evento;
 
-    public Noticia(int idNoticia, String data, String descricao) {
+    public Noticia(int idNoticia, String data, String descricao, int idEvento) {
         this.idNoticia=idNoticia;
         this.data = data;
         this.descricao = descricao;
+        this.idEvento = idEvento;
     }
+
+    public int getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
+    }
+
+    public Evento getEvento() throws ClassNotFoundException {
+        if ((evento == null) && (idEvento != 0)) {
+            evento = Evento.obterEvento(idEvento);
+        }
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+    
+    
 
     public String getDescricao() {
         return descricao;
@@ -50,4 +75,20 @@ public class Noticia {
         return NoticiaDAO.obterNoticias();
     }
 
+    public static Noticia obterNoticia(int idNoticia) throws ClassNotFoundException{
+        return NoticiaDAO.obterNoticia(idNoticia);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        NoticiaDAO.gravar(this);
+    }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        NoticiaDAO.alterar(this);
+    }
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        NoticiaDAO.excluir(this);
+    }
+    
 }

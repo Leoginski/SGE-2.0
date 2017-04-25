@@ -6,6 +6,7 @@
 package modelo;
 
 import DAO.AlbumDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -65,5 +66,16 @@ public class Album {
     
     public static List<Album> obterAlbuns() throws ClassNotFoundException{
         return AlbumDAO.obterAlbuns();
+    }
+    
+    public static Album obterAlbum() throws ClassNotFoundException{
+        return AlbumDAO.obterAlbum();
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        AlbumDAO.gravar(this);
+    }
+    public void alterar() throws SQLException, ClassNotFoundException {
+        AlbumDAO.alterar(this);
     }
 }

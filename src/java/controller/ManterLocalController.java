@@ -7,12 +7,14 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Local;
 
 /**
  *
@@ -37,19 +39,19 @@ public class ManterLocalController extends HttpServlet {
             prepararIncluir(request, response);
         }else{
             if(acao.equals("confirmarIncluir")){
-//                confirmarIncluir(request, response);
+                confirmarIncluir(request, response);
             }else{
                 if(acao.equals("prepararEditar")){
-  //                  prepararEditar(request, response);
+                    prepararEditar(request, response);
                 }else{
                     if(acao.equals("confirmarEditar")){
-    //                    confirmarEditar(request, response);
+                        confirmarEditar(request, response);
                     }else{
                         if (acao.equals("prepararExcluir")){
-      //                      prepararExcluir(request, response);
+                            prepararExcluir(request, response);
                         }else{
                             if(acao.equals("confirmarExcluir")){
-        //                        confirmarExcluir(request, response);
+                                confirmarExcluir(request, response);
                             }
                         }
                     }
@@ -106,7 +108,86 @@ public class ManterLocalController extends HttpServlet {
         }catch(ServletException ex){
         }catch(IOException ex){
         }//catch(ClassNotFoundException ex){
-        }
     }
 
-//}
+    private void confirmarIncluir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        int idLocal = Integer.parseInt(request.getParameter("txtIdLocal"));
+        String descricao = request.getParameter("txtDescricaoLocal");
+        int capacidade = Integer.parseInt(request.getParameter("txtCapacidadeLocal")); 
+        try{
+            Local local = new Local(idLocal, descricao, capacidade);
+            local.gravar();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaLocalController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
+    
+    private void prepararEditar(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Editar");
+            //request.setAttribute("professores"), Professor.obterProfessores();
+            int idLocal = Integer.parseInt(request.getParameter("idLocal"));
+            Local local = Local.obterLocal(idLocal);
+            request.setAttribute("local", local);
+            RequestDispatcher view = request.getRequestDispatcher("/manterLocal.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
+    }    
+        
+}
+
+    private void confirmarEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        int idLocal = Integer.parseInt(request.getParameter("txtIdLocal"));
+        String descricao = request.getParameter("txtDescricaoLocal");
+        int capacidade = Integer.parseInt(request.getParameter("txtCapacidadeLocal")); 
+        try{
+            Local local = new Local(idLocal, descricao, capacidade);
+            local.alterar();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaLocalController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
+
+    private void prepararExcluir(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Excluir");
+            //request.setAttribute("professores"), Professor.obterProfessores();
+            int idLocal = Integer.parseInt(request.getParameter("idLocal"));
+            Local local = Local.obterLocal(idLocal);
+            request.setAttribute("local", local);
+            RequestDispatcher view = request.getRequestDispatcher("/manterLocal.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
+    }    
+        
+}
+
+    private void confirmarExcluir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        int idLocal = Integer.parseInt(request.getParameter("txtIdLocal"));
+        String descricao = request.getParameter("txtDescricaoLocal");
+        int capacidade = Integer.parseInt(request.getParameter("txtCapacidadeLocal")); 
+        try{
+            Local local = new Local(idLocal, descricao, capacidade);
+            local.excluir();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaLocalController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
+
+}
