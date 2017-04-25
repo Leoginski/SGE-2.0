@@ -82,7 +82,7 @@
             </div>
             
             <div class="container center">
-                    <a href="RelatorioAdministradorController"> <button class="btn waves-effect waves-light center" >Relatorio </button></a>
+                    <a href="RelatorioAdministradorController?acao=prepararImprimir" method="post"> <button class="btn waves-effect waves-light center" >Relatorio </button></a>
             </div>
             
         </main>

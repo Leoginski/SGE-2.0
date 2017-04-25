@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,12 +40,24 @@ public class RelatorioAlunoController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String acao = request.getParameter("acao");
+        if(acao.equals("prepararImprimir")){
+            prepararImprimir(request, response);
+        }else{
+            if(acao.equals("confirmarImprimir")){
+                confirmarImprimir(request, response);
+            }
+        }
+        }
+    
+        private void confirmarImprimir(HttpServletRequest request, HttpServletResponse response) {        
         Connection conexao = null;
         try{
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
             //parametros.put("PAR codAdministrador", Integer.parseInt(request.getParameter("txtCodAdministrador")));
-            String relatorio = getServletContext().getRealPath("\\WEB-INF\\classes\\Reports")+"\\reportAluno.jasper";
+            String relatorio = getServletContext().getRealPath("src\\java\\Reports")+"\\reportAluno.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
             response.setHeader("Content-Disposition", "attachment;filename=" + "reportAluno"+".pdf");
@@ -68,6 +81,17 @@ public class RelatorioAlunoController extends HttpServlet {
         }
     }
 
+        
+        private void prepararImprimir(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Imprimir");
+            RequestDispatcher view = request.getRequestDispatcher("/relatorioAluno.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }
+        }
+        
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
