@@ -11,11 +11,13 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Gerente;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -39,15 +41,39 @@ public class RelatorioGerenteController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String acao = request.getParameter("acao");
+        if (acao.equals("prepararImprimir")) {
+            prepararImprimir(request, response);
+        } else {
+            if (acao.equals("confirmarImprimir")) {
+                confirmarImprimir(request, response);
+            }
+        }
+        
+    }
+
+    private void prepararImprimir(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setAttribute("operacao", "Imprimir");
+            request.setAttribute(("gerentes"), Gerente.obterGerentes());
+            RequestDispatcher view = request.getRequestDispatcher("/relatorioGerente.jsp");
+            view.forward(request, response);
+        } catch (ServletException ex) {
+        } catch (IOException ex) {
+        }catch(ClassNotFoundException ex){
+        }
+    }
+
+    private void confirmarImprimir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         Connection conexao = null;
-        try{
+        try {
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
-            //parametros.put("PAR codAdministrador", Integer.parseInt(request.getParameter("txtCodAdministrador")));
-            String relatorio = getServletContext().getRealPath("\\WEB-INF\\classes\\Reports")+"\\reportGerente.jasper";
+            parametros.put("PAR dataNascimento", request.getParameter("txtDataNascimento"));
+            String relatorio = getServletContext().getRealPath("\\WEB-INF\\classes\\Reports") + "\\reportGerente.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=" + "reportGerente"+".pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=" + "reportGerente" + ".pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
         } catch (SQLException ex) {
@@ -66,9 +92,8 @@ public class RelatorioGerenteController extends HttpServlet {
             } catch (SQLException ex) {
             }
         }
-    }
+    }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

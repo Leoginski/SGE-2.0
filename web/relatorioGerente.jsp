@@ -7,6 +7,8 @@ and open the template in the editor.
 <html>
     <head>
         <title>Relatorio Gerentes</title>
+        <!--jQuery-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <!--Css Materialize-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
         <!--Fontes e Ícones Materialize-->
@@ -59,8 +61,15 @@ and open the template in the editor.
                     <option value="${gerente.codGerente}" <c:if test="${proposta.gerente.codGerente == gerente.codGerente}"> selected</c:if>>${gerente.nome}</option>
                 </c:forEach>
             </select>
-            <label>Gerente</label>
-        </div> 
+            <label>Gerentes</label>
+        </div>  
+        <div class="input-field row">
+            <input type="text" name="txtDataNascimento">
+            <label class="active" for="txtDataNascimento">Data Nascimento</label>
+        </div>
+        <div class="container center">
+            <a href="RelatorioGerenteController?acao=confirmarImprimir" method="post"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
+        </div>
     </main>
     <footer class="page-footer light-green lighten-1">
         <div class="footer-copyright grey-text text-lighten-4">
@@ -71,5 +80,7 @@ and open the template in the editor.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <!-- JavaScript SGE-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- JQuery-->
+    <!--        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
 </body>
 </html>

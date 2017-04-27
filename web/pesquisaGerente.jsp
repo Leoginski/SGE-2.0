@@ -79,7 +79,7 @@
             </div>
             
             <div class="container center">
-                    <a href="RelatorioGerenteController"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
+                    <a href="RelatorioGerenteController?acao=prepararImprimir" method="post"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
             </div>
             
         </main>
