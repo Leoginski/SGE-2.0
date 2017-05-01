@@ -1,6 +1,7 @@
 package modelo;
 
 import DAO.CertificadoDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -51,4 +52,20 @@ public class Certificado {
         return CertificadoDAO.obterCertificados();
     }
 
+//    public static Certificado obterCertificado() throws ClassNotFoundException{
+//        return CertificadoDAO.obterCertificado();
+//    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        CertificadoDAO.gravar(this);
+    }
+    public void alterar() throws SQLException, ClassNotFoundException {
+        CertificadoDAO.alterar(this);
+    }
+
+    public void excluir() throws SQLException, ClassNotFoundException {
+        CertificadoDAO.alterar(this);
+    }
+
+    
 }

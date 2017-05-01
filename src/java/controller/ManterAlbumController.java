@@ -37,13 +37,13 @@ public class ManterAlbumController extends HttpServlet {
             prepararIncluir(request, response);
         }else{
             if(acao.equals("confirmarIncluir")){
-//                confirmarIncluir(request, response);
+                confirmarIncluir(request, response);
             }else{
                 if(acao.equals("prepararEditar")){
-  //                  prepararEditar(request, response);
+                    prepararEditar(request, response);
                 }else{
                     if(acao.equals("confirmarEditar")){
-    //                    confirmarEditar(request, response);
+                        confirmarEditar(request, response);
                     }else{
                         if (acao.equals("prepararExcluir")){
       //                      prepararExcluir(request, response);
@@ -107,6 +107,18 @@ public class ManterAlbumController extends HttpServlet {
         }catch(IOException ex){
         }//catch(ClassNotFoundException ex){
         }
+
+    private void confirmarIncluir(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void prepararEditar(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void confirmarEditar(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     }
 
 //}

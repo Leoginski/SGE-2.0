@@ -6,6 +6,7 @@
 package modelo;
 
 import DAO.AdministradorDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -14,9 +15,9 @@ import java.util.List;
  */
 public class Administrador extends Usuario {
 
-    private final int codAdministrador;
+    private int codAdministrador;
 
-    public Administrador(int codAdministrador, String nome, String email, String senha, String dataNascimento) {
+    public Administrador(int codAdministrador, String nome, String dataNascimento, String email, String senha) {
         super(nome, email, senha, dataNascimento);
         this.codAdministrador = codAdministrador;
     }
@@ -32,11 +33,24 @@ public class Administrador extends Usuario {
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
-    public int getcodAdministrador() {
-        return this.codAdministrador;
-    }
+    
     public static List<Administrador> obterAdministradores() throws ClassNotFoundException{
         return AdministradorDAO.obterAdministradores();
     }
+    public static Administrador obterAdministrador(int codAdministrador) throws ClassNotFoundException{
+        return AdministradorDAO.obterAdministrador(codAdministrador);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        AdministradorDAO.gravar(this);
+    }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        AdministradorDAO.alterar(this);
+    }
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        AdministradorDAO.excluir(this);
+    }
+    
 }

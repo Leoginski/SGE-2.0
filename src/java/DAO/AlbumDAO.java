@@ -45,6 +45,52 @@ public class AlbumDAO {
         return albuns;
     }
 
+        public static Album obterAlbum() throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        Album album = null;
+        try {
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Album");
+            rs.first();
+                album = new Album(
+                        rs.getInt("idAlbum"),
+                        rs.getString("descricao"),
+                        rs.getString("titulo"),
+                        null
+                        );
+                album.setIdGaleria(rs.getInt("idGaleria"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            fecharConexao(conexao, comando);
+        }
+        return album;
+    }
+
+    
+    public static void gravar(Album album) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+//            String sql = "insert into aluno(idAluno, nome, email, dataNascimento, senha) values (?,?,?,?,?,?)";
+//            PreparedStatement comando = conexao.prepareStatement(sql);
+//            comando.setInt(1, aluno.getIdAluno());
+//            comando.setString(2, aluno.getNome());
+//            comando.setString(3, aluno.getEmail());
+//            comando.setString(4, aluno.getDataNascimento());
+//            comando.setString(5, aluno.getSenha());
+
+            //só descomentar daqui pra baixo
+//        comando.execute();
+//        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
+    
     private static void fecharConexao(Connection conexao, Statement comando) {
         try {
             if (comando != null) {
@@ -55,5 +101,9 @@ public class AlbumDAO {
             }
         } catch (SQLException e) {
         }
+    }
+
+    public static void alterar(Album aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

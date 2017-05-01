@@ -42,6 +42,27 @@ public class CertificadoDAO {
         return certificados;
     }
 
+    public static void gravar(Certificado certificado) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+//            String sql = "insert into aluno(idAluno, nome, email, dataNascimento, senha) values (?,?,?,?,?,?)";
+//            PreparedStatement comando = conexao.prepareStatement(sql);
+//            comando.setInt(1, aluno.getIdAluno());
+//            comando.setString(2, aluno.getNome());
+//            comando.setString(3, aluno.getEmail());
+//            comando.setString(4, aluno.getDataNascimento());
+//            comando.setString(5, aluno.getSenha());
+
+            //só descomentar daqui pra baixo
+//        comando.execute();
+//        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
+    
     private static void fecharConexao(Connection conexao, Statement comando) {
         try {
             if (comando != null) {
@@ -52,5 +73,9 @@ public class CertificadoDAO {
             }
         } catch (SQLException e) {
         }
+    }
+
+    public static void alterar(Certificado aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

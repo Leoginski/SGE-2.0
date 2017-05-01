@@ -77,7 +77,7 @@
                         <td><c:out value="${evento.dataFimEvento}"/></td>
                         <td><c:out value="${evento.dataInicioInscricao}"/></td>
                         <td><c:out value="${evento.dataFimInscricao}"/></td>
-    <!--                    <td><c:out value="${evento.administrador.nome}"/></td>-->
+                        <td><c:out value="${evento.administrador.nome}"/></td>
                         <td><a href="ManterEventoController?acao=prepararEditar&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
                         <td><a href="ManterEventoController?acao=prepararExcluir&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>      
@@ -88,6 +88,11 @@
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>
+            
+            <div class="container center">
+                    <a href="RelatorioEventoController"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
+            </div>
+            
         </main>
         <footer class="page-footer light-green lighten-1">
             <div class="footer-copyright grey-text text-lighten-4">

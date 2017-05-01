@@ -4,7 +4,14 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
-		<![CDATA[Select *  from administrador]]>
+		<![CDATA[SELECT
+     administrador.`codAdministrador` AS administrador_codAdministrador,
+     administrador.`nome` AS administrador_nome,
+     administrador.`dataNascimento` AS administrador_dataNascimento,
+     administrador.`email` AS administrador_email,
+     administrador.`senha` AS administrador_senha
+FROM
+     `administrador` administrador]]>
 	</queryString>
 	<field name="codAdministrador" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>

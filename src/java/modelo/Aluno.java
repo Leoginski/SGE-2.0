@@ -1,6 +1,7 @@
 package modelo;
 
 import DAO.AlunoDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -41,5 +42,20 @@ public class Aluno extends Usuario {
         return AlunoDAO.obterAlunos();
     }
     
+    public static Aluno obterAluno(int idAluno) throws ClassNotFoundException{
+        return AlunoDAO.obterAluno(idAluno);
+    }
+
+    public void gravar() throws SQLException, ClassNotFoundException {
+        AlunoDAO.gravar(this);
+    }
+    
+    public void alterar() throws SQLException, ClassNotFoundException {
+        AlunoDAO.alterar(this);
+   }
+
+    public void excluir() throws SQLException, ClassNotFoundException {
+        AlunoDAO.excluir(this);
+   }
 
 }

@@ -5,6 +5,7 @@
 package modelo;
 
 import DAO.LocalDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -57,6 +58,22 @@ public class Local {
     
         public static List<Local> obterLocais() throws ClassNotFoundException{
         return LocalDAO.obterLocais();
+    }
+
+        public static Local obterLocal(int idLocal) throws ClassNotFoundException{
+        return LocalDAO.obterLocal(idLocal);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        LocalDAO.gravar(this);
+    }
+        
+    public void alterar() throws SQLException, ClassNotFoundException {
+        LocalDAO.alterar(this);
+    }
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        LocalDAO.excluir(this);
     }
 
 }
