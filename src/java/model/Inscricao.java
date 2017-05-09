@@ -29,7 +29,7 @@ public class Inscricao  implements java.io.Serializable {
      private Proposta proposta;
      private String tipo;
      private Boolean frequencia;
-     private Set certificados = new HashSet(0);
+
 
     public Inscricao() {
     }
@@ -41,14 +41,14 @@ public class Inscricao  implements java.io.Serializable {
         this.externo = externo;
         this.proposta = proposta;
     }
-    public Inscricao(int codInscricao, Aluno aluno, Externo externo, Proposta proposta, String tipo, Boolean frequencia, Set certificados) {
+    public Inscricao(int codInscricao, Aluno aluno, Externo externo, Proposta proposta, String tipo, Boolean frequencia) {
        this.codInscricao = codInscricao;
        this.aluno = aluno;
        this.externo = externo;
        this.proposta = proposta;
        this.tipo = tipo;
        this.frequencia = frequencia;
-       this.certificados = certificados;
+
     }
    
      @Id 
@@ -112,17 +112,6 @@ public class Inscricao  implements java.io.Serializable {
     public void setFrequencia(Boolean frequencia) {
         this.frequencia = frequencia;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="inscricao")
-    public Set getCertificados() {
-        return this.certificados;
-    }
-    
-    public void setCertificados(Set certificados) {
-        this.certificados = certificados;
-    }
-
-
 
 
 }

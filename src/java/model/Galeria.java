@@ -26,7 +26,6 @@ public class Galeria  implements java.io.Serializable {
      private int idGaleria;
      private Evento evento;
      private String data;
-     private Set albums = new HashSet(0);
 
     public Galeria() {
     }
@@ -36,11 +35,10 @@ public class Galeria  implements java.io.Serializable {
         this.idGaleria = idGaleria;
         this.evento = evento;
     }
-    public Galeria(int idGaleria, Evento evento, String data, Set albums) {
+    public Galeria(int idGaleria, Evento evento, String data) {
        this.idGaleria = idGaleria;
        this.evento = evento;
        this.data = data;
-       this.albums = albums;
     }
    
      @Id 
@@ -74,17 +72,6 @@ public class Galeria  implements java.io.Serializable {
     public void setData(String data) {
         this.data = data;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="galeria")
-    public Set getAlbums() {
-        return this.albums;
-    }
-    
-    public void setAlbums(Set albums) {
-        this.albums = albums;
-    }
-
-
 
 
 }

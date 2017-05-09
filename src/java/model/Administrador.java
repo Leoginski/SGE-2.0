@@ -26,7 +26,7 @@ public class Administrador  implements java.io.Serializable {
      private String dataNascimento;
      private String email;
      private String senha;
-     private Set eventos = new HashSet(0);
+     
 
     public Administrador() {
     }
@@ -36,13 +36,12 @@ public class Administrador  implements java.io.Serializable {
         this.codAdministrador = codAdministrador;
         this.nome = nome;
     }
-    public Administrador(int codAdministrador, String nome, String dataNascimento, String email, String senha, Set eventos) {
+    public Administrador(int codAdministrador, String nome, String dataNascimento, String email, String senha) {
        this.codAdministrador = codAdministrador;
        this.nome = nome;
        this.dataNascimento = dataNascimento;
        this.email = email;
        this.senha = senha;
-       this.eventos = eventos;
     }
    
      @Id 
@@ -96,17 +95,6 @@ public class Administrador  implements java.io.Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="administrador")
-    public Set getEventos() {
-        return this.eventos;
-    }
-    
-    public void setEventos(Set eventos) {
-        this.eventos = eventos;
-    }
-
-
 
 
 }

@@ -26,7 +26,6 @@ public class Gerente  implements java.io.Serializable {
      private String email;
      private String dataNascimento;
      private String senha;
-     private Set propostas = new HashSet(0);
 
     public Gerente() {
     }
@@ -36,13 +35,12 @@ public class Gerente  implements java.io.Serializable {
         this.codGerente = codGerente;
         this.nome = nome;
     }
-    public Gerente(int codGerente, String nome, String email, String dataNascimento, String senha, Set propostas) {
+    public Gerente(int codGerente, String nome, String email, String dataNascimento, String senha) {
        this.codGerente = codGerente;
        this.nome = nome;
        this.email = email;
        this.dataNascimento = dataNascimento;
        this.senha = senha;
-       this.propostas = propostas;
     }
    
      @Id 
@@ -96,18 +94,6 @@ public class Gerente  implements java.io.Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="gerente")
-    public Set getPropostas() {
-        return this.propostas;
-    }
-    
-    public void setPropostas(Set propostas) {
-        this.propostas = propostas;
-    }
-
-
-
 
 }
 

@@ -24,7 +24,7 @@ public class Local  implements java.io.Serializable {
      private int idLocal;
      private String descricao;
      private Integer capacidade;
-     private Set propostas = new HashSet(0);
+
 
     public Local() {
     }
@@ -33,11 +33,10 @@ public class Local  implements java.io.Serializable {
     public Local(int idLocal) {
         this.idLocal = idLocal;
     }
-    public Local(int idLocal, String descricao, Integer capacidade, Set propostas) {
+    public Local(int idLocal, String descricao, Integer capacidade) {
        this.idLocal = idLocal;
        this.descricao = descricao;
        this.capacidade = capacidade;
-       this.propostas = propostas;
     }
    
      @Id 
@@ -71,16 +70,6 @@ public class Local  implements java.io.Serializable {
     public void setCapacidade(Integer capacidade) {
         this.capacidade = capacidade;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="local")
-    public Set getPropostas() {
-        return this.propostas;
-    }
-    
-    public void setPropostas(Set propostas) {
-        this.propostas = propostas;
-    }
-
 
 
 

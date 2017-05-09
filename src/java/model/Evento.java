@@ -32,9 +32,6 @@ public class Evento  implements java.io.Serializable {
      private String dataFimEvento;
      private String dataInicioInscricao;
      private String dataFimInscricao;
-     private Set noticias = new HashSet(0);
-     private Set galerias = new HashSet(0);
-     private Set propostas = new HashSet(0);
 
     public Evento() {
     }
@@ -44,7 +41,7 @@ public class Evento  implements java.io.Serializable {
         this.idEvento = idEvento;
         this.administrador = administrador;
     }
-    public Evento(int idEvento, Administrador administrador, String nomeEvento, String duracao, String tema, String dataInicioEvento, String dataFimEvento, String dataInicioInscricao, String dataFimInscricao, Set noticias, Set galerias, Set propostas) {
+    public Evento(int idEvento, Administrador administrador, String nomeEvento, String duracao, String tema, String dataInicioEvento, String dataFimEvento, String dataInicioInscricao, String dataFimInscricao) {
        this.idEvento = idEvento;
        this.administrador = administrador;
        this.nomeEvento = nomeEvento;
@@ -54,9 +51,6 @@ public class Evento  implements java.io.Serializable {
        this.dataFimEvento = dataFimEvento;
        this.dataInicioInscricao = dataInicioInscricao;
        this.dataFimInscricao = dataFimInscricao;
-       this.noticias = noticias;
-       this.galerias = galerias;
-       this.propostas = propostas;
     }
    
      @Id 
@@ -151,32 +145,6 @@ public class Evento  implements java.io.Serializable {
         this.dataFimInscricao = dataFimInscricao;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="evento")
-    public Set getNoticias() {
-        return this.noticias;
-    }
-    
-    public void setNoticias(Set noticias) {
-        this.noticias = noticias;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="evento")
-    public Set getGalerias() {
-        return this.galerias;
-    }
-    
-    public void setGalerias(Set galerias) {
-        this.galerias = galerias;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="evento")
-    public Set getPropostas() {
-        return this.propostas;
-    }
-    
-    public void setPropostas(Set propostas) {
-        this.propostas = propostas;
-    }
 
 
 

@@ -26,7 +26,6 @@ public class Aluno  implements java.io.Serializable {
      private String email;
      private String dataNascimento;
      private String senha;
-     private Set inscricaos = new HashSet(0);
 
     public Aluno() {
     }
@@ -35,13 +34,12 @@ public class Aluno  implements java.io.Serializable {
     public Aluno(int idAluno) {
         this.idAluno = idAluno;
     }
-    public Aluno(int idAluno, String nome, String email, String dataNascimento, String senha, Set inscricaos) {
+    public Aluno(int idAluno, String nome, String email, String dataNascimento, String senha) {
        this.idAluno = idAluno;
        this.nome = nome;
        this.email = email;
        this.dataNascimento = dataNascimento;
        this.senha = senha;
-       this.inscricaos = inscricaos;
     }
    
      @Id 
@@ -95,17 +93,6 @@ public class Aluno  implements java.io.Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="aluno")
-    public Set getInscricaos() {
-        return this.inscricaos;
-    }
-    
-    public void setInscricaos(Set inscricaos) {
-        this.inscricaos = inscricaos;
-    }
-
-
 
 
 }

@@ -67,7 +67,6 @@ public class Proposta  implements java.io.Serializable {
      private Integer sabado;
      private String dataInicio;
      private String dataFim;
-     private Set inscricaos = new HashSet(0);
 
     public Proposta() {
     }
@@ -84,7 +83,7 @@ public class Proposta  implements java.io.Serializable {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
-    public Proposta(int idProposta, Evento evento, Gerente gerente, Local local, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, Integer vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publicoAlvo, Integer publicoTodos, Integer publicoInformatica, Integer publicoEdificacoes, Integer publicoEletromecanica, Integer publicoEletrotecnica, Integer publicoMecanica, Integer publicoMetalurgia, Integer publicoEventos, Integer publicoSecretariado, Integer publicoDesignMoveis, Integer publicoEletronica, Integer publicoTransacoesImobiliarias, Integer publicoTransporteFerroviario, Integer publicoSistemasInformacao, Integer publicoEngMecatronica, Integer publicoEngMetalurgica, Integer publicoFisica, Integer segunda, Integer terca, Integer quarta, Integer quinta, Integer sexta, Integer sabado, String dataInicio, String dataFim, Set inscricaos) {
+    public Proposta(int idProposta, Evento evento, Gerente gerente, Local local, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, Integer vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publicoAlvo, Integer publicoTodos, Integer publicoInformatica, Integer publicoEdificacoes, Integer publicoEletromecanica, Integer publicoEletrotecnica, Integer publicoMecanica, Integer publicoMetalurgia, Integer publicoEventos, Integer publicoSecretariado, Integer publicoDesignMoveis, Integer publicoEletronica, Integer publicoTransacoesImobiliarias, Integer publicoTransporteFerroviario, Integer publicoSistemasInformacao, Integer publicoEngMecatronica, Integer publicoEngMetalurgica, Integer publicoFisica, Integer segunda, Integer terca, Integer quarta, Integer quinta, Integer sexta, Integer sabado, String dataInicio, String dataFim) {
        this.idProposta = idProposta;
        this.evento = evento;
        this.gerente = gerente;
@@ -129,7 +128,6 @@ public class Proposta  implements java.io.Serializable {
        this.sabado = sabado;
        this.dataInicio = dataInicio;
        this.dataFim = dataFim;
-       this.inscricaos = inscricaos;
     }
    
      @Id 
@@ -573,17 +571,6 @@ public class Proposta  implements java.io.Serializable {
     public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="proposta")
-    public Set getInscricaos() {
-        return this.inscricaos;
-    }
-    
-    public void setInscricaos(Set inscricaos) {
-        this.inscricaos = inscricaos;
-    }
-
-
 
 
 }

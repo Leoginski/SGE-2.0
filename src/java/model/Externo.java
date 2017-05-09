@@ -27,7 +27,6 @@ public class Externo  implements java.io.Serializable {
      private String email;
      private String dataNascimento;
      private String senha;
-     private Set inscricaos = new HashSet(0);
 
     public Externo() {
     }
@@ -37,14 +36,13 @@ public class Externo  implements java.io.Serializable {
         this.idExterno = idExterno;
         this.email = email;
     }
-    public Externo(int idExterno, String conhecimento, String nome, String email, String dataNascimento, String senha, Set inscricaos) {
+    public Externo(int idExterno, String conhecimento, String nome, String email, String dataNascimento, String senha) {
        this.idExterno = idExterno;
        this.conhecimento = conhecimento;
        this.nome = nome;
        this.email = email;
        this.dataNascimento = dataNascimento;
        this.senha = senha;
-       this.inscricaos = inscricaos;
     }
    
      @Id 
@@ -108,17 +106,6 @@ public class Externo  implements java.io.Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="externo")
-    public Set getInscricaos() {
-        return this.inscricaos;
-    }
-    
-    public void setInscricaos(Set inscricaos) {
-        this.inscricaos = inscricaos;
-    }
-
-
 
 
 }
