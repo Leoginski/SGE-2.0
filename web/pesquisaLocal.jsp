@@ -53,9 +53,9 @@
                 </div>
             </nav>
         </header>
-    <main>
-        <h5 class="flow-text center">Locais</h5>
-        <div class="container">
+        <main>
+            <h5 class="flow-text center">Locais</h5>
+
             <table class="bordered">
                 <tr>
                     <th>Codigo Local</th>
@@ -73,27 +73,26 @@
                     </tr>      
                 </c:forEach>
             </table>
-        </div>
-        <div class="container center">
-            <form action="ManterLocalController?acao=prepararIncluir" method="post">
-                <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
-            </form>
-        </div>
+            <div class="container center">
+                <form action="ManterLocalController?acao=prepararIncluir" method="post">
+                    <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
+                </form>
+            </div>
+            
+            <div class="container center">
+                    <a href="RelatorioLocalController"> <button class="btn waves-effect waves-light center" > Relatório</button></a>
+            </div>
+            
+        </main>
+        <footer class="page-footer light-green lighten-1">
+            <div class="footer-copyright grey-text text-lighten-4">
+                <div class="container">© 2016 Copyright - Modelagem e Programação: Matheus Souza Leao | Luiz Filipy Damaceno | Leonardo Smoginski Fernandes</div>
+            </div>
+        </footer>
 
-        <div class="container center">
-            <a href="RelatorioLocalController"> <button class="btn waves-effect waves-light center" > Relatório</button></a>
-        </div>
-
-    </main>
-    <footer class="page-footer light-green lighten-1">
-        <div class="footer-copyright grey-text text-lighten-4">
-            <div class="container">© 2016 Copyright - Modelagem e Programação: Matheus Souza Leao | Luiz Filipy Damaceno | Leonardo Smoginski Fernandes</div>
-        </div>
-    </footer>
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <!-- JavaScript SGE-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-</body>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+        <!-- JavaScript SGE-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+    </body>
 </html>

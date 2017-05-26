@@ -1,124 +1,161 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package modelo;
 
-import DAO.PropostaDAO;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Aluno
+ * @author Math
  */
-public class Proposta {
-    private int idProposta;
+@Entity
+@Table(name = "proposta")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Proposta.findAll", query = "SELECT p FROM Proposta p")})
+public class Proposta implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "idProposta")
+    private Integer idProposta;
+    @Column(name = "proponente")
     private String proponente;
+    @Column(name = "emailProponente")
     private String emailProponente;
+    @Column(name = "tipoAtividade")
     private String tipoAtividade;
+    @Column(name = "tituloAtividade")
     private String tituloAtividade;
+    @Column(name = "finalidadeAtividade")
     private String finalidadeAtividade;
+    @Column(name = "cargaHoraria")
     private String cargaHoraria;
-    private int vagasAtividade;
+    @Column(name = "vagasAtividade")
+    private Integer vagasAtividade;
+    @Column(name = "nomeConvidado")
     private String nomeConvidado;
+    @Column(name = "emailConvidado")
     private String emailConvidado;
+    @Column(name = "formacaoConvidado")
     private String formacaoConvidado;
+    @Column(name = "origem")
     private String origem;
+    @Column(name = "informacoesComplementares")
     private String informacoesComplementares;
+    @Basic(optional = false)
+    @Column(name = "diaria")
     private int diaria;
+    @Basic(optional = false)
+    @Column(name = "estado")
     private String estado;
-    private String publico_alvo;
-    private int publico_todos;
-    private int publico_informatica;
-    private int publico_edificacoes;
-    private int publico_eletromecanica;
-    private int publico_eletrotecnica;
-    private int publico_mecanica;
-    private int publico_metalurgia;
-    private int publico_eventos;
-    private int publico_secretariado;
-    private int publico_designMoveis;
-    private int publico_eletronica;
-    private int publico_transacoesImobiliarias;
-    private int publico_transporteFerroviario;
-    private int publico_sistemasInformacao;
-    private int publico_engMecatronica;
-    private int publico_engMetalurgica;
-    private int publico_fisica;
-    private int segunda;
-    private int terca;
-    private int quarta;
-    private int quinta;
-    private int sexta;
-    private int sabado;
-    private int idEvento;
-    private int idLocal;
-    private int idGerente;
+    @Basic(optional = false)
+    @Column(name = "publico_alvo")
+    private String publicoAlvo;
+    @Column(name = "publico_todos")
+    private Integer publicoTodos;
+    @Column(name = "publico_informatica")
+    private Integer publicoInformatica;
+    @Column(name = "publico_edificacoes")
+    private Integer publicoEdificacoes;
+    @Column(name = "publico_eletromecanica")
+    private Integer publicoEletromecanica;
+    @Column(name = "publico_eletrotecnica")
+    private Integer publicoEletrotecnica;
+    @Column(name = "publico_mecanica")
+    private Integer publicoMecanica;
+    @Column(name = "publico_metalurgia")
+    private Integer publicoMetalurgia;
+    @Column(name = "publico_eventos")
+    private Integer publicoEventos;
+    @Column(name = "publico_secretariado")
+    private Integer publicoSecretariado;
+    @Column(name = "publico_designMoveis")
+    private Integer publicodesignMoveis;
+    @Column(name = "publico_eletronica")
+    private Integer publicoEletronica;
+    @Column(name = "publico_transacoesImobiliarias")
+    private Integer publicotransacoesImobiliarias;
+    @Column(name = "publico_transporteFerroviario")
+    private Integer publicotransporteFerroviario;
+    @Column(name = "publico_sistemasInformacao")
+    private Integer publicosistemasInformacao;
+    @Column(name = "publico_engMecatronica")
+    private Integer publicoengMecatronica;
+    @Column(name = "publico_engMetalurgica")
+    private Integer publicoengMetalurgica;
+    @Column(name = "publico_fisica")
+    private Integer publicoFisica;
+    @Column(name = "segunda")
+    private Integer segunda;
+    @Column(name = "terca")
+    private Integer terca;
+    @Column(name = "quarta")
+    private Integer quarta;
+    @Column(name = "quinta")
+    private Integer quinta;
+    @Column(name = "sexta")
+    private Integer sexta;
+    @Column(name = "sabado")
+    private Integer sabado;
+    @Basic(optional = false)
+    @Column(name = "gerente_codGerente")
+    private int gerentecodGerente;
+    @Basic(optional = false)
+    @Column(name = "local_id")
+    private int localId;
+    @Basic(optional = false)
+    @Column(name = "evento_id")
+    private int eventoId;
+    @Basic(optional = false)
+    @Column(name = "dataInicio")
     private String dataInicio;
-    private String dataFim; 
-    
-    private Evento evento;
-    private Local local;
-    private Gerente gerente;
+    @Basic(optional = false)
+    @Column(name = "dataFim")
+    private String dataFim;
 
-    public Proposta(int idProposta, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, int vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publico_alvo, int publico_todos, int publico_informatica, int publico_edificacoes, int publico_eletromecanica, int publico_eletrotecnica, int publico_mecanica, int publico_metalurgia, int publico_eventos, int publico_secretariado, int publico_designMoveis, int publico_eletronica, int publico_transacoesImobiliarias, int publico_transporteFerroviario, int publico_sistemasInformacao, int publico_engMecatronica, int publico_engMetalurgica, int publico_fisica, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, int idEvento, int idLocal, int idGerente, String dataInicio, String dataFim) {
+    public Proposta() {
+    }
+
+    public Proposta(Integer idProposta) {
         this.idProposta = idProposta;
-        this.proponente = proponente;
-        this.emailProponente = emailProponente;
-        this.tipoAtividade = tipoAtividade;
-        this.tituloAtividade = tituloAtividade;
-        this.finalidadeAtividade = finalidadeAtividade;
-        this.cargaHoraria = cargaHoraria;
-        this.vagasAtividade = vagasAtividade;
-        this.nomeConvidado = nomeConvidado;
-        this.emailConvidado = emailConvidado;
-        this.formacaoConvidado = formacaoConvidado;
-        this.origem = origem;
-        this.informacoesComplementares = informacoesComplementares;
+    }
+
+    public Proposta(Integer idProposta, int diaria, String estado, String publicoAlvo, int gerentecodGerente, int localId, int eventoId, String dataInicio, String dataFim) {
+        this.idProposta = idProposta;
         this.diaria = diaria;
         this.estado = estado;
-        this.publico_alvo = publico_alvo;
-        this.publico_todos = publico_todos;
-        this.publico_informatica = publico_informatica;
-        this.publico_edificacoes = publico_edificacoes;
-        this.publico_eletromecanica = publico_eletromecanica;
-        this.publico_eletrotecnica = publico_eletrotecnica;
-        this.publico_mecanica = publico_mecanica;
-        this.publico_metalurgia = publico_metalurgia;
-        this.publico_eventos = publico_eventos;
-        this.publico_secretariado = publico_secretariado;
-        this.publico_designMoveis = publico_designMoveis;
-        this.publico_eletronica = publico_eletronica;
-        this.publico_transacoesImobiliarias = publico_transacoesImobiliarias;
-        this.publico_transporteFerroviario = publico_transporteFerroviario;
-        this.publico_sistemasInformacao = publico_sistemasInformacao;
-        this.publico_engMecatronica = publico_engMecatronica;
-        this.publico_engMetalurgica = publico_engMetalurgica;
-        this.publico_fisica = publico_fisica;
-        this.segunda = segunda;
-        this.terca = terca;
-        this.quarta = quarta;
-        this.quinta = quinta;
-        this.sexta = sexta;
-        this.sabado = sabado;
-        this.idEvento = idEvento;
-        this.idLocal = idLocal;
-        this.idGerente = idGerente;
+        this.publicoAlvo = publicoAlvo;
+        this.gerentecodGerente = gerentecodGerente;
+        this.localId = localId;
+        this.eventoId = eventoId;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
 
-    
-    
-    public String getPublico_alvo() {
-        return publico_alvo;
+    public Integer getIdProposta() {
+        return idProposta;
     }
 
-    public void setPublico_alvo(String publico_alvo) {
-        this.publico_alvo = publico_alvo;
+    public void setIdProposta(Integer idProposta) {
+        this.idProposta = idProposta;
     }
-    
+
     public String getProponente() {
         return proponente;
     }
@@ -167,11 +204,11 @@ public class Proposta {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public int getVagasAtividade() {
+    public Integer getVagasAtividade() {
         return vagasAtividade;
     }
 
-    public void setVagasAtividade(int vagasAtividade) {
+    public void setVagasAtividade(Integer vagasAtividade) {
         this.vagasAtividade = vagasAtividade;
     }
 
@@ -230,213 +267,221 @@ public class Proposta {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    public int getPublico_todos() {
-        return publico_todos;
+
+    public String getPublicoAlvo() {
+        return publicoAlvo;
     }
 
-    public void setPublico_todos(int publico_todos) {
-        this.publico_todos = publico_todos;
+    public void setPublicoAlvo(String publicoAlvo) {
+        this.publicoAlvo = publicoAlvo;
     }
 
-    public int getPublico_informatica() {
-        return publico_informatica;
+    public Integer getPublicoTodos() {
+        return publicoTodos;
     }
 
-    public void setPublico_informatica(int publico_informatica) {
-        this.publico_informatica = publico_informatica;
+    public void setPublicoTodos(Integer publicoTodos) {
+        this.publicoTodos = publicoTodos;
     }
 
-    public int getPublico_edificacoes() {
-        return publico_edificacoes;
+    public Integer getPublicoInformatica() {
+        return publicoInformatica;
     }
 
-    public void setPublico_edificacoes(int publico_edificacoes) {
-        this.publico_edificacoes = publico_edificacoes;
+    public void setPublicoInformatica(Integer publicoInformatica) {
+        this.publicoInformatica = publicoInformatica;
     }
 
-    public int getPublico_eletromecanica() {
-        return publico_eletromecanica;
+    public Integer getPublicoEdificacoes() {
+        return publicoEdificacoes;
     }
 
-    public void setPublico_eletromecanica(int publico_eletromecanica) {
-        this.publico_eletromecanica = publico_eletromecanica;
+    public void setPublicoEdificacoes(Integer publicoEdificacoes) {
+        this.publicoEdificacoes = publicoEdificacoes;
     }
 
-    public int getPublico_eletrotecnica() {
-        return publico_eletrotecnica;
+    public Integer getPublicoEletromecanica() {
+        return publicoEletromecanica;
     }
 
-    public void setPublico_eletrotecnica(int publico_eletrotecnica) {
-        this.publico_eletrotecnica = publico_eletrotecnica;
+    public void setPublicoEletromecanica(Integer publicoEletromecanica) {
+        this.publicoEletromecanica = publicoEletromecanica;
     }
 
-    public int getPublico_mecanica() {
-        return publico_mecanica;
+    public Integer getPublicoEletrotecnica() {
+        return publicoEletrotecnica;
     }
 
-    public void setPublico_mecanica(int publico_mecanica) {
-        this.publico_mecanica = publico_mecanica;
+    public void setPublicoEletrotecnica(Integer publicoEletrotecnica) {
+        this.publicoEletrotecnica = publicoEletrotecnica;
     }
 
-    public int getPublico_metalurgia() {
-        return publico_metalurgia;
+    public Integer getPublicoMecanica() {
+        return publicoMecanica;
     }
 
-    public void setPublico_metalurgia(int publico_metalurgia) {
-        this.publico_metalurgia = publico_metalurgia;
+    public void setPublicoMecanica(Integer publicoMecanica) {
+        this.publicoMecanica = publicoMecanica;
     }
 
-    public int getPublico_eventos() {
-        return publico_eventos;
+    public Integer getPublicoMetalurgia() {
+        return publicoMetalurgia;
     }
 
-    public void setPublico_eventos(int publico_eventos) {
-        this.publico_eventos = publico_eventos;
+    public void setPublicoMetalurgia(Integer publicoMetalurgia) {
+        this.publicoMetalurgia = publicoMetalurgia;
     }
 
-    public int getPublico_secretariado() {
-        return publico_secretariado;
+    public Integer getPublicoEventos() {
+        return publicoEventos;
     }
 
-    public void setPublico_secretariado(int publico_secretariado) {
-        this.publico_secretariado = publico_secretariado;
+    public void setPublicoEventos(Integer publicoEventos) {
+        this.publicoEventos = publicoEventos;
     }
 
-    public int getPublico_designMoveis() {
-        return publico_designMoveis;
+    public Integer getPublicoSecretariado() {
+        return publicoSecretariado;
     }
 
-    public void setPublico_designMoveis(int publico_designMoveis) {
-        this.publico_designMoveis = publico_designMoveis;
+    public void setPublicoSecretariado(Integer publicoSecretariado) {
+        this.publicoSecretariado = publicoSecretariado;
     }
 
-    public int getPublico_eletronica() {
-        return publico_eletronica;
+    public Integer getPublicodesignMoveis() {
+        return publicodesignMoveis;
     }
 
-    public void setPublico_eletronica(int publico_eletronica) {
-        this.publico_eletronica = publico_eletronica;
+    public void setPublicodesignMoveis(Integer publicodesignMoveis) {
+        this.publicodesignMoveis = publicodesignMoveis;
     }
 
-    public int getPublico_transacoesImobiliarias() {
-        return publico_transacoesImobiliarias;
+    public Integer getPublicoEletronica() {
+        return publicoEletronica;
     }
 
-    public void setPublico_transacoesImobiliarias(int publico_transacoesImobiliarias) {
-        this.publico_transacoesImobiliarias = publico_transacoesImobiliarias;
+    public void setPublicoEletronica(Integer publicoEletronica) {
+        this.publicoEletronica = publicoEletronica;
     }
 
-    public int getPublico_transporteFerroviario() {
-        return publico_transporteFerroviario;
+    public Integer getPublicotransacoesImobiliarias() {
+        return publicotransacoesImobiliarias;
     }
 
-    public void setPublico_transporteFerroviario(int publico_transporteFerroviario) {
-        this.publico_transporteFerroviario = publico_transporteFerroviario;
+    public void setPublicotransacoesImobiliarias(Integer publicotransacoesImobiliarias) {
+        this.publicotransacoesImobiliarias = publicotransacoesImobiliarias;
     }
 
-    public int getPublico_sistemasInformacao() {
-        return publico_sistemasInformacao;
+    public Integer getPublicotransporteFerroviario() {
+        return publicotransporteFerroviario;
     }
 
-    public void setPublico_sistemasInformacao(int publico_sistemasInformacao) {
-        this.publico_sistemasInformacao = publico_sistemasInformacao;
+    public void setPublicotransporteFerroviario(Integer publicotransporteFerroviario) {
+        this.publicotransporteFerroviario = publicotransporteFerroviario;
     }
 
-    public int getPublico_engMecatronica() {
-        return publico_engMecatronica;
+    public Integer getPublicosistemasInformacao() {
+        return publicosistemasInformacao;
     }
 
-    public void setPublico_engMecatronica(int publico_engMecatronica) {
-        this.publico_engMecatronica = publico_engMecatronica;
+    public void setPublicosistemasInformacao(Integer publicosistemasInformacao) {
+        this.publicosistemasInformacao = publicosistemasInformacao;
     }
 
-    public int getPublico_engMetalurgica() {
-        return publico_engMetalurgica;
+    public Integer getPublicoengMecatronica() {
+        return publicoengMecatronica;
     }
 
-    public void setPublico_engMetalurgica(int publico_engMetalurgica) {
-        this.publico_engMetalurgica = publico_engMetalurgica;
+    public void setPublicoengMecatronica(Integer publicoengMecatronica) {
+        this.publicoengMecatronica = publicoengMecatronica;
     }
 
-    public int getPublico_fisica() {
-        return publico_fisica;
+    public Integer getPublicoengMetalurgica() {
+        return publicoengMetalurgica;
     }
 
-    public void setPublico_fisica(int publico_fisica) {
-        this.publico_fisica = publico_fisica;
+    public void setPublicoengMetalurgica(Integer publicoengMetalurgica) {
+        this.publicoengMetalurgica = publicoengMetalurgica;
     }
 
-    public int getSegunda() {
+    public Integer getPublicoFisica() {
+        return publicoFisica;
+    }
+
+    public void setPublicoFisica(Integer publicoFisica) {
+        this.publicoFisica = publicoFisica;
+    }
+
+    public Integer getSegunda() {
         return segunda;
     }
 
-    public void setSegunda(int segunda) {
+    public void setSegunda(Integer segunda) {
         this.segunda = segunda;
     }
 
-    public int getTerca() {
+    public Integer getTerca() {
         return terca;
     }
 
-    public void setTerca(int terca) {
+    public void setTerca(Integer terca) {
         this.terca = terca;
     }
 
-    public int getQuarta() {
+    public Integer getQuarta() {
         return quarta;
     }
 
-    public void setQuarta(int quarta) {
+    public void setQuarta(Integer quarta) {
         this.quarta = quarta;
     }
 
-    public int getQuinta() {
+    public Integer getQuinta() {
         return quinta;
     }
 
-    public void setQuinta(int quinta) {
+    public void setQuinta(Integer quinta) {
         this.quinta = quinta;
     }
 
-    public int getSexta() {
+    public Integer getSexta() {
         return sexta;
     }
 
-    public void setSexta(int sexta) {
+    public void setSexta(Integer sexta) {
         this.sexta = sexta;
     }
 
-    public int getSabado() {
+    public Integer getSabado() {
         return sabado;
     }
 
-    public void setSabado(int sabado) {
+    public void setSabado(Integer sabado) {
         this.sabado = sabado;
     }
 
-    public int getIdEvento() {
-        return idEvento;
+    public int getGerentecodGerente() {
+        return gerentecodGerente;
     }
 
-    public void setIdEvento(int idEvento) {
-        this.idEvento = idEvento;
+    public void setGerentecodGerente(int gerentecodGerente) {
+        this.gerentecodGerente = gerentecodGerente;
     }
 
-    public int getIdLocal() {
-        return idLocal;
+    public int getLocalId() {
+        return localId;
     }
 
-    public void setIdLocal(int idLocal) {
-        this.idLocal = idLocal;
+    public void setLocalId(int localId) {
+        this.localId = localId;
     }
 
-    public int getIdGerente() {
-        return idGerente;
+    public int getEventoId() {
+        return eventoId;
     }
 
-    public void setIdGerente(int idGerente) {
-        this.idGerente = idGerente;
+    public void setEventoId(int eventoId) {
+        this.eventoId = eventoId;
     }
 
     public String getDataInicio() {
@@ -455,72 +500,29 @@ public class Proposta {
         this.dataFim = dataFim;
     }
 
-    public Evento getEvento() throws ClassNotFoundException {
-        if ((evento == null) && (idEvento != 0)) {
-            evento = Evento.obterEvento(idEvento);
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idProposta != null ? idProposta.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Proposta)) {
+            return false;
         }
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
-
-    public Local getLocal() throws ClassNotFoundException {
-        if ((local == null) && (idLocal != 0)) {
-            local = Local.obterLocal(idLocal);
+        Proposta other = (Proposta) object;
+        if ((this.idProposta == null && other.idProposta != null) || (this.idProposta != null && !this.idProposta.equals(other.idProposta))) {
+            return false;
         }
-        return local;
+        return true;
     }
 
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
-    public Gerente getGerente() throws ClassNotFoundException {
-        if ((gerente == null) && (idGerente != 0)) {
-            gerente = Gerente.obterGerente(idGerente);
-        }
-        return gerente;
-    }
-
-    public void setGerente(Gerente gerente) {
-        this.gerente = gerente;
-    }
-    
-    
-    
- public static List<Proposta> obterPropostas() throws ClassNotFoundException{
-        return PropostaDAO.obterPropostas();
-    } 
-
-    /**
-     * @return the idProposta
-     */
-    public int getIdProposta() {
-        return idProposta;
-    }
-
-    /**
-     * @param idProposta the idProposta to set
-     */
-    public void setIdProposta(int idProposta) {
-        this.idProposta = idProposta;
-    }
-
-    public static Proposta obterProposta(int idProposta) throws ClassNotFoundException{
-        return PropostaDAO.obterProposta(idProposta);
-    }
-    
-    public void gravar() throws SQLException, ClassNotFoundException {
-        PropostaDAO.gravar(this);
-    }
-    public void alterar() throws SQLException, ClassNotFoundException {
-        PropostaDAO.alterar(this);
-    }
-    
-    public void excluir() throws SQLException, ClassNotFoundException {
-        PropostaDAO.excluir(this);
+    @Override
+    public String toString() {
+        return "model.Proposta[ idProposta=" + idProposta + " ]";
     }
     
 }
