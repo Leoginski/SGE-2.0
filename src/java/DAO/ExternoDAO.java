@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import modelo.Aluno;
 import modelo.Externo;
 
 /**
@@ -19,128 +23,88 @@ import modelo.Externo;
  * @author Aluno
  */
 public class ExternoDAO {
+    
+    private static ExternoDAO instance = new ExternoDAO();
 
-    public static List<Externo> obterExternos() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Externo> externos = new ArrayList<Externo>();
+    public static ExternoDAO getInstance() {
+        return instance;
+    }
+
+    public static List<Externo> getAllExternos() {
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Externo> externos = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            ResultSet rs = comando.executeQuery("select * from externo");
-            while (rs.next()) {
-                Externo externo = new Externo(
-                        rs.getInt("idExterno"),
-                        rs.getString("conhecimento"),
-                        rs.getString("nome"),
-                        rs.getString("email"),
-                        rs.getString("dataNascimento"),
-                        rs.getString("senha")
-                                            );
-                externos.add(externo);
+            tx.begin();
+            TypedQuery<Externo> query = em.createQuery("select c from Externo c", Externo.class);
+            externos = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
-            fecharConexao(conexao, comando);
+            dao.PersistenceUtil.close(em);
         }
         return externos;
     }
 
-        public static Externo obterExterno(int idExterno) throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
+        public static Externo getExterno(int idExterno){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Externo externo = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            ResultSet rs = comando.executeQuery("select * from externo where idExterno=" + idExterno);
-            rs.first();
-                externo = new Externo(
-                        rs.getInt("idExterno"),
-                        rs.getString("conhecimento"),
-                        rs.getString("nome"),
-                        rs.getString("email"),
-                        rs.getString("dataNascimento"),
-                        rs.getString("senha"));
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx.begin();
+            externo = em.find(Externo.class, idExterno);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
         } finally {
-            fecharConexao(conexao, comando);
+            dao.PersistenceUtil.close(em);
         }
         return externo;
     }
     
-    public static void gravar(Externo externo) throws SQLException, ClassNotFoundException{
-        Connection conexao = null;
-        try{
-            conexao = BD.getConexao();
-            String sql = "insert into externo(idExterno, conhecimento, nome, email, dataNascimento, senha) values (?,?,?,?,?,?)";
-            PreparedStatement comando = conexao.prepareStatement(sql);
-            comando.setInt(1, externo.getIdExterno());
-            comando.setString(2, externo.getConhecimento());
-            comando.setString(3, externo.getNome());
-            comando.setString(4, externo.getEmail());
-            comando.setString(5, externo.getDataNascimento());
-            comando.setString(6, externo.getSenha());
-        comando.execute();
-        comando.close();
-        conexao.close();
-        }catch(SQLException e){
-            throw e;
-        }
-    }
-
-    
-    
-    private static void fecharConexao(Connection conexao, Statement comando) {
+    public static void salvar(Externo externo){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            if (comando != null) {
-                comando.close();
+            tx.begin();
+            if(externo.getIdExterno()!=null){
+                em.merge(externo);
+            }else{
+                em.persist(externo);
             }
-            if (conexao != null) {
-                conexao.close();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
-        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            dao.PersistenceUtil.close(em);
         }
     }
-
-    public static void alterar(Externo externo) throws SQLException, ClassNotFoundException{
-        Connection conexao = null;
-        try{
-            conexao = BD.getConexao();
-            String sql = "update externo set conhecimento = ?, nome = ?, email = ?, dataNascimento = ?, senha = ? where idExterno = ?";
-            PreparedStatement comando = conexao.prepareStatement(sql);
-            
-            comando.setString(1, externo.getConhecimento());
-            comando.setString(2, externo.getNome());
-            comando.setString(3, externo.getEmail());
-            comando.setString(4, externo.getDataNascimento());
-            comando.setString(5, externo.getSenha());
-            comando.setInt(6, externo.getIdExterno());
-        comando.execute();
-        comando.close();
-        conexao.close();
-        }catch(SQLException e){
-            throw e;
-        }
-    }
-
     
-    public static void excluir(Externo externo) throws SQLException, ClassNotFoundException{
-        Connection conexao = null;
-        try{
-            conexao = BD.getConexao();
-            String sql = "delete from externo where idExterno= ?";
-            PreparedStatement comando = conexao.prepareStatement(sql);
-            comando.setInt(1, externo.getIdExterno());
-        comando.execute();
-        comando.close();
-        conexao.close();
-        }catch(SQLException e){
-            throw e;
+    public static void excluir(Externo externo){
+         EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(Externo.class, externo.getIdExterno()));
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            dao.PersistenceUtil.close(em);
         }
     }    
-    
     
 }

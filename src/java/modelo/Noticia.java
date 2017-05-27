@@ -5,63 +5,62 @@
  */
 package modelo;
 
-import DAO.NoticiaDAO;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Math
  */
-public class Noticia {
-    private int idNoticia;
+@Entity
+@Table(name = "noticia")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Noticia.findAll", query = "SELECT n FROM Noticia n")})
+public class Noticia implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "idNoticia")
+    private Integer idNoticia;
+    @Column(name = "data")
     private String data;
+    @Column(name = "descricao")
     private String descricao;
-    private int idEvento;
-    private Evento evento;
+    @JoinColumn(name = "Evento_idEvento", referencedColumnName = "idEvento")
+    @ManyToOne(optional = false)
+    private Evento eventoidEvento;
 
-    public Noticia(int idNoticia, String data, String descricao, int idEvento) {
-        this.idNoticia=idNoticia;
+    public Noticia() {
+    }
+
+    public Noticia(Integer idNoticia, String data, String descricao, Evento eventoidEvento) {
+        this.idNoticia = idNoticia;
         this.data = data;
         this.descricao = descricao;
-        this.idEvento = idEvento;
-    }
-
-    public int getIdEvento() {
-        return idEvento;
-    }
-
-    public void setIdEvento(int idEvento) {
-        this.idEvento = idEvento;
-    }
-
-    public Evento getEvento() throws ClassNotFoundException {
-        if ((evento == null) && (idEvento != 0)) {
-            evento = Evento.obterEvento(idEvento);
-        }
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+        this.eventoidEvento = eventoidEvento;
     }
     
-    
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public int getIdNoticia() {
-        return idNoticia;
-    }
-
-    public void setIdNoticia(int idNoticia) {
+    public Noticia(Integer idNoticia) {
         this.idNoticia = idNoticia;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public Integer getIdNoticia() {
+        return idNoticia;
+    }
+
+    public void setIdNoticia(Integer idNoticia) {
+        this.idNoticia = idNoticia;
     }
 
     public String getData() {
@@ -71,24 +70,46 @@ public class Noticia {
     public void setData(String data) {
         this.data = data;
     }
-    public static List<Noticia> obterNoticias() throws ClassNotFoundException{
-        return NoticiaDAO.obterNoticias();
+
+    public String getDescricao() {
+        return descricao;
     }
 
-    public static Noticia obterNoticia(int idNoticia) throws ClassNotFoundException{
-        return NoticiaDAO.obterNoticia(idNoticia);
-    }
-    
-    public void gravar() throws SQLException, ClassNotFoundException {
-        NoticiaDAO.gravar(this);
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public void alterar() throws SQLException, ClassNotFoundException {
-        NoticiaDAO.alterar(this);
+    public Evento getEventoidEvento() {
+        return eventoidEvento;
     }
-    
-    public void excluir() throws SQLException, ClassNotFoundException {
-        NoticiaDAO.excluir(this);
+
+    public void setEventoidEvento(Evento eventoidEvento) {
+        this.eventoidEvento = eventoidEvento;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idNoticia != null ? idNoticia.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Noticia)) {
+            return false;
+        }
+        Noticia other = (Noticia) object;
+        if ((this.idNoticia == null && other.idNoticia != null) || (this.idNoticia != null && !this.idNoticia.equals(other.idNoticia))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Noticia[ idNoticia=" + idNoticia + " ]";
     }
     
 }

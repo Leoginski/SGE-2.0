@@ -3,74 +3,110 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelo;
 
-import DAO.GaleriaDAO;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Aluno
+ * @author Math
  */
-public class Galeria {
-    private int idGaleria;
+@Entity
+@Table(name = "galeria")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Galeria.findAll", query = "SELECT g FROM Galeria g")})
+public class Galeria implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "idGaleria")
+    private Integer idGaleria;
+    @Column(name = "data")
     private String data;
-    private int idEvento;
-    private Evento evento;
-    
-     public Galeria(int idGaleria, String data, Evento evento) {
+
+    @JoinColumn(name = "Evento_id", referencedColumnName = "idEvento")
+    @ManyToOne(optional = false)
+    private Evento eventoid;
+
+    public Galeria() {
+    }
+
+    public Galeria(Integer idGaleria, String data, Evento eventoid) {
         this.idGaleria = idGaleria;
         this.data = data;
-        this.evento = evento;
+        this.eventoid = eventoid;
+    }
+
+    
+    
+    public Galeria(Integer idGaleria) {
+        this.idGaleria = idGaleria;
+    }
+
+    public Integer getIdGaleria() {
+        return idGaleria;
+    }
+
+    public void setIdGaleria(Integer idGaleria) {
+        this.idGaleria = idGaleria;
     }
 
     public String getData() {
         return data;
     }
 
-    public int getIdGaleria() {
-        return idGaleria;
-    }
-
     public void setData(String data) {
         this.data = data;
     }
 
-    public int getIdEvento() {
-        return idEvento;
+  
+
+    public Evento getEventoid() {
+        return eventoid;
     }
 
-    public void setIdEvento(int idEvento) {
-        this.idEvento = idEvento;
+    public void setEventoid(Evento eventoid) {
+        this.eventoid = eventoid;
     }
 
-    public Evento getEvento() {
-        return evento;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idGaleria != null ? idGaleria.hashCode() : 0);
+        return hash;
     }
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
-    public static List<Galeria> obterGalerias() throws ClassNotFoundException{
-        return GaleriaDAO.obterGalerias();
-    }
-
-    public static Galeria obterGaleria(int idGaleria) throws ClassNotFoundException{
-        return GaleriaDAO.obterGaleria(idGaleria);
-    }
-    
-    public void gravar() throws SQLException, ClassNotFoundException {
-        GaleriaDAO.gravar(this);
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Galeria)) {
+            return false;
+        }
+        Galeria other = (Galeria) object;
+        if ((this.idGaleria == null && other.idGaleria != null) || (this.idGaleria != null && !this.idGaleria.equals(other.idGaleria))) {
+            return false;
+        }
+        return true;
     }
 
-    public void alterar() throws SQLException, ClassNotFoundException {
-        GaleriaDAO.alterar(this);
+    @Override
+    public String toString() {
+        return "model.Galeria[ idGaleria=" + idGaleria + " ]";
     }
-
-//    public void excluir() throws SQLException, ClassNotFoundException {
-//        GaleriaDAO.excluir(this);
-//    }
     
 }

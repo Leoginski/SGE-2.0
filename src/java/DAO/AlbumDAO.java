@@ -5,12 +5,11 @@
  */
 package DAO;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import modelo.Album;
 
 /**
@@ -19,91 +18,92 @@ import modelo.Album;
  */
 public class AlbumDAO {
 
-    public static List<Album> obterAlbuns() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Album> albuns = new ArrayList<Album>();
+     private static AlbumDAO instance = new AlbumDAO();
+
+    public static AlbumDAO getInstance() {
+        return instance;
+    }
+
+    private AlbumDAO() {
+    }
+
+    public static List<Album> getAllAlbumes() {
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Album> albuns = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            ResultSet rs = comando.executeQuery("select * from Album");
-            while (rs.next()) {
-                Album album = new Album(
-                        rs.getInt("idAlbum"),
-                        rs.getString("descricao"),
-                        rs.getString("titulo"),
-                        null
-                        );
-                album.setIdGaleria(rs.getInt("idGaleria"));
-                albuns.add(album);
+            tx.begin();
+            TypedQuery<Album> query = em.createQuery("select c from Album c", Album.class);
+            albuns = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
-            fecharConexao(conexao, comando);
+            dao.PersistenceUtil.close(em);
         }
         return albuns;
     }
-
-        public static Album obterAlbum() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
+    
+    public static Album getAlbum(int idAlbum){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Album album = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            ResultSet rs = comando.executeQuery("select * from Album");
-            rs.first();
-                album = new Album(
-                        rs.getInt("idAlbum"),
-                        rs.getString("descricao"),
-                        rs.getString("titulo"),
-                        null
-                        );
-                album.setIdGaleria(rs.getInt("idGaleria"));
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx.begin();
+            album = em.find(Album.class, idAlbum);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
         } finally {
-            fecharConexao(conexao, comando);
+            dao.PersistenceUtil.close(em);
         }
         return album;
     }
-
     
-    public static void gravar(Album album) throws SQLException, ClassNotFoundException{
-        Connection conexao = null;
-        try{
-            conexao = BD.getConexao();
-//            String sql = "insert into aluno(idAluno, nome, email, dataNascimento, senha) values (?,?,?,?,?,?)";
-//            PreparedStatement comando = conexao.prepareStatement(sql);
-//            comando.setInt(1, aluno.getIdAluno());
-//            comando.setString(2, aluno.getNome());
-//            comando.setString(3, aluno.getEmail());
-//            comando.setString(4, aluno.getDataNascimento());
-//            comando.setString(5, aluno.getSenha());
-
-            //só descomentar daqui pra baixo
-//        comando.execute();
-//        comando.close();
-        conexao.close();
-        }catch(SQLException e){
-            throw e;
-        }
-    }
     
-    private static void fecharConexao(Connection conexao, Statement comando) {
+    public static void salvar(Album album){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            if (comando != null) {
-                comando.close();
+            tx.begin();
+            if(album.getIdAlbum()!=null){
+                em.merge(album);
+            }else{
+                em.persist(album);
             }
-            if (conexao != null) {
-                conexao.close();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
-        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            dao.PersistenceUtil.close(em);
         }
     }
-
-    public static void alterar(Album aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    
+    
+        public static void excluir(Album album){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(Album.class, album.getIdAlbum()));
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            dao.PersistenceUtil.close(em);
+        }
     }
-}
+    }
