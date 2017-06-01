@@ -12,10 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-import modelo.Noticia;
 import modelo.Noticia;
 
 /**
@@ -24,90 +20,112 @@ import modelo.Noticia;
  */
 public class NoticiaDAO {
 
-     private static NoticiaDAO instance = new NoticiaDAO();
-
-    public static NoticiaDAO getInstance() {
-        return instance;
-    }
-
-    private NoticiaDAO() {
-    }
-    
-    
-    public static List<Noticia> getAllNoticias() throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Noticia> noticias = null;
+    public static List<Noticia> obterNoticias() throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        List<Noticia> noticias = new ArrayList<Noticia>();
         try {
-            tx.begin();
-            TypedQuery<Noticia> query = em.createQuery("select c from Noticia c", Noticia.class);
-            noticias = query.getResultList();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Noticia");
+            while (rs.next()) {
+                Noticia noticia = new Noticia(
+                        rs.getInt("idNoticia"),
+                        rs.getString("data"),
+                        rs.getString("descricao"),
+                        rs.getInt("Evento_idEvento"));
+                noticias.add(noticia);
             }
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return noticias;
     }
 
-    public static Noticia getNoticia(int idNoticia) {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    public static Noticia obterNoticia(int idNoticia) throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
         Noticia noticia = null;
         try {
-            tx.begin();
-            noticia = em.find(Noticia.class, idNoticia);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Noticia where idNoticia="+ idNoticia);
+            rs.first();
+                noticia = new Noticia(
+                        rs.getInt("idNoticia"),
+                        rs.getString("data"),
+                        rs.getString("descricao"),
+                        rs.getInt("Evento_idEvento"));
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return noticia;
     }
     
-    public static void salvar(Noticia noticia){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    public static void gravar(Noticia noticia) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "insert into noticia(idNoticia, data, descricao, Evento_idEvento) values (?,?,?,?)";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+           comando.setInt(1, noticia.getIdNoticia());
+            comando.setString(2, noticia.getData());
+            comando.setString(3, noticia.getDescricao());
+            comando.setInt(4, noticia.getIdEvento());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
+    
+    private static void fecharConexao(Connection conexao, Statement comando) {
         try {
-            tx.begin();
-            if(noticia.getIdNoticia()!=null){
-                em.merge(noticia);
-            }else{
-                em.persist(noticia);
+            if (comando != null) {
+                comando.close();
             }
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            if (conexao != null) {
+                conexao.close();
             }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+        } catch (SQLException e) {
+        }
+    }
+
+public static void alterar(Noticia noticia) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "update noticia set data = ?, descricao = ?, Evento_idEvento = ? where idNoticia = ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setString(1, noticia.getData());
+            comando.setString(2, noticia.getDescricao());
+            comando.setInt(3, noticia.getIdEvento());
+            comando.setInt(4, noticia.getIdNoticia());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
 
 public static void excluir(Noticia noticia) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.getReference(Noticia.class, noticia.getIdNoticia()));
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "delete from noticia where idNoticia = ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, noticia.getIdNoticia());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
     

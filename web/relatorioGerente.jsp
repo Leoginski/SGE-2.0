@@ -54,7 +54,6 @@ and open the template in the editor.
             </div>
         </header>
     <main>
-        <form action="RelatorioGerenteController?acao=confirmarImprimir" method="post" name="frmRelatorioGerente">
         <div class="input-field row">
             <select name="optGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
                 <option value="0" <c:if test="${gerente.codGerente == null}"> selected</c:if>></option>
@@ -69,11 +68,8 @@ and open the template in the editor.
             <label class="active" for="txtDataNascimento">Data Nascimento</label>
         </div>
         <div class="container center">
-            <div class="container center">
-               <input class="btn waves-effect waves-light center" type="submit" name="btnConfirmar" value="Confirmar">
-            </div>
+            <a href="RelatorioGerenteController?acao=confirmarImprimir" method="post"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
         </div>
-        </form>       
     </main>
     <footer class="page-footer light-green lighten-1">
         <div class="footer-copyright grey-text text-lighten-4">

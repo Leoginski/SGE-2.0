@@ -1,19 +1,17 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package DAO;
 
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-
 import modelo.Local;
 
 /**
@@ -21,92 +19,111 @@ import modelo.Local;
  * @author Aluno
  */
 public class LocalDAO {
-    
-     private static LocalDAO instance = new LocalDAO();
 
-    public static LocalDAO getInstance() {
-        return instance;
-    }
-    
-        private LocalDAO() {
-    }
-
-    public static List<Local> getAllLocais() throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Local> locais = null;
+    public static List<Local> obterLocais() throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        List<Local> locais = new ArrayList<Local>();
         try {
-            tx.begin();
-            TypedQuery<Local> query = em.createQuery("select c from Local c", Local.class);
-            locais = query.getResultList();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Local");
+            while (rs.next()) {
+                Local local = new Local(
+                        rs.getInt("idLocal"),
+                        rs.getString("descricao"),
+                        rs.getInt("capacidade"));
+                locais.add(local);
             }
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return locais;
     }
     
-    public static Local getLocal(int idLocal) throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    public static Local obterLocal(int idLocal) throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
         Local local = null;
+        
         try {
-            tx.begin();
-            local = em.find(Local.class, idLocal);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Local where idLocal=" + idLocal);
+            rs.first();
+                 local = new Local(
+                        rs.getInt("idLocal"),
+                        rs.getString("descricao"),
+                        rs.getInt("capacidade"));
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return local;
     }
 
-    public static void salvar(Local local) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            if(local.getIdLocal()!=null){
-                em.merge(local);
-            }else{
-                em.persist(local);
-            }
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+    public static void gravar(Local local) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "insert into local(idLocal, descricao, capacidade) values (?,?,?)";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, local.getIdLocal());
+            comando.setString(2, local.getDescricao());
+            comando.setInt(3, local.getCapacidade());
+            comando.execute();
+            comando.close();
+            conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
     
+    private static void fecharConexao(Connection conexao, Statement comando) {
+        try {
+            if (comando != null) {
+                comando.close();
+            }
+            if (conexao != null) {
+                conexao.close();
+            }
+        } catch (SQLException e) {
+        }
+    }
     
+    public static void alterar(Local local) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "update local set descricao =?, capacidade = ? where idLocal=?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setString(1, local.getDescricao());
+            comando.setInt(2, local.getCapacidade());
+            comando.setInt(3, local.getIdLocal());
+            comando.execute();
+            comando.close();
+            conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
     
         public static void excluir(Local local) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.getReference(Local.class, local.getIdLocal()));
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "delete from local where idLocal= ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, local.getIdLocal());
+            comando.execute();
+            comando.close();
+            conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
     

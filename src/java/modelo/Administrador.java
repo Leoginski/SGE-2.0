@@ -5,82 +5,25 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import DAO.AdministradorDAO;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
- * @author Math
+ * @author Aluno
  */
-@Entity
-@Table(name = "administrador")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Administrador.findAll", query = "SELECT a FROM Administrador a")})
-public class Administrador implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "codAdministrador")
-    private Integer codAdministrador;
-    @Basic(optional = false)
-    @Column(name = "nome")
-    private String nome;
-    @Column(name = "dataNascimento")
-    private String dataNascimento;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "senha")
-    private String senha;
-   
+public class Administrador extends Usuario {
 
-    public Administrador() {
-    }
+    private int codAdministrador;
 
-    public Administrador(Integer codAdministrador, String nome, String dataNascimento, String email, String senha) {
-        this.codAdministrador = codAdministrador;
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.email = email;
-        this.senha = senha;
-    }
-
-    
-    
-    public Administrador(Integer codAdministrador) {
+    public Administrador(int codAdministrador, String nome, String dataNascimento, String email, String senha) {
+        super(nome, email, senha, dataNascimento);
         this.codAdministrador = codAdministrador;
     }
 
-    public Administrador(Integer codAdministrador, String nome) {
-        this.codAdministrador = codAdministrador;
-        this.nome = nome;
-    }
-
-    public Integer getCodAdministrador() {
+    public int getCodAdministrador() {
         return codAdministrador;
-    }
-
-    public void setCodAdministrador(Integer codAdministrador) {
-        this.codAdministrador = codAdministrador;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getDataNascimento() {
@@ -90,46 +33,24 @@ public class Administrador implements Serializable {
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
-    public String getEmail() {
-        return email;
+    
+    public static List<Administrador> obterAdministradores() throws ClassNotFoundException{
+        return AdministradorDAO.obterAdministradores();
+    }
+    public static Administrador obterAdministrador(int codAdministrador) throws ClassNotFoundException{
+        return AdministradorDAO.obterAdministrador(codAdministrador);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        AdministradorDAO.gravar(this);
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void alterar() throws SQLException, ClassNotFoundException {
+        AdministradorDAO.alterar(this);
     }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codAdministrador != null ? codAdministrador.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Administrador)) {
-            return false;
-        }
-        Administrador other = (Administrador) object;
-        if ((this.codAdministrador == null && other.codAdministrador != null) || (this.codAdministrador != null && !this.codAdministrador.equals(other.codAdministrador))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Administrador[ codAdministrador=" + codAdministrador + " ]";
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        AdministradorDAO.excluir(this);
     }
     
 }

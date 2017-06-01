@@ -5,12 +5,13 @@
  */
 package DAO;
 
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-
 import modelo.Gerente;
 
 /**
@@ -19,81 +20,121 @@ import modelo.Gerente;
  */
 public class GerenteDAO {
 
-    public static List<Gerente> getAllGerentes() throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Gerente> gerentes = null;
+    public static List<Gerente> obterGerentes() throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        List<Gerente> gerentes = new ArrayList<Gerente>();
         try {
-            tx.begin();
-            TypedQuery<Gerente> query = em.createQuery("select c from Gerente c", Gerente.class);
-            gerentes = query.getResultList();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from gerente");
+            while(rs.next()){
+                Gerente gerente = new Gerente(
+                        rs.getInt("codGerente"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("dataNascimento")
+                        );
+                gerentes.add(gerente);
         }
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            fecharConexao(conexao, comando);
+        }
         return gerentes;
     }
 
-    public static Gerente getGerente(int codGerente) throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Gerente gerente = null;
+    
+    public static Gerente obterGerente(int idGerente) throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        Gerente gerente = null;    
         try {
-            tx.begin();
-            gerente = em.find(Gerente.class, codGerente);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from gerente where codGerente=" + idGerente);
+            rs.first();
+                gerente = new Gerente(
+                        rs.getInt("codGerente"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("dataNascimento"));
+                
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return gerente;
     }
 
-    public static void salvar(Gerente gerente) {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    
+    public static void gravar(Gerente gerente) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "insert into gerente(codGerente, nome, email, dataNascimento, senha) values (?,?,?,?,?)";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, gerente.getCodGerente());
+            comando.setString(2, gerente.getNome());
+            comando.setString(3, gerente.getEmail());
+            comando.setString(4, gerente.getDataNascimento());
+            comando.setString(5, gerente.getSenha());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
+    
+    private static void fecharConexao(Connection conexao, Statement comando) {
         try {
-            tx.begin();
-            if (gerente.getCodGerente() != null) {
-                em.merge(gerente);
-            } else {
-                em.persist(gerente);
+            if (comando != null) {
+                comando.close();
             }
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            if (conexao != null) {
+                conexao.close();
             }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+        } catch (SQLException e) {
         }
     }
 
-    public static void excluir(Gerente gerente) {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.getReference(Gerente.class, gerente.getCodGerente()));
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+    public static void alterar(Gerente gerente) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "update gerente set nome = ?, email = ? , dataNascimento = ?, senha = ? where codGerente = ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setString(1, gerente.getNome());
+            comando.setString(2, gerente.getEmail());
+            comando.setString(3, gerente.getDataNascimento());
+            comando.setString(4, gerente.getSenha());
+            comando.setInt(5, gerente.getCodGerente());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
-    }
+    }    
+    
+    public static void excluir(Gerente gerente) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "delete from gerente where codGerente= ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, gerente.getCodGerente());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }        
 }
+

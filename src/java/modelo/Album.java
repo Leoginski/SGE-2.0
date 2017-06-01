@@ -5,67 +5,39 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import DAO.AlbumDAO;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
- * @author Math
+ * @author Aluno
  */
-@Entity
-@Table(name = "album")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a")})
-public class Album implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "idAlbum")
-    private Integer idAlbum;
-    @Column(name = "desricao")
-    private String desricao;
-    @Column(name = "titulo")
+public class Album {
+
+    private final int idAlbum;
+    private String descricao;
     private String titulo;
-    @JoinColumn(name = "Galeria_id", referencedColumnName = "idGaleria")
-    @ManyToOne(optional = false)
-    private Galeria galeriaid;
-    
+    private Galeria galeria;
+    private int idGaleria;
 
-    public Album() {
-    }
-
-    public Album(Integer idAlbum) {
+    public Album(int idAlbum, String descricao, String titulo, Galeria galeria) {
         this.idAlbum = idAlbum;
+        this.descricao = descricao;
+        this.titulo = titulo;
+        this.galeria = galeria;
     }
 
-    public Integer getIdAlbum() {
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public int getIdAlbum() {
         return idAlbum;
     }
 
-    public void setIdAlbum(Integer idAlbum) {
-        this.idAlbum = idAlbum;
-    }
-
-    public String getDesricao() {
-        return desricao;
-    }
-
-    public void setDesricao(String desricao) {
-        this.desricao = desricao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getTitulo() {
@@ -76,37 +48,34 @@ public class Album implements Serializable {
         this.titulo = titulo;
     }
 
-    public Galeria getGaleriaid() {
-        return galeriaid;
+    public Galeria getGaleria() {
+        return galeria;
     }
 
-    public void setGaleriaid(Galeria galeriaid) {
-        this.galeriaid = galeriaid;
+    public void setGaleria(Galeria galeria) {
+        this.galeria = galeria;
+    }
+
+    public int getIdGaleria() {
+        return idGaleria;
+    }
+
+    public void setIdGaleria(int idGaleria) {
+        this.idGaleria = idGaleria;
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idAlbum != null ? idAlbum.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Album)) {
-            return false;
-        }
-        Album other = (Album) object;
-        if ((this.idAlbum == null && other.idAlbum != null) || (this.idAlbum != null && !this.idAlbum.equals(other.idAlbum))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Album[ idAlbum=" + idAlbum + " ]";
+    public static List<Album> obterAlbuns() throws ClassNotFoundException{
+        return AlbumDAO.obterAlbuns();
     }
     
+    public static Album obterAlbum() throws ClassNotFoundException{
+        return AlbumDAO.obterAlbum();
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        AlbumDAO.gravar(this);
+    }
+    public void alterar() throws SQLException, ClassNotFoundException {
+        AlbumDAO.alterar(this);
+    }
 }

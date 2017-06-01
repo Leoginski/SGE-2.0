@@ -13,10 +13,6 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-import modelo.Administrador;
 import modelo.Aluno;
 
 /**
@@ -25,91 +21,132 @@ import modelo.Aluno;
  */
 public class AlunoDAO {
 
-    
-    private static AlunoDAO instance = new AlunoDAO();
-
-    public static AlunoDAO getInstance() {
-        return instance;
-    }
-    
-    public static List<Aluno> getAllAlunos(){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Aluno> alunos = null;
+    public static List<Aluno> obterAlunos() throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        List<Aluno> alunos = new ArrayList<Aluno>();
         try {
-            tx.begin();
-            TypedQuery<Aluno> query = em.createQuery("select c from Aluno c", Aluno.class);
-            alunos = query.getResultList();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Aluno");
+            while (rs.next()) {
+                Aluno aluno = new Aluno(
+                        rs.getInt("idAluno"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("dataNascimento"));
+                alunos.add(aluno);
             }
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return alunos;
     }
     
-    public static Aluno getAluno(int idAluno){
-       EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    public static Aluno obterAluno(int idAluno) throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
         Aluno aluno = null;
-        try {
-            tx.begin();
-            aluno = em.find(Aluno.class, idAluno);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
+        try{
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Aluno where idAluno = " + idAluno);
+            rs.first();
+            aluno = new Aluno(
+                        rs.getInt("idAluno"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("dataNascimento"));
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return aluno;
     }
 
-
-    public static void salvar(Aluno aluno){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    private static void fecharConexao(Connection conexao, Statement comando) {
         try {
-            tx.begin();
-            if(aluno.getIdAluno()!=null){
-                em.merge(aluno);
-            }else{
-                em.persist(aluno);
+            if (comando != null) {
+                comando.close();
             }
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            if (conexao != null) {
+                conexao.close();
             }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+        } catch (SQLException e) {
+        }
+    }
+// se tiver combo      String sql = "insert into aluno(idAluno, nome, email, senha, dataNascimento, professorCoordenador values)"
+    //if (curso.getCoordenador() == null){
+        //comando.setNull(6, Types.NULL);
+        //}else{
+        //comando.setInt(6, curso.getCoordenador().getMatricula());
+        //}
+    public static void gravar(Aluno aluno) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "insert into aluno(idAluno, nome, email, dataNascimento, senha) values (?,?,?,?,?)";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, aluno.getIdAluno());
+            comando.setString(2, aluno.getNome());
+            comando.setString(3, aluno.getEmail());
+            comando.setString(4, aluno.getDataNascimento());
+            comando.setString(5, aluno.getSenha());
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
 
-   
+    public static void alterar(Aluno aluno) throws SQLException, ClassNotFoundException {
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "update aluno set nome = ?, email = ?, dataNascimento = ?, senha = ? where idAluno = ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setString(1, aluno.getNome());
+            comando.setString(2, aluno.getEmail());
+            comando.setString(3, aluno.getDataNascimento());
+            comando.setString(4, aluno.getSenha());
+            comando.setInt(5, aluno.getIdAluno());
+//            if (curso.getCoordenador() == null){
+//                comando.setNull(5, Types.NULL);
+//            }else{
+//                comando.setInt(5, curso.getCodCurso());
+//            }
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
     
 
-    public static void excluir(Aluno aluno){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.getReference(Aluno.class, aluno.getIdAluno()));
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+    public static void excluir(Aluno aluno) throws SQLException, ClassNotFoundException {
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+            String sql = "delete from aluno where idAluno = ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, aluno.getIdAluno());
+//            if (curso.getCoordenador() == null){
+//                comando.setNull(5, Types.NULL);
+//            }else{
+//                comando.setInt(5, curso.getCodCurso());
+//            }
+        comando.execute();
+        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
     

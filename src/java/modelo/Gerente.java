@@ -1,91 +1,33 @@
+package modelo;
+
+import DAO.GerenteDAO;
+import java.sql.SQLException;
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
-
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
- * @author Math
+ * @author Leonardo
  */
-@Entity
-@Table(name = "gerente")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Gerente.findAll", query = "SELECT g FROM Gerente g")})
-public class Gerente implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "codGerente")
-    private Integer codGerente;
-    @Basic(optional = false)
-    @Column(name = "nome")
-    private String nome;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "dataNascimento")
-    private String dataNascimento;
-    @Column(name = "senha")
-    private String senha;
+public class Gerente extends Usuario {
 
-    public Gerente() {
-    }
+    private int codGerente;
 
-    public Gerente(Integer codGerente, String nome, String email, String dataNascimento, String senha) {
-        this.codGerente = codGerente;
-        this.nome = nome;
-        this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.senha = senha;
-    }
-
-    
-
-    
-    
-    public Gerente(Integer codGerente) {
+    public Gerente(int codGerente, String nome, String email, String senha, String dataNascimento ) {
+        super(nome, email, senha, dataNascimento);
         this.codGerente = codGerente;
     }
 
-    public Gerente(Integer codGerente, String nome) {
-        this.codGerente = codGerente;
-        this.nome = nome;
-    }
-
-    public Integer getCodGerente() {
+    public int getCodGerente() {
         return codGerente;
     }
 
-    public void setCodGerente(Integer codGerente) {
+    public void setCodGerente(int codGerente) {
         this.codGerente = codGerente;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getDataNascimento() {
@@ -95,38 +37,26 @@ public class Gerente implements Serializable {
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
-    public String getSenha() {
-        return senha;
+    
+    public static List<Gerente> obterGerentes() throws ClassNotFoundException{
+        return GerenteDAO.obterGerentes();
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public static Gerente obterGerente(int codGerente) throws ClassNotFoundException{
+        return GerenteDAO.obterGerente(codGerente);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        GerenteDAO.gravar(this);
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codGerente != null ? codGerente.hashCode() : 0);
-        return hash;
+    public void alterar() throws SQLException, ClassNotFoundException {
+        GerenteDAO.alterar(this);
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Gerente)) {
-            return false;
-        }
-        Gerente other = (Gerente) object;
-        if ((this.codGerente == null && other.codGerente != null) || (this.codGerente != null && !this.codGerente.equals(other.codGerente))) {
-            return false;
-        }
-        return true;
+    public void excluir() throws SQLException, ClassNotFoundException {
+        GerenteDAO.excluir(this);
     }
-
-    @Override
-    public String toString() {
-        return "model.Gerente[ codGerente=" + codGerente + " ]";
-    }
+    
     
 }

@@ -5,62 +5,63 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import DAO.NoticiaDAO;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
  * @author Math
  */
-@Entity
-@Table(name = "noticia")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Noticia.findAll", query = "SELECT n FROM Noticia n")})
-public class Noticia implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "idNoticia")
-    private Integer idNoticia;
-    @Column(name = "data")
+public class Noticia {
+    private int idNoticia;
     private String data;
-    @Column(name = "descricao")
     private String descricao;
-    @JoinColumn(name = "Evento_idEvento", referencedColumnName = "idEvento")
-    @ManyToOne(optional = false)
-    private Evento eventoidEvento;
+    private int idEvento;
+    private Evento evento;
 
-    public Noticia() {
-    }
-
-    public Noticia(Integer idNoticia, String data, String descricao, Evento eventoidEvento) {
-        this.idNoticia = idNoticia;
+    public Noticia(int idNoticia, String data, String descricao, int idEvento) {
+        this.idNoticia=idNoticia;
         this.data = data;
         this.descricao = descricao;
-        this.eventoidEvento = eventoidEvento;
+        this.idEvento = idEvento;
+    }
+
+    public int getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
+    }
+
+    public Evento getEvento() throws ClassNotFoundException {
+        if ((evento == null) && (idEvento != 0)) {
+            evento = Evento.obterEvento(idEvento);
+        }
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
     
+    
 
-    public Noticia(Integer idNoticia) {
-        this.idNoticia = idNoticia;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public Integer getIdNoticia() {
+    public int getIdNoticia() {
         return idNoticia;
     }
 
-    public void setIdNoticia(Integer idNoticia) {
+    public void setIdNoticia(int idNoticia) {
         this.idNoticia = idNoticia;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getData() {
@@ -70,46 +71,24 @@ public class Noticia implements Serializable {
     public void setData(String data) {
         this.data = data;
     }
-
-    public String getDescricao() {
-        return descricao;
+    public static List<Noticia> obterNoticias() throws ClassNotFoundException{
+        return NoticiaDAO.obterNoticias();
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public static Noticia obterNoticia(int idNoticia) throws ClassNotFoundException{
+        return NoticiaDAO.obterNoticia(idNoticia);
+    }
+    
+    public void gravar() throws SQLException, ClassNotFoundException {
+        NoticiaDAO.gravar(this);
     }
 
-    public Evento getEventoidEvento() {
-        return eventoidEvento;
+    public void alterar() throws SQLException, ClassNotFoundException {
+        NoticiaDAO.alterar(this);
     }
-
-    public void setEventoidEvento(Evento eventoidEvento) {
-        this.eventoidEvento = eventoidEvento;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idNoticia != null ? idNoticia.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Noticia)) {
-            return false;
-        }
-        Noticia other = (Noticia) object;
-        if ((this.idNoticia == null && other.idNoticia != null) || (this.idNoticia != null && !this.idNoticia.equals(other.idNoticia))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Noticia[ idNoticia=" + idNoticia + " ]";
+    
+    public void excluir() throws SQLException, ClassNotFoundException {
+        NoticiaDAO.excluir(this);
     }
     
 }

@@ -5,7 +5,6 @@
  */
 package controller;
 
-import DAO.EventoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Administrador;
 import modelo.Evento;
 
 /**
@@ -33,18 +33,32 @@ public class ManterEventoController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-      private Evento evento;
-    
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+  protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
+          throws ServletException, IOException {
         String acao = request.getParameter("acao");
-        if (acao.equals("prepararOperacao")) {
-            prepararOperacao(request, response);
+        if(acao.equals("prepararIncluir")){
+            prepararIncluir(request, response);
+        }else{
+            if(acao.equals("confirmarIncluir")){
+                confirmarIncluir(request, response);
+            }else{
+                if(acao.equals("prepararEditar")){
+                    prepararEditar(request, response);
+                }else{
+                    if(acao.equals("confirmarEditar")){
+                        confirmarEditar(request, response);
+                    }else{
+                        if (acao.equals("prepararExcluir")){
+                            prepararExcluir(request, response);
+                        }else{
+                            if(acao.equals("confirmarExcluir")){
+                                confirmarExcluir(request, response);
+                            }
+                        }
+                    }
+                }
+            }
         }
-        if (acao.equals("confirmarOperacao")) {
-            confirmarOperacao(request, response);
-        }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,29 +100,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         return "Short description";
     }// </editor-fold>
 
-    
-    private void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-         try {
-            String operacao = request.getParameter("operacao");
-            request.setAttribute("operacao", operacao);
-            request.setAttribute("eventos", EventoDAO.getInstance().getAllEventos());
-            if (!operacao.equals("incluir")) {
-                int codEvento = Integer.parseInt(request.getParameter("idEvento"));
-                evento = EventoDAO.getInstance().getEvento(codEvento);
-                request.setAttribute("evento", codEvento);
-            }
+    private void prepararIncluir(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Incluir");
+            request.setAttribute("administradores", Administrador.obterAdministradores());
             RequestDispatcher view = request.getRequestDispatcher("/manterEvento.jsp");
             view.forward(request, response);
-        } catch (ServletException e) {
-            throw e;
-        } catch (IOException e) {
-            throw new ServletException(e);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
         }
-        }
+    }
 
-    private void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try{
-        String operacao = request.getParameter("operacao");
+    private void confirmarIncluir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         int idEvento = Integer.parseInt(request.getParameter("txtIdEvento"));
         String nomeEvento = request.getParameter("txtNomeEvento");
         String duracao = request.getParameter("txtDuracaoEvento");
@@ -117,33 +121,110 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         String dataFimEvento = request.getParameter("txtDataFimEvento");
         String dataInicioInscricao = request.getParameter("txtDataInicioInscricao");
         String dataFimInscricao = request.getParameter("txtDataFimInscricao");
-        
-        if(operacao.equals("incluir")){
-            evento = new Evento(idEvento, nomeEvento, duracao, tema, dataInicioEvento, dataFimEvento, dataInicioInscricao, dataFimInscricao,);
-            EventoDAO.getInstance().salvar(evento);
-        } else if(operacao.equals("editar")){
-            evento.setIdEvento(idEvento);
-            evento.setNomeEvento(nomeEvento);
-            evento.setDuracao(duracao);
-            evento.setTema(tema);
-            evento.setDataInicioEvento(dataInicioEvento);
-            evento.setDataFimEvento(dataFimEvento);
-            evento.setDataInicioInscricao(dataInicioInscricao);
-            evento.setDataFimInscricao(dataFimInscricao);
-            EventoDAO.getInstance().salvar(evento);
-        }else if(operacao.equals("excluir")){
-            EventoDAO.getInstance().excluir(evento);
-        }
+        int codAdministrador = Integer.parseInt(request.getParameter("optAdministrador"));
+        //se tiver uma comboBox
+        //int coordenador = Integer.parseInt(request.getParameter(optCoordenador);
+        try{
+            Administrador administrador = null;
+            if(codAdministrador != 0){
+                administrador = Administrador.obterAdministrador(codAdministrador);
+            }
+            Evento evento = new Evento(idEvento, nomeEvento, duracao, tema, dataInicioEvento, dataFimEvento, dataInicioInscricao, dataFimInscricao, codAdministrador);
+            evento.gravar();
             RequestDispatcher view = request.getRequestDispatcher("PesquisaEventoController");
             view.forward(request, response);
-        } catch (ServletException e) {
-            throw e;
-        } catch (IOException e) {
-            throw new ServletException(e);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
+    
+        private void prepararEditar(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Editar");
+            request.setAttribute("administradores", Administrador.obterAdministradores());
+            int idEvento = Integer.parseInt(request.getParameter("idEvento"));
+            Evento evento = Evento.obterEvento(idEvento);
+            request.setAttribute("evento", evento);
+            RequestDispatcher view = request.getRequestDispatcher("/manterEvento.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
         }
     }
+        
+        private void confirmarEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        int idEvento = Integer.parseInt(request.getParameter("txtIdEvento"));
+        String nomeEvento = request.getParameter("txtNomeEvento");
+        String duracao = request.getParameter("txtDuracaoEvento");
+        String tema = request.getParameter("txtTemaEvento");
+        String dataInicioEvento = request.getParameter("txtDataInicioEvento");
+        String dataFimEvento = request.getParameter("txtDataFimEvento");
+        String dataInicioInscricao = request.getParameter("txtDataInicioInscricao");
+        String dataFimInscricao = request.getParameter("txtDataFimInscricao");
+        int codAdministrador = Integer.parseInt(request.getParameter("optAdministrador"));
+        //se tiver uma comboBox
+        //int coordenador = Integer.parseInt(request.getParameter(optCoordenador);
+        try{
+            Administrador administrador = null;
+            if(codAdministrador != 0){
+                administrador = Administrador.obterAdministrador(codAdministrador);
+            }
+            Evento evento = new Evento(idEvento, nomeEvento, duracao, tema, dataInicioEvento, dataFimEvento, dataInicioInscricao, dataFimInscricao, codAdministrador);
+            evento.alterar();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaEventoController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
 
-    
+        private void prepararExcluir(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            request.setAttribute("operacao", "Excluir");
+            request.setAttribute("administradores", Administrador.obterAdministradores());
+            int idEvento = Integer.parseInt(request.getParameter("idEvento"));
+            Evento evento = Evento.obterEvento(idEvento);
+            request.setAttribute("evento", evento);
+            RequestDispatcher view = request.getRequestDispatcher("/manterEvento.jsp");
+            view.forward(request, response);
+        }catch(ServletException ex){
+        }catch(IOException ex){
+        }catch(ClassNotFoundException ex){
+        }
+    }
+        
+        private void confirmarExcluir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        int idEvento = Integer.parseInt(request.getParameter("txtIdEvento"));
+        String nomeEvento = request.getParameter("txtNomeEvento");
+        String duracao = request.getParameter("txtDuracaoEvento");
+        String tema = request.getParameter("txtTemaEvento");
+        String dataInicioEvento = request.getParameter("txtDataInicioEvento");
+        String dataFimEvento = request.getParameter("txtDataFimEvento");
+        String dataInicioInscricao = request.getParameter("txtDataInicioInscricao");
+        String dataFimInscricao = request.getParameter("txtDataFimInscricao");
+        int codAdministrador = Integer.parseInt(request.getParameter("optAdministrador"));
+        //se tiver uma comboBox
+        //int coordenador = Integer.parseInt(request.getParameter(optCoordenador);
+        try{
+            Administrador administrador = null;
+            if(codAdministrador != 0){
+                administrador = Administrador.obterAdministrador(codAdministrador);
+            }
+            Evento evento = new Evento(idEvento, nomeEvento, duracao, tema, dataInicioEvento, dataFimEvento, dataInicioInscricao, dataFimInscricao, codAdministrador);
+            evento.excluir();
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaEventoController");
+            view.forward(request, response);
+        }catch(IOException ex){
+        }catch(SQLException ex){
+        }catch(ClassNotFoundException ex){
+        }catch(ServletException ex){
+    }
+    }
 
 }
 

@@ -11,10 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-import modelo.Galeria;
 import modelo.Galeria;
 
 /**
@@ -22,91 +18,91 @@ import modelo.Galeria;
  * @author Aluno
  */
 public class GaleriaDAO {
-    
-    private static GaleriaDAO instance = new GaleriaDAO();
 
-    public static GaleriaDAO getInstance() {
-        return instance;
-    }
-
-    private GaleriaDAO() {
-    }
-    
-
-    public static List<Galeria> getAllGalerias(){
-            EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Galeria> galerias = null;
+    public static List<Galeria> obterGalerias() throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
+        List<Galeria> galerias = new ArrayList<Galeria>();
         try {
-            tx.begin();
-            TypedQuery<Galeria> query = em.createQuery("select c from Galeria c", Galeria.class);
-            galerias = query.getResultList();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Galeria");
+            while (rs.next()) {
+                Galeria galeria = new Galeria(
+                        rs.getInt("idGaleria"),
+                        rs.getString("data"),
+                        null
+                        );
+                galeria.setIdEvento(rs.getInt("idEvento"));
+                galerias.add(galeria);
             }
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return galerias;
     }
     
-    public static Galeria getGaleria(int idGaleria){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    public static Galeria obterGaleria(int idGaleria) throws ClassNotFoundException {
+        Connection conexao = null;
+        Statement comando = null;
         Galeria galeria = null;
         try {
-            tx.begin();
-            galeria = em.find(Galeria.class, idGaleria);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
+            conexao = BD.getConexao();
+            comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("select * from Galeria where idGaleria="+ idGaleria);
+            rs.first();
+                galeria = new Galeria(
+                        rs.getInt("idGaleria"),
+                        rs.getString("data"),
+                        null
+                        );
+                galeria.setIdEvento(rs.getInt("idEvento"));
+                
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            dao.PersistenceUtil.close(em);
+            fecharConexao(conexao, comando);
         }
         return galeria;
     }
 
-    public static void salvar(Galeria galeria) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            if(galeria.getIdGaleria()!=null){
-                em.merge(galeria);
-            }else{
-                em.persist(galeria);
-            }
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+    public static void gravar(Galeria galeria) throws SQLException, ClassNotFoundException{
+        Connection conexao = null;
+        try{
+            conexao = BD.getConexao();
+//            String sql = "insert into aluno(idAluno, nome, email, dataNascimento, senha) values (?,?,?,?,?,?)";
+//            PreparedStatement comando = conexao.prepareStatement(sql);
+//            comando.setInt(1, aluno.getIdAluno());
+//            comando.setString(2, aluno.getNome());
+//            comando.setString(3, aluno.getEmail());
+//            comando.setString(4, aluno.getDataNascimento());
+//            comando.setString(5, aluno.getSenha());
+
+            //só descomentar daqui pra baixo
+//        comando.execute();
+//        comando.close();
+        conexao.close();
+        }catch(SQLException e){
+            throw e;
         }
     }
     
-    public static void excluir(Galeria galeria){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    private static void fecharConexao(Connection conexao, Statement comando) {
         try {
-            tx.begin();
-            em.remove(em.getReference(Galeria.class, galeria.getIdGaleria()));
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
+            if (comando != null) {
+                comando.close();
             }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
+            if (conexao != null) {
+                conexao.close();
+            }
+        } catch (SQLException e) {
         }
-}
+    }
+
+    public static void alterar(Galeria aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
