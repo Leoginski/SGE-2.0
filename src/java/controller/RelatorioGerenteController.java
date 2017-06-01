@@ -6,6 +6,7 @@
 package controller;
 
 import DAO.BD;
+import DAO.GerenteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -55,12 +56,11 @@ public class RelatorioGerenteController extends HttpServlet {
     private void prepararImprimir(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.setAttribute("operacao", "Imprimir");
-            request.setAttribute(("gerentes"), Gerente.obterGerentes());
+            request.setAttribute(("gerentes"), GerenteDAO.getInstance().getAllGerentes());
             RequestDispatcher view = request.getRequestDispatcher("/relatorioGerente.jsp");
             view.forward(request, response);
         } catch (ServletException ex) {
         } catch (IOException ex) {
-        }catch(ClassNotFoundException ex){
         }
     }
 

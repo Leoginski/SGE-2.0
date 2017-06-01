@@ -12,8 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,7 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Proposta.findAll", query = "SELECT p FROM Proposta p")})
 public class Proposta implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -116,33 +113,21 @@ public class Proposta implements Serializable {
     private Integer sexta;
     @Column(name = "sabado")
     private Integer sabado;
-//    @Basic(optional = false)
-//    @Column(name = "gerente_codGerente")
-//    private int gerentecodGerente;
-//    @Basic(optional = false)
-//    @Column(name = "local_id")
-//    private int localId;
-//    @Basic(optional = false)
-//    @Column(name = "evento_id")
-//    private int eventoId;
+    @Basic(optional = false)
+    @Column(name = "gerente_codGerente")
+    private int gerentecodGerente;
+    @Basic(optional = false)
+    @Column(name = "local_id")
+    private int localId;
+    @Basic(optional = false)
+    @Column(name = "evento_id")
+    private int eventoId;
     @Basic(optional = false)
     @Column(name = "dataInicio")
     private String dataInicio;
     @Basic(optional = false)
     @Column(name = "dataFim")
     private String dataFim;
-
-    @JoinColumn(name = "Gerente_codGerente", referencedColumnName = "codGerente")
-    @ManyToOne(optional = false)
-    private Gerente gerente;
-
-    @JoinColumn(name = "local_id", referencedColumnName = "idLocal")
-    @ManyToOne(optional = false)
-    private Local local;
-    
-    @JoinColumn(name = "evento_id", referencedColumnName = "idEvento")
-    @ManyToOne(optional = false)
-    private Evento evento;    
 
     public Proposta() {
     }
@@ -151,19 +136,7 @@ public class Proposta implements Serializable {
         this.idProposta = idProposta;
     }
 
-//    public Proposta(Integer idProposta, int diaria, String estado, String publicoAlvo, int gerentecodGerente, int localId, int eventoId, String dataInicio, String dataFim) {
-//        this.idProposta = idProposta;
-//        this.diaria = diaria;
-//        this.estado = estado;
-//        this.publicoAlvo = publicoAlvo;
-//        this.gerentecodGerente = gerentecodGerente;
-//        this.localId = localId;
-//        this.eventoId = eventoId;
-//        this.dataInicio = dataInicio;
-//        this.dataFim = dataFim;
-//    }
-
-    public Proposta(Integer idProposta, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, Integer vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publicoAlvo, Integer publicoTodos, Integer publicoInformatica, Integer publicoEdificacoes, Integer publicoEletromecanica, Integer publicoEletrotecnica, Integer publicoMecanica, Integer publicoMetalurgia, Integer publicoEventos, Integer publicoSecretariado, Integer publicodesignMoveis, Integer publicoEletronica, Integer publicotransacoesImobiliarias, Integer publicotransporteFerroviario, Integer publicosistemasInformacao, Integer publicoengMecatronica, Integer publicoengMetalurgica, Integer publicoFisica, Integer segunda, Integer terca, Integer quarta, Integer quinta, Integer sexta, Integer sabado, String dataInicio, String dataFim, Gerente gerente, Local local, Evento evento) {
+    public Proposta(Integer idProposta, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, Integer vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publicoAlvo, Integer publicoTodos, Integer publicoInformatica, Integer publicoEdificacoes, Integer publicoEletromecanica, Integer publicoEletrotecnica, Integer publicoMecanica, Integer publicoMetalurgia, Integer publicoEventos, Integer publicoSecretariado, Integer publicodesignMoveis, Integer publicoEletronica, Integer publicotransacoesImobiliarias, Integer publicotransporteFerroviario, Integer publicosistemasInformacao, Integer publicoengMecatronica, Integer publicoengMetalurgica, Integer publicoFisica, Integer segunda, Integer terca, Integer quarta, Integer quinta, Integer sexta, Integer sabado, int gerentecodGerente, int localId, int eventoId, String dataInicio, String dataFim) {
         this.idProposta = idProposta;
         this.proponente = proponente;
         this.emailProponente = emailProponente;
@@ -203,36 +176,14 @@ public class Proposta implements Serializable {
         this.quinta = quinta;
         this.sexta = sexta;
         this.sabado = sabado;
+        this.gerentecodGerente = gerentecodGerente;
+        this.localId = localId;
+        this.eventoId = eventoId;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.gerente = gerente;
-        this.local = local;
-        this.evento = evento;
     }
-
-    public Gerente getGerente() {
-        return gerente;
-    }
-
-    public void setGerente(Gerente gerente) {
-        this.gerente = gerente;
-    }
-
-    public Local getLocal() {
-        return local;
-    }
-
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
+    
+    
 
     public Integer getIdProposta() {
         return idProposta;
@@ -545,30 +496,30 @@ public class Proposta implements Serializable {
     public void setSabado(Integer sabado) {
         this.sabado = sabado;
     }
-//
-//    public int getGerentecodGerente() {
-//        return gerentecodGerente;
-//    }
-//
-//    public void setGerentecodGerente(int gerentecodGerente) {
-//        this.gerentecodGerente = gerentecodGerente;
-//    }
-//
-//    public int getLocalId() {
-//        return localId;
-//    }
-//
-//    public void setLocalId(int localId) {
-//        this.localId = localId;
-//    }
-//
-//    public int getEventoId() {
-//        return eventoId;
-//    }
-//
-//    public void setEventoId(int eventoId) {
-//        this.eventoId = eventoId;
-//    }
+
+    public int getGerentecodGerente() {
+        return gerentecodGerente;
+    }
+
+    public void setGerentecodGerente(int gerentecodGerente) {
+        this.gerentecodGerente = gerentecodGerente;
+    }
+
+    public int getLocalId() {
+        return localId;
+    }
+
+    public void setLocalId(int localId) {
+        this.localId = localId;
+    }
+
+    public int getEventoId() {
+        return eventoId;
+    }
+
+    public void setEventoId(int eventoId) {
+        this.eventoId = eventoId;
+    }
 
     public String getDataInicio() {
         return dataInicio;
@@ -610,5 +561,5 @@ public class Proposta implements Serializable {
     public String toString() {
         return "model.Proposta[ idProposta=" + idProposta + " ]";
     }
-
+    
 }

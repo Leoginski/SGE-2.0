@@ -43,7 +43,13 @@ public class Album implements Serializable {
     @JoinColumn(name = "Galeria_id", referencedColumnName = "idGaleria")
     @ManyToOne(optional = false)
     private Galeria galeriaid;
-    
+
+    public Album(Integer idAlbum, String desricao, String titulo, Galeria galeriaid) {
+        this.idAlbum = idAlbum;
+        this.desricao = desricao;
+        this.titulo = titulo;
+        this.galeriaid = galeriaid;
+    }
 
     public Album() {
     }

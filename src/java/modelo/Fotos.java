@@ -44,6 +44,12 @@ public class Fotos implements Serializable {
     public Fotos() {
     }
 
+    public Fotos(Integer idFoto, byte[] arquivo, Album albumid) {
+        this.idFoto = idFoto;
+        this.arquivo = arquivo;
+        this.albumid = albumid;
+    }
+    
     public Fotos(Integer idFoto) {
         this.idFoto = idFoto;
     }

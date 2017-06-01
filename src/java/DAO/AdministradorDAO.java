@@ -5,12 +5,7 @@
  */
 package DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -33,7 +28,7 @@ public class AdministradorDAO {
     private AdministradorDAO() {
     }
 
-    public static List<Administrador> obterTodosAdministradores() throws ClassNotFoundException {
+    public static List<Administrador> getAllAdministradores() {
         EntityManager em = dao.PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Administrador> administradores = null;
@@ -53,24 +48,7 @@ public class AdministradorDAO {
         return administradores;
     }
     
-    public static void gravar(Administrador administrador) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(administrador);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
-        }
-    }
-    
-    public static Administrador obterAdministrador(int codAdministrador) throws ClassNotFoundException {
+    public static Administrador getAdministrador(int codAdministrador){
         EntityManager em = dao.PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Administrador administrador = null;
@@ -88,13 +66,18 @@ public class AdministradorDAO {
         }
         return administrador;
     }
-
-    public static void alterar(Administrador administrador) throws SQLException, ClassNotFoundException{
+    
+    
+    public static void salvar(Administrador administrador){
         EntityManager em = dao.PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(administrador);
+            if(administrador.getCodAdministrador()!=null){
+                em.merge(administrador);
+            }else{
+                em.persist(administrador);
+            }
             tx.commit();
         } catch (Exception e) {
             if (tx != null && tx.isActive()) {
@@ -106,7 +89,9 @@ public class AdministradorDAO {
         }
     }
     
-        public static void excluir(Administrador administrador) throws SQLException, ClassNotFoundException{
+    
+    
+        public static void excluir(Administrador administrador){
         EntityManager em = dao.PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {

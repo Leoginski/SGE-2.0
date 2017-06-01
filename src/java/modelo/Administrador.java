@@ -48,6 +48,14 @@ public class Administrador implements Serializable {
     public Administrador() {
     }
 
+    public Administrador(Integer codAdministrador, String nome, String dataNascimento, String email, String senha) {
+        this.codAdministrador = codAdministrador;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.email = email;
+        this.senha = senha;
+    }    
+    
     public Administrador(Integer codAdministrador) {
         this.codAdministrador = codAdministrador;
     }

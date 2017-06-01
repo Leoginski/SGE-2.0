@@ -38,6 +38,12 @@ public class Local implements Serializable {
     public Local() {
     }
 
+    public Local(Integer idLocal, String descricao, Integer capacidade) {
+        this.idLocal = idLocal;
+        this.descricao = descricao;
+        this.capacidade = capacidade;
+    }
+    
     public Local(Integer idLocal) {
         this.idLocal = idLocal;
     }

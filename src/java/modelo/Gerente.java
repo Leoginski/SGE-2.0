@@ -43,6 +43,14 @@ public class Gerente implements Serializable {
     public Gerente() {
     }
 
+    public Gerente(Integer codGerente, String nome, String email, String dataNascimento, String senha) {
+        this.codGerente = codGerente;
+        this.nome = nome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.senha = senha;
+    }
+    
     public Gerente(Integer codGerente) {
         this.codGerente = codGerente;
     }

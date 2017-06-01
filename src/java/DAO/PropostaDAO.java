@@ -23,23 +23,67 @@ import modelo.Proposta;
  */
 public class PropostaDAO {
 
+    /**
+     *
+     * @return
+     * @throws ClassNotFoundException
+     */
+
     private static PropostaDAO instance = new PropostaDAO();
 
     public static PropostaDAO getInstance() {
         return instance;
     }
 
-    private PropostaDAO() {
+    
+    public static List<Proposta> getAllPropostas(){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Proposta> propostas = null;
+        try {
+            tx.begin();
+            TypedQuery<Proposta> query = em.createQuery("select c from Proposta c", Proposta.class);
+            propostas = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            dao.PersistenceUtil.close(em);
+        }
+        
+        return propostas;
     }
 
-    public void salvar(Proposta proposta) {
+    public static Proposta getProposta(int idProposta){
+        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Proposta proposta = null;
+        try {
+            tx.begin();
+            proposta = em.find(Proposta.class, idProposta);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            dao.PersistenceUtil.close(em);
+        }
+        return proposta;
+    }
+    
+        public static void salvar(Proposta proposta) throws SQLException, ClassNotFoundException{
         EntityManager em = dao.PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if (proposta.getIdProposta() != null) {
+            if(proposta.getIdProposta()!=null){
                 em.merge(proposta);
-            } else {
+            }else{
                 em.persist(proposta);
             }
             tx.commit();
@@ -52,47 +96,8 @@ public class PropostaDAO {
             dao.PersistenceUtil.close(em);
         }
     }
-
-    public List<Proposta> getAllPropostas() {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Proposta> propostas = null;
-        try {
-            tx.begin();
-            TypedQuery<Proposta> query = em.createQuery("select p from Proposta p", Proposta.class);
-            propostas = query.getResultList();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
-        }
-        return propostas;
-    }
-
-    public Proposta getProposta(int id) {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Proposta proposta = null;
-        try {
-            tx.begin();
-            proposta = em.find(Proposta.class, id);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            dao.PersistenceUtil.close(em);
-        }
-        return proposta;
-    }
-
-    public void excluir(Proposta proposta) {
+        
+        public static void excluir(Proposta proposta){
         EntityManager em = dao.PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -108,4 +113,6 @@ public class PropostaDAO {
             dao.PersistenceUtil.close(em);
         }
     }
+        
+        
 }

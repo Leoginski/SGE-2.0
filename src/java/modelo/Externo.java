@@ -50,6 +50,15 @@ public class Externo implements Serializable {
     public Externo() {
     }
 
+    public Externo(Integer idExterno, String conhecimento, String nome, String email, String dataNascimento, String senha) {
+        this.idExterno = idExterno;
+        this.conhecimento = conhecimento;
+        this.nome = nome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.senha = senha;
+    }    
+    
     public Externo(Integer idExterno) {
         this.idExterno = idExterno;
     }

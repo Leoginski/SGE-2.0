@@ -5,6 +5,8 @@
  */
 package controller;
 
+import DAO.AdministradorDAO;
+import DAO.EventoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -32,13 +34,11 @@ public class PesquisaEventoController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            request.setAttribute("eventos", Evento.obterEventos());
-            request.setAttribute("administradores", Administrador.obterAdministradores());
+            request.setAttribute("eventos", EventoDAO.getInstance().getAllEventos());
+            request.setAttribute("administradores", AdministradorDAO.getInstance().getAllAdministradores());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaEvento.jsp");
             view.forward(request, response);
-        } catch (ClassNotFoundException ex){
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

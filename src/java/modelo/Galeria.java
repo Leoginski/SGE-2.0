@@ -46,6 +46,12 @@ public class Galeria implements Serializable {
     public Galeria() {
     }
 
+    public Galeria(Integer idGaleria, String data, Evento eventoid) {
+        this.idGaleria = idGaleria;
+        this.data = data;
+        this.eventoid = eventoid;
+    }
+    
     public Galeria(Integer idGaleria) {
         this.idGaleria = idGaleria;
     }

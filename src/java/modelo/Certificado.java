@@ -41,6 +41,15 @@ public class Certificado implements Serializable {
     public Certificado() {
     }
 
+    public Certificado(String codAutencidade, String descricao, Inscricao inscricaocodInscricao) {
+        this.codAutencidade = codAutencidade;
+        this.descricao = descricao;
+        this.inscricaocodInscricao = inscricaocodInscricao;
+    }
+
+    
+    
+    
     public Certificado(String codAutencidade) {
         this.codAutencidade = codAutencidade;
     }

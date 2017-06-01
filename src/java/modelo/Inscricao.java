@@ -54,6 +54,18 @@ public class Inscricao implements Serializable {
     public Inscricao() {
     }
 
+    public Inscricao(Integer codInscricao, String tipo, Boolean frequencia, Aluno alunomatricula, Externo externoid, Proposta propostaid) {
+        this.codInscricao = codInscricao;
+        this.tipo = tipo;
+        this.frequencia = frequencia;
+        this.alunomatricula = alunomatricula;
+        this.externoid = externoid;
+        this.propostaid = propostaid;
+    }
+
+    
+    
+    
     public Inscricao(Integer codInscricao) {
         this.codInscricao = codInscricao;
     }
