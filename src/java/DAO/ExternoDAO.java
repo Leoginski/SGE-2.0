@@ -15,8 +15,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import modelo.Aluno;
-import modelo.Externo;
+import model.Aluno;
+import model.Externo;
 
 /**
  *

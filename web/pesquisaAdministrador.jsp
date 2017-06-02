@@ -70,19 +70,21 @@
                         <td><c:out value="${administrador.nome}"/></td>
                         <td><c:out value="${administrador.dataNascimento}"/></td>
                         <td><c:out value="${administrador.email}"/></td>
-                        <td><a href="ManterAdministradorController?acao=prepararEditar&codAdministrador=<c:out value="${administrador.codAdministrador}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button></a></td>
-                        <td><a href="ManterAdministradorController?acao=prepararExcluir&codAdministrador=<c:out value="${administrador.codAdministrador}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir</button> </a></td>
+                        <td><a href="ManterAdministradorController?acao=preapararOperacao&operacao=editar<c:out value="${administrador.codAdministrador}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button></a></td>
+                        <td><a href="ManterAdministradorController?acao=prepararOperacao&operacao=excluir&codAdministrador=<c:out value="${administrador.codAdministrador}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir</button> </a></td>
                     </tr>      
                 </c:forEach>
             </table>
             <div class="container center">
-                <form action="ManterAdministradorController?acao=prepararIncluir" method="post">
+                <form action="ManterAdministradorController?acao=prepararOperacao&operacao=incluir" method="post">
+                    
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>
             
             <div class="container center">
                     <a href="RelatorioAdministradorController?acao=prepararImprimir" method="post"> <button class="btn waves-effect waves-light center" >Relatorio </button></a>
+                    
             </div>
             
         </main>

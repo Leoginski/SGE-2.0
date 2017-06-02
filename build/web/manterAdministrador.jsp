@@ -43,30 +43,30 @@
         <main>
             <h5 class="flow-text center">Manter Administrador - ${operacao}</h5>
             <div class="row">
-                <form class="col s12" action="ManterAdministradorController?acao=confirmar${operacao}" method="post" name="frmManterAdministrador" onsubmit="return validarFormulario(this)">
+                <form class="col s12" action="ManterAdministradorController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterAdministrador" onsubmit="return validarFormulario(this)">
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="CodAdministrador" type="text" name="txtCodAdministrador" value="${administrador.codAdministrador}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                            <input id="CodAdministrador" type="text" name="txtCodAdministrador" value="${administrador.codAdministrador}" <c:if test="${operacao != 'incluir'}"> readonly</c:if>>
                                 <label class="active" for="CodAdministrador">Código do Administrador</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="NomeAdministrador" type="text" name="txtNomeAdministrador" value="${administrador.nome}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input id="NomeAdministrador" type="text" name="txtNomeAdministrador" value="${administrador.nome}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="CodAdministrador">Nome</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6"> 
-                                <input id="EmailAdministrador" type="text" name="txtEmailAdministrador" value="${administrador.email}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>    
+                                <input id="EmailAdministrador" type="text" name="txtEmailAdministrador" value="${administrador.email}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>    
                                 <label class="active" for="CodAdministrador">Email</label>
                             </div>          
                             <div class="input-field col s6"> 
-                                <input id="SenhaAdministrador" type="text" name="txtSenhaAdministrador" value="${administrador.senha}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>   
+                                <input id="SenhaAdministrador" type="text" name="txtSenhaAdministrador" value="${administrador.senha}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>   
                                 <label class="active" for="CodAdministrador">Senha</label>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="input-field col s2"> 
-                                <input id="DataNascimentoAdministrador" type="text" name="txtDataNascimentoAdministrador" value="${administrador.dataNascimento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input id="DataNascimentoAdministrador" type="text" name="txtDataNascimentoAdministrador" value="${administrador.dataNascimento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="DataNascimentoAdministrador">Data de Nascimento</label>
                         </div>           
                     </div>                            

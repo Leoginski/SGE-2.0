@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import modelo.Certificado;
+import model.Certificado;
 
 /**
  *

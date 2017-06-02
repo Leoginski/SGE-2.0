@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Administrador;
+import model.Administrador;
 /**
  *
  * @author Math
@@ -85,7 +85,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             if (!operacao.equals("incluir")) {
                 int codAdministrador = Integer.parseInt(request.getParameter("codAdministrador"));
                 administrador = AdministradorDAO.getInstance().getAdministrador(codAdministrador);
-                //request.setAttribute("administrador", codAdministrador);
+                request.setAttribute("administrador", administrador);
             }
             RequestDispatcher view = request.getRequestDispatcher("/manterAdministrador.jsp");
             view.forward(request, response);

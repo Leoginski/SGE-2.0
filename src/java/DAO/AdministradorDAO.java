@@ -10,7 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import modelo.Administrador;
+import model.Administrador;
 //import org.apache.coyote.http11.Constants;
 
 //**
@@ -51,7 +51,7 @@ public class AdministradorDAO {
     public static Administrador getAdministrador(int codAdministrador){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Administrador administrador = null;
+        Administrador administrador = new Administrador();
         try {
             tx.begin();
             administrador = em.find(Administrador.class, codAdministrador);
