@@ -29,7 +29,7 @@ public class AdministradorDAO {
     }
 
     public static List<Administrador> getAllAdministradores() {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Administrador> administradores = null;
         try {
@@ -43,13 +43,13 @@ public class AdministradorDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return administradores;
     }
     
     public static Administrador getAdministrador(int codAdministrador){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Administrador administrador = null;
         try {
@@ -62,14 +62,14 @@ public class AdministradorDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return administrador;
     }
     
     
     public static void salvar(Administrador administrador){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -85,14 +85,14 @@ public class AdministradorDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     
     
     
         public static void excluir(Administrador administrador){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -104,7 +104,7 @@ public class AdministradorDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     

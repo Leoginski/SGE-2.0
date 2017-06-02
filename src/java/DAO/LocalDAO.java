@@ -32,7 +32,7 @@ public class LocalDAO {
     }
 
     public static List<Local> getAllLocais() throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Local> locais = null;
         try {
@@ -46,13 +46,13 @@ public class LocalDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return locais;
     }
     
     public static Local getLocal(int idLocal) throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Local local = null;
         try {
@@ -65,13 +65,13 @@ public class LocalDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return local;
     }
 
     public static void salvar(Local local) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -87,14 +87,14 @@ public class LocalDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     
     
     
         public static void excluir(Local local) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -106,7 +106,7 @@ public class LocalDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     

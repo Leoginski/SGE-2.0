@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DAO.NoticiaDAO;
 import DAO.EventoDAO;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,9 +36,8 @@ public class PesquisaNoticiaController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
             request.setAttribute("noticias", NoticiaDAO.getInstance().getAllNoticias());
-            request.setAttribute("eventos", EventoDAO.getInstance().getAllEventos());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaNoticia.jsp");
             view.forward(request, response);
     }
@@ -58,6 +58,8 @@ public class PesquisaNoticiaController extends HttpServlet {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -75,6 +77,8 @@ public class PesquisaNoticiaController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -31,7 +31,7 @@ public class ExternoDAO {
     }
 
     public static List<Externo> getAllExternos() {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Externo> externos = null;
         try {
@@ -45,13 +45,13 @@ public class ExternoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return externos;
     }
 
         public static Externo getExterno(int idExterno){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Externo externo = null;
         try {
@@ -64,13 +64,13 @@ public class ExternoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return externo;
     }
     
     public static void salvar(Externo externo){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -86,12 +86,12 @@ public class ExternoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     
     public static void excluir(Externo externo){
-         EntityManager em = dao.PersistenceUtil.getEntityManager();
+         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -103,7 +103,7 @@ public class ExternoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }    
     

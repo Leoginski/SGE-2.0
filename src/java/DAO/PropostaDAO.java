@@ -37,7 +37,7 @@ public class PropostaDAO {
 
     
     public static List<Proposta> getAllPropostas(){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Proposta> propostas = null;
         try {
@@ -51,14 +51,14 @@ public class PropostaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         
         return propostas;
     }
 
     public static Proposta getProposta(int idProposta){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Proposta proposta = null;
         try {
@@ -71,13 +71,13 @@ public class PropostaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return proposta;
     }
     
         public static void salvar(Proposta proposta) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -93,12 +93,12 @@ public class PropostaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
         
         public static void excluir(Proposta proposta){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -110,7 +110,7 @@ public class PropostaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
         

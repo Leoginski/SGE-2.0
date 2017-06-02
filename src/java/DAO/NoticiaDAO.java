@@ -16,8 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import modelo.Noticia;
-import modelo.Noticia;
-
 /**
  *
  * @author Math
@@ -34,8 +32,8 @@ public class NoticiaDAO {
     }
     
     
-    public static List<Noticia> getAllNoticias() throws ClassNotFoundException {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+    public static List<Noticia> getAllNoticias(){
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Noticia> noticias = null;
         try {
@@ -49,13 +47,13 @@ public class NoticiaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return noticias;
     }
 
     public static Noticia getNoticia(int idNoticia) {
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Noticia noticia = null;
         try {
@@ -68,13 +66,13 @@ public class NoticiaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return noticia;
     }
     
     public static void salvar(Noticia noticia){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -90,12 +88,12 @@ public class NoticiaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
 
 public static void excluir(Noticia noticia){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -107,7 +105,7 @@ public static void excluir(Noticia noticia){
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     

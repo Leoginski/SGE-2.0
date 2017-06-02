@@ -35,7 +35,7 @@ public class EventoDAO {
     }
     
     public static List<Evento> getAllEventos(){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Evento> eventos = null;
         try {
@@ -49,13 +49,13 @@ public class EventoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return eventos;
     }
 
     public static Evento getEvento(int idEvento){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Evento evento = null;
         try {
@@ -68,7 +68,7 @@ public class EventoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return evento;
     }
@@ -76,7 +76,7 @@ public class EventoDAO {
     
 
     public static void salvar(Evento evento) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -92,12 +92,12 @@ public class EventoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     
     public static void excluir(Evento evento) throws SQLException, ClassNotFoundException{
-    EntityManager em = dao.PersistenceUtil.getEntityManager();
+    EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -109,7 +109,7 @@ public class EventoDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
 }

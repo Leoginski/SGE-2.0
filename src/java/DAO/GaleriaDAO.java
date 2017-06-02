@@ -34,7 +34,7 @@ public class GaleriaDAO {
     
 
     public static List<Galeria> getAllGalerias(){
-            EntityManager em = dao.PersistenceUtil.getEntityManager();
+            EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Galeria> galerias = null;
         try {
@@ -48,13 +48,13 @@ public class GaleriaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return galerias;
     }
     
     public static Galeria getGaleria(int idGaleria){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Galeria galeria = null;
         try {
@@ -67,13 +67,13 @@ public class GaleriaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
         return galeria;
     }
 
     public static void salvar(Galeria galeria) throws SQLException, ClassNotFoundException{
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -89,12 +89,12 @@ public class GaleriaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
     }
     
     public static void excluir(Galeria galeria){
-        EntityManager em = dao.PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -106,7 +106,7 @@ public class GaleriaDAO {
             }
             throw new RuntimeException(e);
         } finally {
-            dao.PersistenceUtil.close(em);
+            PersistenceUtil.close(em);
         }
 }
 }
