@@ -13,7 +13,7 @@ public class PersistenceUtil {
 
     public static EntityManager getEntityManager() {
         if (emf == null) {
-            emf = Persistence.createEntityManagerFactory("sge");
+            emf = Persistence.createEntityManagerFactory("hibersgePU");
         }
         return emf.createEntityManager();
     }
