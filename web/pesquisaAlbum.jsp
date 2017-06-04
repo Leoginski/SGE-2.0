@@ -65,14 +65,14 @@
                     <tr>
                         <td><c:out value="${album.idAlbum}"/></td>
                         <td><c:out value="${album.descricao}"/></td>
-                        <td><a href="ManterAlbumController?acao=prepararEditar&idAlbum=<c:out value="${album.idAlbum}" />"><button class="btn waves-effect waves-light yellow accent-4">Editar</button></a></td>
-                        <td><a href="ManterAlbumController?acao=prepararExcluir&idAlbum=<c:out value="${album.idAlbum}" />"><button  class="btn waves-effect waves-light red accent-4">Excluir</button></a></td>
+                        <td><a href="ManterAlbumController?acao=prepararOperacao&operacao=editar<c:out value="${album.idAlbum}" />"><button class="btn waves-effect waves-light yellow accent-4">Editar</button></a></td>
+                        <td><a href="ManterAlbumController?acao=prepararOperacao&operacao=excluir<c:out value="${album.idAlbum}" />"><button  class="btn waves-effect waves-light red accent-4">Excluir</button></a></td>
                     </tr>   
                 </c:forEach>
             </table>
 
             <div class="container center">
-                <form action="ManterAlbumController?acao=prepararIncluir" method="post">
+                <form action="ManterAlbumController?acao=prepararOperacao&operacao=incluir" method="post">
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>

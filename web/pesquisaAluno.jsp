@@ -72,13 +72,13 @@
                         <td><c:out value="${aluno.email}"/></td>
                         <td><c:out value="${aluno.senha}"/></td>
                         <td><c:out value="${aluno.dataNascimento}"/></td>
-                        <td><a href="ManterAlunoController?acao=prepararEditar&idAluno=<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button></a></td>
-                        <td><a href="ManterAlunoController?acao=prepararExcluir&idAluno=<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button></a></td>
+                        <td><a href="ManterAlunoController?acao=prepararOperacao&operacao=editar<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button></a></td>
+                        <td><a href="ManterAlunoController?acao=prepararOperacao&operacao=excluir&idAluno=<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button></a></td>
                     </tr>      
                 </c:forEach>
             </table>
             <div class="container center">
-                <form action="ManterAlunoController?acao=prepararIncluir" method="post">
+                <form action="ManterAlunoController?acao=prepararOperacao&operacao=incluir" method="post">
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>

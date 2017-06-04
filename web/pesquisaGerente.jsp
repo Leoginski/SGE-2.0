@@ -67,13 +67,13 @@
                         <td><c:out value="${gerente.codGerente}"/></td>
                         <td><c:out value="${gerente.nome}"/></td>
                         <td><c:out value="${gerente.email}"/></td>
-                        <td><a href="ManterGerenteController?acao=prepararEditar&codGerente=<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
-                        <td><a href="ManterGerenteController?acao=prepararExcluir&codGerente=<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
+                        <td><a href="ManterGerenteController?acao=prepararOperacao&operacao=editar<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterGerenteController?acao=prepararOperacao&operacao=excluir&codGerente=<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>   
                 </c:forEach>
             </table>
             <div class="container center">
-                <form action="ManterGerenteController?acao=prepararIncluir" method="post">
+                <form action="ManterGerenteController?acao=prepararOperacao&operacao=incluir" method="post">
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>

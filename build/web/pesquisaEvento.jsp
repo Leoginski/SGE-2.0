@@ -78,13 +78,13 @@
                         <td><c:out value="${evento.dataInicioInscricao}"/></td>
                         <td><c:out value="${evento.dataFimInscricao}"/></td>
                         <td><c:out value="${evento.administrador.nome}"/></td>
-                        <td><a href="ManterEventoController?acao=prepararEditar&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
-                        <td><a href="ManterEventoController?acao=prepararExcluir&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
+                        <td><a href="ManterEventoController?acao=prepararOperacao&operacao=editar<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterEventoController?acao=prepararOperacao&operacao=excluir&idEvento=<c:out value="${evento.idEvento}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>      
                 </c:forEach>
             </table>
             <div class="container center">
-                <form action="ManterEventoController?acao=prepararIncluir" method="post">
+                <form action="ManterEventoController?acao=prepararOperacao&operacao=incluir" method="post">
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>

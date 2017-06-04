@@ -79,13 +79,13 @@
                         <td><c:out value="${proposta.estado}"/></td>
                         <td><c:out value="${proposta.dataInicio}"/></td>
                         <td><c:out value="${proposta.dataFim}"/></td>
-                        <td><a href="ManterPropostaController?acao=prepararEditar&idProposta=<c:out value="${proposta.idProposta}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
-                        <td><a href="ManterPropostaController?acao=prepararExcluir&idProposta=<c:out value="${proposta.idProposta}" />"><button  class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
+                        <td><a href="ManterPropostaController?acao=prepararOperacao&operacao=editar<c:out value="${proposta.idProposta}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterPropostaController?acao=prepararOperacao&operacao=excluir&idProposta=<c:out value="${proposta.idProposta}" />"><button  class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>      
                 </c:forEach>
             </table>
             <div class="container center">
-                <form action="ManterPropostaController?acao=prepararIncluir" method="post">
+                <form action="ManterPropostaController?acao=prepararOperacao&operacao=incluir" method="post">
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>

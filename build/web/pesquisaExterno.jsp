@@ -69,13 +69,13 @@
                         <td><c:out value="${externo.nome}"/></td>
                         <td><c:out value="${externo.conhecimento}"/></td>
                         <td><c:out value="${externo.email}"/></td>
-                        <td><a href="ManterExternoController?acao=prepararEditar&idExterno=<c:out value="${externo.idExterno}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
-                        <td><a href="ManterExternoController?acao=prepararExcluir&idExterno=<c:out value="${externo.idExterno}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir </button></a></td>
+                        <td><a href="ManterExternoController?acao=prepararOperacao&operacao=editar<c:out value="${externo.idExterno}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterExternoController?acao=prepararOperacao&operacao=excluir&idExterno=<c:out value="${externo.idExterno}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir </button></a></td>
                     </tr>   
                 </c:forEach>
             </table>
             <div class="container center">
-                <form action="ManterExternoController?acao=prepararIncluir" method="post">
+                <form action="ManterExternoController?acao=prepararOperacao&operacao=incluir" method="post">
                     <input class="btn waves-effect waves-light center" type="submit" name="bntIncluir" value="Incluir">
                 </form>
             </div>
