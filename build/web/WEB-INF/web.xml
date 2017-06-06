@@ -101,7 +101,7 @@
             30
         </session-timeout>
     </session-config>
-    <error-page>
+<!--    <error-page>
         <error-code>404</error-code>
         <location>
             /TratamentoExcecao
@@ -114,5 +114,5 @@
         <location>
             /TratamentoExcecao
         </location>
-    </error-page>
+    </error-page>-->
 </web-app>

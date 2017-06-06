@@ -194,7 +194,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
        
             
         if(operacao.equals("incluir")){
-            proposta = new Proposta(idProposta,proponente,emailProponente,tipoAtividade,tituloAtividade,finalidadeAtividade,cargaHoraria,vagasAtividade,nomeConvidado,emailConvidado,formacaoConvidado,origem,informacoesComplementares,diaria,estado,publico_alvo,publico_todos,publico_informatica,publico_edificacoes,publico_eletromecanica,publico_eletrotecnica,publico_mecanica,publico_metalurgia,publico_eventos, publico_secretariado,publico_designMoveis,publico_eletronica,publico_transacoesImobiliarias,publico_trasporteFerroviario,publico_sistemasInformacao,publico_engMecatronica,publico_engMetalurgica,publico_fisica,segunda,terca,quarta,quinta,sexta,sabado,idEvento,idLocal,codGerente,dataInicio,dataFim);
+            proposta = new Proposta(idProposta,proponente,emailProponente,tipoAtividade,tituloAtividade,finalidadeAtividade,cargaHoraria,vagasAtividade,nomeConvidado,emailConvidado,formacaoConvidado,origem,informacoesComplementares,diaria,estado,publico_alvo,publico_todos,publico_informatica,publico_edificacoes,publico_eletromecanica,publico_eletrotecnica,publico_mecanica,publico_metalurgia,publico_eventos, publico_secretariado,publico_designMoveis,publico_eletronica,publico_transacoesImobiliarias,publico_trasporteFerroviario,publico_sistemasInformacao,publico_engMecatronica,publico_engMetalurgica,publico_fisica,segunda,terca,quarta,quinta,sexta,sabado,gerente,local,evento,dataInicio,dataFim);
             PropostaDAO.getInstance().salvar(proposta);
         } else if(operacao.equals("editar")){
             proposta.setProponente(proponente);
@@ -235,9 +235,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             proposta.setQuinta(quinta);
             proposta.setSexta(sexta);
             proposta.setSabado(sabado);
-            proposta.setEventoId(idEvento);
-            proposta.setLocalId(idLocal);
-            proposta.setGerentecodGerente(codGerente);
+            proposta.setGerentecodGerente(gerente);
+            proposta.setLocalId(local);
+            proposta.setEventoId(evento);
+//            proposta.setEventoId(idEvento);
+//            proposta.setLocalId(idLocal);
+//            proposta.setGerentecodGerente(codGerente);
             proposta.setDataInicio(dataInicio);
             proposta.setDataFim(dataFim);
             PropostaDAO.getInstance().salvar(proposta);

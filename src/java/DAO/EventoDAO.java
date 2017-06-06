@@ -25,7 +25,7 @@ import model.Evento;
 public class EventoDAO {
 
     
-    private static EventoDAO instance = new EventoDAO();
+    private static final EventoDAO instance = new EventoDAO();
 
     public static EventoDAO getInstance() {
         return instance;

@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email"),
     @NamedQuery(name = "Administrador.findBySenha", query = "SELECT a FROM Administrador a WHERE a.senha = :senha")})
 public class Administrador implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "administradorcodAdministrador")
+    private Collection<Evento> eventoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -143,6 +145,15 @@ public class Administrador implements Serializable {
     @Override
     public String toString() {
         return "model.Administrador[ codAdministrador=" + codAdministrador + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Evento> getEventoCollection() {
+        return eventoCollection;
+    }
+
+    public void setEventoCollection(Collection<Evento> eventoCollection) {
+        this.eventoCollection = eventoCollection;
     }
     
 }

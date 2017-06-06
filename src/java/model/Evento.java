@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Evento.findByDataInicioInscricao", query = "SELECT e FROM Evento e WHERE e.dataInicioInscricao = :dataInicioInscricao"),
     @NamedQuery(name = "Evento.findByDataFimInscricao", query = "SELECT e FROM Evento e WHERE e.dataFimInscricao = :dataFimInscricao")})
 public class Evento implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventoId")
+    private Collection<Proposta> propostaCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -189,6 +191,15 @@ public class Evento implements Serializable {
     @Override
     public String toString() {
         return "model.Evento[ idEvento=" + idEvento + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Proposta> getPropostaCollection() {
+        return propostaCollection;
+    }
+
+    public void setPropostaCollection(Collection<Proposta> propostaCollection) {
+        this.propostaCollection = propostaCollection;
     }
     
 }

@@ -6,16 +6,20 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Local.findByDescricao", query = "SELECT l FROM Local l WHERE l.descricao = :descricao"),
     @NamedQuery(name = "Local.findByCapacidade", query = "SELECT l FROM Local l WHERE l.capacidade = :capacidade")})
 public class Local implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "localId")
+    private Collection<Proposta> propostaCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -104,6 +110,15 @@ public class Local implements Serializable {
     @Override
     public String toString() {
         return "model.Local[ idLocal=" + idLocal + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Proposta> getPropostaCollection() {
+        return propostaCollection;
+    }
+
+    public void setPropostaCollection(Collection<Proposta> propostaCollection) {
+        this.propostaCollection = propostaCollection;
     }
     
 }
