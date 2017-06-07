@@ -21,4 +21,14 @@ public class BD {
         conexao = DriverManager.getConnection("jdbc:mysql://localhost/sge", "root", "");
         return conexao;
     }
+    
+    public static void fecharConexao(Connection conexao) throws SQLException {
+        try {
+            if (!conexao.isClosed()) {
+                conexao.close();
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
 }

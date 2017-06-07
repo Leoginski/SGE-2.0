@@ -54,20 +54,17 @@ and open the template in the editor.
             </div>
         </header>
     <main>
-        <form action="RelatorioGerenteController?acao=confirmarImprimir" method="post" name="frmRelatorioGerente">
+        <form action="RelatorioGerenteController?acao=exibirRelatorio" method="post" name="frmRelatorioGerente">
         <div class="input-field row">
-            <select name="optGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
-                <option value="0" <c:if test="${gerente.codGerente == null}"> selected</c:if>></option>
+            <select class="selectpicker" id="pNome" name="nomeGerente">
+                <option value="" <c:if test="${gerente.nome == null}">selected</c:if>></option>
                 <c:forEach items="${gerentes}" var="gerente">
-                    <option value="${gerente.codGerente}" <c:if test="${proposta.gerente.codGerente == gerente.codGerente}"> selected</c:if>>${gerente.nome}</option>
+                    <option value="${gerente.nome}">
+                        ${gerente.nome}
+                    </option>  
                 </c:forEach>
             </select>
-            <label>Gerentes</label>
-        </div>  
-        <div class="input-field row">
-            <input type="text" name="txtDataNascimento">
-            <label class="active" for="txtDataNascimento">Data Nascimento</label>
-        </div>
+            <label>Gerente</label>
         <div class="container center">
             <div class="container center">
                <input class="btn waves-effect waves-light center" type="submit" name="btnConfirmar" value="Confirmar">

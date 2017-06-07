@@ -79,7 +79,9 @@
             </div>
             
             <div class="container center">
-                    <a href="RelatorioGerenteController?acao=prepararImprimir" method="post"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
+                <form action="RelatorioGerenteController?acao=prepararRelatorio" method="post">
+                    <button type="submit" class="btn waves-effect waves-light center" name="btnRelatorio" value="Exibir">Relatórios</button>                
+                </form>
             </div>
             
         </main>

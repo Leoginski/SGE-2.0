@@ -45,6 +45,10 @@
         <servlet-class>controller.PesquisaPropostaController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RelatorioGerenteController</servlet-name>
+        <servlet-class>controller.RelatorioGerenteController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TratamentoExcecao</servlet-name>
         <servlet-class>exception.TratamentoExcecao</servlet-class>
     </servlet>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>PesquisaPropostaController</servlet-name>
         <url-pattern>/PesquisaPropostaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioGerenteController</servlet-name>
+        <url-pattern>/RelatorioGerenteController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TratamentoExcecao</servlet-name>

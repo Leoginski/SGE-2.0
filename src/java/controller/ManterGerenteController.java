@@ -82,8 +82,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ManterGerenteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }       
     }
 
     /**
