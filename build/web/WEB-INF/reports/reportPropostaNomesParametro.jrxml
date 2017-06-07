@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportPropostaNomesParametro" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55aa1b94-efb5-4048-84a0-e096b44c1ffe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_Proponente" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     proposta.`idProposta` AS proposta_idProposta,
+     proposta.`proponente` AS proposta_proponente,
+     proposta.`emailProponente` AS proposta_emailProponente,
+     proposta.`tipoAtividade` AS proposta_tipoAtividade,
+     proposta.`tituloAtividade` AS proposta_tituloAtividade,
+     proposta.`finalidadeAtividade` AS proposta_finalidadeAtividade,
+     proposta.`cargaHoraria` AS proposta_cargaHoraria,
+     proposta.`vagasAtividade` AS proposta_vagasAtividade,
+     proposta.`nomeConvidado` AS proposta_nomeConvidado,
+     proposta.`emailConvidado` AS proposta_emailConvidado,
+     proposta.`formacaoConvidado` AS proposta_formacaoConvidado,
+     proposta.`origem` AS proposta_origem,
+     proposta.`informacoesComplementares` AS proposta_informacoesComplementares,
+     proposta.`diaria` AS proposta_diaria,
+     proposta.`estado` AS proposta_estado,
+     proposta.`publico_alvo` AS proposta_publico_alvo,
+     proposta.`publico_todos` AS proposta_publico_todos,
+     proposta.`publico_informatica` AS proposta_publico_informatica,
+     proposta.`publico_edificacoes` AS proposta_publico_edificacoes,
+     proposta.`publico_eletromecanica` AS proposta_publico_eletromecanica,
+     proposta.`publico_eletrotecnica` AS proposta_publico_eletrotecnica,
+     proposta.`publico_mecanica` AS proposta_publico_mecanica,
+     proposta.`publico_metalurgia` AS proposta_publico_metalurgia,
+     proposta.`publico_eventos` AS proposta_publico_eventos,
+     proposta.`publico_secretariado` AS proposta_publico_secretariado,
+     proposta.`publico_designMoveis` AS proposta_publico_designMoveis,
+     proposta.`publico_eletronica` AS proposta_publico_eletronica,
+     proposta.`publico_transacoesImobiliarias` AS proposta_publico_transacoesImobiliarias,
+     proposta.`publico_transporteFerroviario` AS proposta_publico_transporteFerroviario,
+     proposta.`publico_sistemasInformacao` AS proposta_publico_sistemasInformacao,
+     proposta.`publico_engMecatronica` AS proposta_publico_engMecatronica,
+     proposta.`publico_engMetalurgica` AS proposta_publico_engMetalurgica,
+     proposta.`publico_fisica` AS proposta_publico_fisica,
+     proposta.`segunda` AS proposta_segunda,
+     proposta.`terca` AS proposta_terca,
+     proposta.`quarta` AS proposta_quarta,
+     proposta.`quinta` AS proposta_quinta,
+     proposta.`sexta` AS proposta_sexta,
+     proposta.`sabado` AS proposta_sabado,
+     proposta.`gerente_codGerente` AS proposta_gerente_codGerente,
+     proposta.`local_id` AS proposta_local_id,
+     proposta.`evento_id` AS proposta_evento_id,
+     proposta.`dataInicio` AS proposta_dataInicio,
+     proposta.`dataFim` AS proposta_dataFim
+FROM
+     `proposta` proposta
+
+WHERE
+$P{P_Proponente} = proposta.`proponente`]]>
+	</queryString>
+	<field name="proposta_idProposta" class="java.lang.Integer"/>
+	<field name="proposta_proponente" class="java.lang.String"/>
+	<field name="proposta_emailProponente" class="java.lang.String"/>
+	<field name="proposta_tipoAtividade" class="java.lang.String"/>
+	<field name="proposta_tituloAtividade" class="java.lang.String"/>
+	<field name="proposta_finalidadeAtividade" class="java.lang.String"/>
+	<field name="proposta_cargaHoraria" class="java.lang.String"/>
+	<field name="proposta_vagasAtividade" class="java.lang.Integer"/>
+	<field name="proposta_nomeConvidado" class="java.lang.String"/>
+	<field name="proposta_emailConvidado" class="java.lang.String"/>
+	<field name="proposta_formacaoConvidado" class="java.lang.String"/>
+	<field name="proposta_origem" class="java.lang.String"/>
+	<field name="proposta_informacoesComplementares" class="java.lang.String"/>
+	<field name="proposta_diaria" class="java.lang.Integer"/>
+	<field name="proposta_estado" class="java.lang.String"/>
+	<field name="proposta_publico_alvo" class="java.lang.String"/>
+	<field name="proposta_publico_todos" class="java.lang.Integer"/>
+	<field name="proposta_publico_informatica" class="java.lang.Integer"/>
+	<field name="proposta_publico_edificacoes" class="java.lang.Integer"/>
+	<field name="proposta_publico_eletromecanica" class="java.lang.Integer"/>
+	<field name="proposta_publico_eletrotecnica" class="java.lang.Integer"/>
+	<field name="proposta_publico_mecanica" class="java.lang.Integer"/>
+	<field name="proposta_publico_metalurgia" class="java.lang.Integer"/>
+	<field name="proposta_publico_eventos" class="java.lang.Integer"/>
+	<field name="proposta_publico_secretariado" class="java.lang.Integer"/>
+	<field name="proposta_publico_designMoveis" class="java.lang.Integer"/>
+	<field name="proposta_publico_eletronica" class="java.lang.Integer"/>
+	<field name="proposta_publico_transacoesImobiliarias" class="java.lang.Integer"/>
+	<field name="proposta_publico_transporteFerroviario" class="java.lang.Integer"/>
+	<field name="proposta_publico_sistemasInformacao" class="java.lang.Integer"/>
+	<field name="proposta_publico_engMecatronica" class="java.lang.Integer"/>
+	<field name="proposta_publico_engMetalurgica" class="java.lang.Integer"/>
+	<field name="proposta_publico_fisica" class="java.lang.Integer"/>
+	<field name="proposta_segunda" class="java.lang.Integer"/>
+	<field name="proposta_terca" class="java.lang.Integer"/>
+	<field name="proposta_quarta" class="java.lang.Integer"/>
+	<field name="proposta_quinta" class="java.lang.Integer"/>
+	<field name="proposta_sexta" class="java.lang.Integer"/>
+	<field name="proposta_sabado" class="java.lang.Integer"/>
+	<field name="proposta_gerente_codGerente" class="java.lang.Integer"/>
+	<field name="proposta_local_id" class="java.lang.Integer"/>
+	<field name="proposta_evento_id" class="java.lang.Integer"/>
+	<field name="proposta_dataInicio" class="java.lang.String"/>
+	<field name="proposta_dataFim" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="4d7c0079-c555-4cd2-a96e-12b413e33a30"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="3a76ff8c-76ec-4ab0-ad12-881c94ac4120"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="0ce0383c-702a-4d53-b082-f10e2bdbab1a"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="980151c3-3a57-4328-b9f3-6ccbd57da943"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5b6a67d1-44b8-4a1c-aa7f-ec5f40c81e7c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IdProposta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1316c112-cbf6-4b9a-8355-0639e822589c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proponente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="fca88f80-4a16-4177-8157-653c53dc56bd"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Titulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="39548a7d-d3f6-455a-a5de-1e680b455471"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vagas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2afd5e7d-ac1f-4b1b-a27a-926641e20239"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DataInicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="32413258-f992-4cce-9615-2965589b21f2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DataFim]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="bcda2ed5-dacd-4719-9e08-0ede1191f477"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="92" height="20" uuid="6a5fcd6f-8b3a-4fd7-ac29-3ed918f21a63"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposta_idProposta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="92" y="0" width="92" height="20" uuid="0b845d44-2b25-44dd-af30-f0d230f3b3f1"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposta_proponente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="184" y="0" width="92" height="20" uuid="885e5e96-46c1-4d21-9da9-e6b3782cf0de"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposta_tituloAtividade}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="276" y="0" width="92" height="20" uuid="157c0124-98fb-4eb2-a0fb-10fa5167a30b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposta_vagasAtividade}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="368" y="0" width="92" height="20" uuid="1c11ccf4-6e19-42ec-84a5-1a982effe7c9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposta_dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="460" y="0" width="92" height="20" uuid="6f38071b-051e-4d73-9ca1-133f6f024fb0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposta_dataFim}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="0b364632-bda6-42a3-aa23-bd89b04a79c5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="c645bca0-f281-4245-b56f-05372c494e97"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="d002b9b6-3ab7-42a3-bc8b-6c6d1ad9f7a3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

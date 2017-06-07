@@ -5,6 +5,7 @@
  */
 package controller;
 
+import DAO.AdministradorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.BD;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -39,53 +42,56 @@ public class RelatorioAdministradorController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         
         String acao = request.getParameter("acao");
-        if(acao.equals("prepararImprimir")){
-            prepararImprimir(request, response);
+        if(acao.equals("prepararRelatorio")){
+            prepararRelatorio(request, response);
         }else{
-            if(acao.equals("confirmarImprimir")){
-                confirmarImprimir(request, response);
+            if(acao.equals("exibirRelatorio")){
+                exibirRelatorio(request, response);
             }
         }
         }
     
-        private void confirmarImprimir(HttpServletRequest request, HttpServletResponse response) {    
-        Connection conexao = null;
-        try{
+        private void exibirRelatorio(HttpServletRequest request, HttpServletResponse response) throws SQLException {    
+        
+            Connection conexao = null;
+        try {
             conexao = BD.getConexao();
+            String nomeRelatorio = "AdministradorNovo";
+            String pNome = request.getParameter("nomeAdministrador");
             HashMap parametros = new HashMap();
-            //parametros.put("PAR codAdministrador", Integer.parseInt(request.getParameter("txtCodAdministrador")));
-            String relatorio = getServletContext().getRealPath("src\\java\\Reports")+"\\reportAdministrador.jasper";
+            String relatorio = null;
+
+            if (pNome != null && !pNome.equals("")) {
+                parametros.put("P_Nome", pNome);
+                relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + "Parametro.jasper";
+                response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + "Parametro.pdf");
+
+            } else {
+                relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + ".jasper";
+                response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + ".pdf");
+            }
+
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=" + "reportAdministrador"+".pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+
+        } catch (IOException | ClassNotFoundException | SQLException | JRException ex) {
             ex.printStackTrace();
         } finally {
-            try {
-                if (!conexao.isClosed()) {
-                    conexao.close();
-                }
-            } catch (SQLException ex) {
-            }
+            BD.fecharConexao(conexao);
         }
         }
     
     
 
-        private void prepararImprimir(HttpServletRequest request, HttpServletResponse response) {
+        private void prepararRelatorio(HttpServletRequest request, HttpServletResponse response) {
         try{
             request.setAttribute("operacao", "Imprimir");
+            request.setAttribute("administradores", AdministradorDAO.getAllAdministradores());
             RequestDispatcher view = request.getRequestDispatcher("/relatorioAdministrador.jsp");
             view.forward(request, response);
         }catch(ServletException ex){
@@ -106,7 +112,11 @@ public class RelatorioAdministradorController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -120,7 +130,11 @@ public class RelatorioAdministradorController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

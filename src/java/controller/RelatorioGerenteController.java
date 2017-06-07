@@ -45,7 +45,7 @@ public class RelatorioGerenteController extends HttpServlet {
     public void prepararRelatorio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setAttribute("operacao", "Imprimir");
-            request.setAttribute("gerentes", GerenteDAO.getInstance().getAllGerentes());
+            request.setAttribute("gerentes", GerenteDAO.getAllGerentes());
             RequestDispatcher view = request.getRequestDispatcher("/relatorioGerente.jsp");
             view.forward(request, response);
         } catch (ServletException | IOException ex) {
@@ -69,7 +69,6 @@ public class RelatorioGerenteController extends HttpServlet {
                 response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + "Parametro.pdf");
 
             } else {
-                relatorio = getServletContext().getRealPath("/WEB-INF/classes/reports") + "/report" + nomeRelatorio+ ".jasper";
                 relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + ".jasper";
                 response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + ".pdf");
             }

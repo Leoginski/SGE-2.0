@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="P_Nome" class="java.lang.String"/>
+	<parameter name="P_Conhecimento" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      externo.`idExterno` AS externo_idExterno,
@@ -15,7 +15,7 @@
 FROM
      `externo` externo
 
-WHERE $P{P_Nome} = externo.`nome`]]>
+WHERE $P{P_Conhecimento} = externo.`conhecimento`]]>
 	</queryString>
 	<field name="externo_idExterno" class="java.lang.Integer"/>
 	<field name="externo_conhecimento" class="java.lang.String"/>
