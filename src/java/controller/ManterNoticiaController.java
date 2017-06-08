@@ -129,8 +129,8 @@ public class ManterNoticiaController extends HttpServlet {
         int idNoticia = Integer.parseInt(request.getParameter("txtIdNoticia"));
         String data = request.getParameter("txtDataNoticia");
         String descricao = request.getParameter("txtDescricaoNoticia");
-        //int idEvento = Integer.parseInt(request.getParameter("optEvento"));
-         int idEvento = Integer.parseInt(request.getParameter("evento"));
+        int idEvento = Integer.parseInt(request.getParameter("optEvento"));
+         
             
             Evento evento = null;
             if (idEvento != 0) {
@@ -144,6 +144,7 @@ public class ManterNoticiaController extends HttpServlet {
             noticia.setData(data);
             noticia.setDescricao(descricao);
             noticia.setEventoidEvento(evento);
+            NoticiaDAO.getInstance().salvar(noticia);
         }else if(operacao.equals("excluir")){
             NoticiaDAO.getInstance().excluir(noticia);
         }
