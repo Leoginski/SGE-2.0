@@ -9,7 +9,7 @@ and open the template in the editor.
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
     <head>
-        <title>Relatorio Gerentes</title>
+        <title>Relatorio Alunos</title>
         <!--jQuery-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <!--Css Materialize-->
@@ -63,17 +63,17 @@ and open the template in the editor.
             </div>
         </header>
     <main>
-        <form action="RelatorioGerenteController?acao=exibirRelatorio" method="post" name="frmRelatorioGerente">
+        <form action="RelatorioEventoController?acao=exibirRelatorio" method="post" name="frmRelatorioEvento">
         <div class="input-field row">
-            <select name="nomeGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
-                <option value="" <c:if test="${gerente.nome == null}"> selected</c:if>></option>
-                <c:forEach items="${gerentes}" var="gerente">
-                    <option value="${gerente.nome}">
-                    ${gerente.nome}
+            <select name="temaEvento" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                <option value="" <c:if test="${externo.conhecimento == null}"> selected</c:if>></option>
+                <c:forEach items="${eventos}" var="evento">
+                    <option value="${evento.tema}">
+                    ${evento.tema}
                     </option>  
                 </c:forEach>
                         </select>
-                        <label>Gerente</label>
+                        <label>Tema</label>
                     </div>   
         <div class="container center">
             <div class="container center">
@@ -95,3 +95,4 @@ and open the template in the editor.
     <!--        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
 </body>
 </html>
+

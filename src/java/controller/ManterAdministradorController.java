@@ -81,7 +81,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
          try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            //request.setAttribute("administradores", AdministradorDAO.getInstance().obterTodosAdministradores());
+            request.setAttribute("administradores", AdministradorDAO.getAllAdministradores());
             if (!operacao.equals("incluir")) {
                 int codAdministrador = Integer.parseInt(request.getParameter("codAdministrador"));
                 administrador = AdministradorDAO.getInstance().getAdministrador(codAdministrador);

@@ -90,7 +90,9 @@
             </div>
             
             <div class="container center">
-                    <a href="RelatorioEventoController"> <button class="btn waves-effect waves-light center" > Relatório </button></a>
+                <form action="RelatorioEventoController?acao=prepararRelatorio" method="post">
+                    <button type="submit" class="btn waves-effect waves-light center" name="btnRelatorio" value="Exibir">Relatórios</button>                
+                </form>
             </div>
             
         </main>

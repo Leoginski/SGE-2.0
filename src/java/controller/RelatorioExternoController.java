@@ -6,6 +6,7 @@
 package controller;
 
 import DAO.BD;
+import DAO.ExternoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -87,6 +88,7 @@ public class RelatorioExternoController extends HttpServlet {
         private void prepararRelatorio(HttpServletRequest request, HttpServletResponse response) {
         try{
             request.setAttribute("operacao", "Imprimir");
+            request.setAttribute("externos", ExternoDAO.getAllExternos());
             RequestDispatcher view = request.getRequestDispatcher("/relatorioExterno.jsp");
             view.forward(request, response);
         }catch(ServletException ex){

@@ -107,6 +107,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             request.setAttribute("eventos", EventoDAO.getInstance().getAllEventos());
+            request.setAttribute("administradores", AdministradorDAO.getAllAdministradores());
             if (!operacao.equals("incluir")) {
                 int codEvento = Integer.parseInt(request.getParameter("idEvento"));
                 evento = EventoDAO.getInstance().getEvento(codEvento);

@@ -96,7 +96,7 @@
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="6a044b68-97c0-4028-851b-e2ea004da3fd"/>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="111" height="20" uuid="7de7acf3-2c6c-4ac3-98f3-31f0318e3890"/>
+				<reportElement x="-20" y="0" width="111" height="20" uuid="7de7acf3-2c6c-4ac3-98f3-31f0318e3890"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>

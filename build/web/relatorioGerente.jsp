@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
     <head>
         <title>Relatorio Gerentes</title>
@@ -11,12 +14,18 @@ and open the template in the editor.
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <!--Css Materialize-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-        <!--Fontes e Ícones Materialize-->
+        <!--Fontes e Ãcones Materialize-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Css SGE-->
         <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
         <!--Informe o Browser sobre a compatibilidade-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('select').material_select();
+            });
+        </script>
         <meta charset="UTF-8">
     </head>
     <body>
@@ -37,7 +46,7 @@ and open the template in the editor.
                         <li><a href="collapsible.html">JavaScript</a></li>
                     </ul>
                     <ul class="tabs tabs-transparent">
-                        <li class="tab"><a href="VoltarInicioController">Início</a></li>
+                        <li class="tab"><a href="VoltarInicioController">InÃ­cio</a></li>
                         <li class="tab"><a href="PesquisaNoticiaController">Noticias</a></li>
                         <li class="tab"><a href="PesquisaPropostaController">Propostas</a></li>
                         <li class="tab"><a href="PesquisaAlunoController">Alunos</a></li>
@@ -56,15 +65,16 @@ and open the template in the editor.
     <main>
         <form action="RelatorioGerenteController?acao=exibirRelatorio" method="post" name="frmRelatorioGerente">
         <div class="input-field row">
-            <select class="selectpicker" id="pNome" name="nomeGerente">
-                <option value="" <c:if test="${gerente.nome == null}">selected</c:if>></option>
+            <select name="nomeGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                <option value="" <c:if test="${gerente.nome == null}"> selected</c:if>></option>
                 <c:forEach items="${gerentes}" var="gerente">
                     <option value="${gerente.nome}">
-                        ${gerente.nome}
+                    ${gerente.nome}
                     </option>  
                 </c:forEach>
-            </select>
-            <label>Gerente</label>
+                        </select>
+                        <label>Gerente</label>
+                    </div>   
         <div class="container center">
             <div class="container center">
                <input class="btn waves-effect waves-light center" type="submit" name="btnConfirmar" value="Confirmar">
@@ -74,7 +84,7 @@ and open the template in the editor.
     </main>
     <footer class="page-footer light-green lighten-1">
         <div class="footer-copyright grey-text text-lighten-4">
-            © 2016 Copyright - Modelagem e Programação: Leonardo Smoginski Fernandes | Luiz Filipy Damaceno | Matheus Souza Leao
+            Â© 2016 Copyright - Modelagem e ProgramaÃ§Ã£o: Leonardo Smoginski Fernandes | Luiz Filipy Damaceno | Matheus Souza Leao
         </div>
     </footer>
     <!-- Compiled and minified JavaScript -->

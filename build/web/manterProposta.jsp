@@ -263,6 +263,8 @@
                             </c:forEach>
                         </select>
                         <label>Local</label>
+                        
+                        
                     </div>
 
                     <div class="input-field row">

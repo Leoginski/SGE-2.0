@@ -64,7 +64,7 @@ public class RelatorioAlunoController extends HttpServlet {
             String relatorio = null;
 
             if (pNome != null && !pNome.equals("")) {
-                parametros.put("P_Matricula", pNome);
+                parametros.put("P_Nome", pNome);
                 relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + "Parametro.jasper";
                 response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + "Parametro.pdf");
 
