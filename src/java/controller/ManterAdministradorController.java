@@ -108,8 +108,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         if(operacao.equals("incluir")){
             administrador = new Administrador(codAdministrador, nome, email, senha, dataNascimento);
             AdministradorDAO.getInstance().salvar(administrador);
-        } else if(operacao.equals("editar")){
-            administrador.setCodAdministrador(codAdministrador);
+        }else if(operacao.equals("editar")){
             administrador.setNome(nome);
             administrador.setEmail(email);
             administrador.setSenha(senha);

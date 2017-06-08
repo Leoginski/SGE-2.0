@@ -172,6 +172,15 @@ public class Proposta implements Serializable {
     private Integer sexta;
     @Column(name = "sabado")
     private Integer sabado;
+    @JoinColumn(name = "gerente_codGerente", referencedColumnName = "codGerente")
+    @ManyToOne(optional = false)
+    private Gerente gerentecodGerente;
+    @JoinColumn(name = "local_id", referencedColumnName = "idLocal")
+    @ManyToOne(optional = false)
+    private Local localId;
+    @JoinColumn(name = "evento_id", referencedColumnName = "idEvento")
+    @ManyToOne(optional = false)
+    private Evento eventoId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 11)
@@ -182,15 +191,6 @@ public class Proposta implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "dataFim")
     private String dataFim;
-    @JoinColumn(name = "evento_id", referencedColumnName = "idEvento")
-    @ManyToOne(optional = false)
-    private Evento eventoId;
-    @JoinColumn(name = "gerente_codGerente", referencedColumnName = "codGerente")
-    @ManyToOne(optional = false)
-    private Gerente gerentecodGerente;
-    @JoinColumn(name = "local_id", referencedColumnName = "idLocal")
-    @ManyToOne(optional = false)
-    private Local localId;
 
     public Proposta() {
     }
@@ -207,7 +207,7 @@ public class Proposta implements Serializable {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
-    
+
     public Proposta(Integer idProposta, String proponente, String emailProponente, String tipoAtividade, String tituloAtividade, String finalidadeAtividade, String cargaHoraria, Integer vagasAtividade, String nomeConvidado, String emailConvidado, String formacaoConvidado, String origem, String informacoesComplementares, int diaria, String estado, String publicoAlvo, Integer publicoTodos, Integer publicoInformatica, Integer publicoEdificacoes, Integer publicoEletromecanica, Integer publicoEletrotecnica, Integer publicoMecanica, Integer publicoMetalurgia, Integer publicoEventos, Integer publicoSecretariado, Integer publicodesignMoveis, Integer publicoEletronica, Integer publicotransacoesImobiliarias, Integer publicotransporteFerroviario, Integer publicosistemasInformacao, Integer publicoengMecatronica, Integer publicoengMetalurgica, Integer publicoFisica, Integer segunda, Integer terca, Integer quarta, Integer quinta, Integer sexta, Integer sabado, Gerente gerentecodGerente, Local localId, Evento eventoId, String dataInicio, String dataFim) {
         this.idProposta = idProposta;
         this.proponente = proponente;
@@ -254,6 +254,8 @@ public class Proposta implements Serializable {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
+    
+    
 
     public Integer getIdProposta() {
         return idProposta;

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportEventoParametro" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95603fd0-98e5-483f-bd5f-f4e717a1fe8f">
-	<queryString language="SQL">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportEventoParametro" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95603fd0-98e5-483f-bd5f-f4e717a1fe8f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_Tema" class="java.lang.String"/>
+	<queryString>
 		<![CDATA[SELECT
      evento.`idEvento` AS evento_idEvento,
      evento.`nomeEvento` AS evento_nomeEvento,
@@ -12,7 +16,10 @@
      evento.`dataFimInscricao` AS evento_dataFimInscricao,
      evento.`Administrador_codAdministrador` AS evento_Administrador_codAdministrador
 FROM
-     `evento` evento]]>
+     `evento` evento
+
+WHERE
+$P{P_Tema} = evento.`tema`]]>
 	</queryString>
 	<field name="evento_idEvento" class="java.lang.Integer"/>
 	<field name="evento_nomeEvento" class="java.lang.String"/>
@@ -20,6 +27,9 @@ FROM
 	<field name="evento_tema" class="java.lang.String"/>
 	<field name="evento_dataInicioEvento" class="java.lang.String"/>
 	<field name="evento_dataFimEvento" class="java.lang.String"/>
+	<field name="evento_dataInicioInscricao" class="java.lang.String"/>
+	<field name="evento_dataFimInscricao" class="java.lang.String"/>
+	<field name="evento_Administrador_codAdministrador" class="java.lang.Integer"/>
 	<background>
 		<band/>
 	</background>
@@ -32,14 +42,14 @@ FROM
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[TITLE]]></text>
+					<text><![CDATA[Eventos]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="e2954c9b-034c-4206-9a8d-55a7a48dad85"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Add a description here]]></text>
+					<text><![CDATA[Eventos do IF]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -57,42 +67,42 @@ FROM
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[evento_idEvento]]></text>
+				<text><![CDATA[IdEvento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="92" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="062c1584-d8e3-47f4-925d-fc8426b08ecd"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[evento_nomeEvento]]></text>
+				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ff9dafa2-9439-4fab-9f4d-706859f1b272"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[evento_duracao]]></text>
+				<text><![CDATA[Daracao]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5ebc1a3a-8bec-48cd-b094-d3e3dc6c0871"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[evento_tema]]></text>
+				<text><![CDATA[Tema]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="55b47f64-6b8b-43e1-a922-f48259569235"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[evento_dataInicioEvento]]></text>
+				<text><![CDATA[DataInicio]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="81a4363a-f550-4701-8fd3-9a3b7bb01233"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[evento_dataFimEvento]]></text>
+				<text><![CDATA[DataFim]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
