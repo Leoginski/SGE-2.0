@@ -7,15 +7,12 @@ package controller;
 
 import DAO.AlunoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Administrador;
 import model.Aluno;
 
 /**
@@ -87,7 +84,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             if (!operacao.equals("incluir")) {
                 int idAluno = Integer.parseInt(request.getParameter("idAluno"));
                 aluno = AlunoDAO.getInstance().getAluno(idAluno);
-                //request.setAttribute("aluno", idAluno);
+                request.setAttribute("aluno", aluno);
             }
             RequestDispatcher view = request.getRequestDispatcher("/manterAluno.jsp");
             view.forward(request, response);

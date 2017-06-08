@@ -69,7 +69,7 @@
                         <td><c:out value="${noticia.idNoticia}"/></td>
                         <td><c:out value="${noticia.data}"/></td>
                         <td><c:out value="${noticia.descricao}"/></td>
-                        <td><a href="ManterNoticiaController?acao=prepararOperacao&operacao=editar<c:out value="${noticia.idNoticia}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterNoticiaController?acao=prepararOperacao&operacao=editar&idNoticia=<c:out value="${noticia.idNoticia}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
                         <td><a href="ManterNoticiaController?acao=prepararOperacao&operacao=excluir&idNoticia=<c:out value="${noticia.idNoticia}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir  </button></a></td>
                     </tr>   
                 </c:forEach>

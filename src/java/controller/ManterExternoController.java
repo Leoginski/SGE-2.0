@@ -97,7 +97,7 @@ public class ManterExternoController extends HttpServlet {
             if (!operacao.equals("incluir")) {
                 int idExterno = Integer.parseInt(request.getParameter("idExterno"));
                 externo = ExternoDAO.getInstance().getExterno(idExterno);
-                //request.setAttribute("administrador", codAdministrador);
+                request.setAttribute("externo", externo);
             }
             RequestDispatcher view = request.getRequestDispatcher("/manterExterno.jsp");
             view.forward(request, response);
@@ -122,7 +122,6 @@ public class ManterExternoController extends HttpServlet {
             externo = new Externo(idExterno, conhecimento, nome, email, dataNascimento, senha);
             ExternoDAO.getInstance().salvar(externo);
         } else if(operacao.equals("editar")){
-            externo.setIdExterno(idExterno);
             externo.setConhecimento(conhecimento);
             externo.setNome(nome);
             externo.setEmail(email);
@@ -132,7 +131,7 @@ public class ManterExternoController extends HttpServlet {
         }else if(operacao.equals("excluir")){
             ExternoDAO.getInstance().excluir(externo);
         }
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaAdministradorController");
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaExternoController");
             view.forward(request, response);
         } catch (ServletException e) {
             throw e;
@@ -142,4 +141,4 @@ public class ManterExternoController extends HttpServlet {
     }
     
 }
-//}
+

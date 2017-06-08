@@ -67,7 +67,7 @@
                         <td><c:out value="${gerente.codGerente}"/></td>
                         <td><c:out value="${gerente.nome}"/></td>
                         <td><c:out value="${gerente.email}"/></td>
-                        <td><a href="ManterGerenteController?acao=prepararOperacao&operacao=editar<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterGerenteController?acao=prepararOperacao&operacao=editar&codGerente=<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
                         <td><a href="ManterGerenteController?acao=prepararOperacao&operacao=excluir&codGerente=<c:out value="${gerente.codGerente}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>   
                 </c:forEach>
