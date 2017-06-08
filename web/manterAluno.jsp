@@ -38,29 +38,29 @@
     <main>
         <section>
             <h5 class="flow-text center">Manter Aluno - ${operacao}</h5>
-            <form action="ManterAlunoController?acao=confirmar${operacao}" method="post" name="frmManterAluno" onsubmit="return validarFormulario(this)">
+            <form action="ManterAlunoController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterAluno" onsubmit="return validarFormulario(this)">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtIdAluno" value="${aluno.idAluno}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                        <input type="text" name="txtIdAluno" value="${aluno.idAluno}" <c:if test="${operacao != 'incluir'}"> readonly</c:if>>
                             <label class="active" for="txtIdAluno">Matrícula do Aluno</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="text" name="txtNomeAluno" value="${aluno.nome}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtNomeAluno" value="${aluno.nome}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtNomeAluno">Nome</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" name="txtEmailAluno" value="${aluno.email}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtEmailAluno" value="${aluno.email}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtEmailAluno">E-mail</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="text" name="txtSenhaAluno" value="${aluno.senha}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtSenhaAluno" value="${aluno.senha}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtSenhaAluno">Senha</label>
                         </div>
                     </div>
                     <div class="input-field center">
-                        <input type="text" name="txtDataNascimentoAluno" value="${aluno.dataNascimento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>  
+                        <input type="text" name="txtDataNascimentoAluno" value="${aluno.dataNascimento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>  
                         <label class="active" for="txtDataNascimentoAluno">Data Nascimento</label>
                     </div>
                 <div class="container center">

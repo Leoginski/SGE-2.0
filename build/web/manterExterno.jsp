@@ -38,34 +38,34 @@
     <main>
         <section>
             <h5 class="flow-text center">Manter Externo - ${operacao}</h5>
-            <form action="ManterExternoController?acao=confirmar${operacao}" method="post" name="frmManterExterno" onsubmit="return validarFormulario(this)">
+            <form action="ManterExternoController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterExterno" onsubmit="return validarFormulario(this)">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtIdExterno" value="${externo.idExterno}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                        <input type="text" name="txtIdExterno" value="${externo.idExterno}" <c:if test="${operacao != 'incluir'}"> readonly</c:if>>
                             <label class="active" for="txtIdExterno">Id Externo</label>
                         </div>
                         <div class="input-field col s6"> 
-                            <input type="text" name="txtNomeExterno" value="${externo.nome}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtNomeExterno" value="${externo.nome}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtNomeExterno">Nome</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" name="txtEmailExterno" value="${externo.email}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtEmailExterno" value="${externo.email}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtEmailExterno">E-mail</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="text" name="txtDataNascimentoExterno" value="${externo.dataNascimento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtDataNascimentoExterno" value="${externo.dataNascimento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtDataNascimentoExterno">Data de Nascimento</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" name="txtSenhaExterno" value="${externo.senha}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtSenhaExterno" value="${externo.senha}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                             <label class="active" for="txtSenhaExterno">Senha:</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="text" name="txtConhecimentoExterno" value="${externo.conhecimento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                            <input type="text" name="txtConhecimentoExterno" value="${externo.conhecimento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtConhecimentoExterno">Como tomou conhecimento?</label>
                     </div>
                 </div> 

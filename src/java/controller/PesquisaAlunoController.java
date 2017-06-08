@@ -33,7 +33,6 @@ public class PesquisaAlunoController extends HttpServlet {
             request.setAttribute("alunos", AlunoDAO.getInstance().getAllAlunos());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaAluno.jsp");
             view.forward(request, response);
-        
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

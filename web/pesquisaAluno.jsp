@@ -72,7 +72,7 @@
                         <td><c:out value="${aluno.email}"/></td>
                         <td><c:out value="${aluno.senha}"/></td>
                         <td><c:out value="${aluno.dataNascimento}"/></td>
-                        <td><a href="ManterAlunoController?acao=prepararOperacao&operacao=editar<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button></a></td>
+                        <td><a href="ManterAlunoController?acao=prepararOperacao&operacao=editar&idAluno=<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button></a></td>
                         <td><a href="ManterAlunoController?acao=prepararOperacao&operacao=excluir&idAluno=<c:out value="${aluno.idAluno}" />"><button class="btn waves-effect waves-light red accent-4"> Excluir </button></a></td>
                     </tr>      
                 </c:forEach>

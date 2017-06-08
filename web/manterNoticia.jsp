@@ -45,23 +45,23 @@
     <main>
         <section>
             <h5 class="flow-text center">Manter Notícia - ${operacao}</h5>
-            <form action="ManterNoticiaController?acao=confirmar${operacao}" method="post" name="frmManterNoticia" onsubmit="return validarFormulario(this)">
+            <form action="ManterNoticiaController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterNoticia" onsubmit="return validarFormulario(this)">
                 <div class="row">
                     <div class="input-field col s4">
-                        <input type="text" name="txtIdNoticia" value="${noticia.idNoticia}" <c:if test="${operacao != 'Incluir'}">readonly</c:if> >
+                        <input type="text" name="txtIdNoticia" value="${noticia.idNoticia}" <c:if test="${operacao != 'incluir'}">readonly</c:if> >
                             <label class="active" for="txtIdNoticia">Id Notícia</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" name="txtDescricaoNoticia" value="${noticia.descricao}" <c:if test="${operacao == 'Excluir'}">readonly</c:if>>
+                            <input type="text" name="txtDescricaoNoticia" value="${noticia.descricao}" <c:if test="${operacao == 'excluir'}">readonly</c:if>>
                             <label class="active" for="txtDescricaoNoticia">Descrição</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" name="txtDataNoticia" value="${noticia.data}" <c:if test="${operacao == 'Excluir'}">readonly</c:if>>
+                            <input type="text" name="txtDataNoticia" value="${noticia.data}" <c:if test="${operacao == 'excluir'}">readonly</c:if>>
                             <label class="active" for="txtDataNoticia">Data Notícia</label>
                         </div>
                     </div>
                     <div class="input-field center">
-                        <select name="optEvento" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <select name="optEvento" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <option value="0" <c:if test="${evento.idEvento == null}"> selected</c:if>> </option>  
                         <c:forEach items="${eventos}" var="evento">
                             <option value="${evento.idEvento}" <c:if test="${noticia.evento.idEvento == evento.idEvento}"> selected</c:if>>${evento.nomeEvento}</option>

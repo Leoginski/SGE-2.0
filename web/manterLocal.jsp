@@ -43,20 +43,20 @@
         </header>
         <main>
             <h5 class="flow-text center">Manter Local - ${operacao}</h5>
-            <form action="ManterLocalController?acao=confirmar${operacao}" method="post" name="frmManterLocal" onsubmit="return validarFormulario(this)">
+            <form action="ManterLocalController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterLocal" onsubmit="return validarFormulario(this)">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtIdLocal" value="${local.idLocal}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                        <input type="text" name="txtIdLocal" value="${local.idLocal}" <c:if test="${operacao != 'incluir'}"> readonly</c:if>>
                         <label class="active" for="txtIdLocal">Id do Local</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="txtDescricaoLocal" value="${local.descricao}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtDescricaoLocal" value="${local.descricao}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtDescricaoLocal">Descriçao</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s2">
-                        <input type="text" name="txtCapacidadeLocal" value="${local.capacidade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtCapacidadeLocal" value="${local.capacidade}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtCapacidadeLocal">Capacidade</label>               
                 </div>
                 </div>

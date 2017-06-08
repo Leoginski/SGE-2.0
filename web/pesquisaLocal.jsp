@@ -68,7 +68,7 @@
                         <td><c:out value="${local.idLocal}"/></td>
                         <td><c:out value="${local.descricao}"/></td>
                         <td><c:out value="${local.capacidade}"/></td>
-                        <td><a href="ManterLocalController?acao=prepararOperacao&operacao=editar<c:out value="${local.idLocal}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterLocalController?acao=prepararOperacao&operacao=editar&idLocal=<c:out value="${local.idLocal}" />"> <button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
                         <td><a href="ManterLocalController?acao=prepararOperacao&operacao=excluir&idLocal=<c:out value="${local.idLocal}" />"> <button class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>      
                 </c:forEach>

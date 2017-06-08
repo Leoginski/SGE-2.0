@@ -104,7 +104,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             if (!operacao.equals("incluir")) {
                 int codGerente = Integer.parseInt(request.getParameter("codGerente"));
                 gerente = GerenteDAO.getInstance().getGerente(codGerente);
-                //request.setAttribute("gerente", codGerente);
+                request.setAttribute("gerente", gerente);
             }
             RequestDispatcher view = request.getRequestDispatcher("/manterGerente.jsp");
             view.forward(request, response);
