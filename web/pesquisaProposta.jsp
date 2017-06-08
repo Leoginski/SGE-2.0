@@ -79,7 +79,7 @@
                         <td><c:out value="${proposta.estado}"/></td>
                         <td><c:out value="${proposta.dataInicio}"/></td>
                         <td><c:out value="${proposta.dataFim}"/></td>
-                        <td><a href="ManterPropostaController?acao=prepararOperacao&operacao=editar<c:out value="${proposta.idProposta}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
+                        <td><a href="ManterPropostaController?acao=prepararOperacao&operacao=editar&idProposta=<c:out value="${proposta.idProposta}" />"><button class="btn waves-effect waves-light yellow accent-4"> Editar </button> </a></td>
                         <td><a href="ManterPropostaController?acao=prepararOperacao&operacao=excluir&idProposta=<c:out value="${proposta.idProposta}" />"><button  class="btn waves-effect waves-light red accent-4"> Excluir </button> </a></td>
                     </tr>      
                 </c:forEach>

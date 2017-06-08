@@ -44,177 +44,177 @@
         <main>
             <section>
                 <h5 class="flow-text center">Manter Proposta - ${operacao}</h5>
-                <form class="col s12" action="ManterPropostaController?acao=confirmar${operacao}" method="post" name="frmManterProposta" onsubmit="return validarFormulario(this)">
+                <form class="col s12" action="ManterPropostaController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterProposta" onsubmit="return validarFormulario(this)">
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="text" name="txtIdProposta" value="${proposta.idProposta}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                            <input type="text" name="txtIdProposta" value="${proposta.idProposta}" <c:if test="${operacao != 'incluir'}"> readonly</c:if>>
                                 <label class="active" for="txtIdProposta">Id da Proposta</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtNomeProponente" value="${proposta.proponente}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtNomeProponente" value="${proposta.proponente}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtNomeProponente">Nome Proponente</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtEmailProponente" value="${proposta.emailProponente}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtEmailProponente" value="${proposta.emailProponente}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtEmailProponente">E-mail do Proponente</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtTipoAtividade" value="${proposta.tipoAtividade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtTipoAtividade" value="${proposta.tipoAtividade}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtTipoAtividade">Tipo da Atividade</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtTituloAtividade" value="${proposta.tituloAtividade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtTituloAtividade" value="${proposta.tituloAtividade}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtEmailProponente">Título da Atividade</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtFinalidadeAtividade" value="${proposta.finalidadeAtividade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtFinalidadeAtividade" value="${proposta.finalidadeAtividade}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtFinalidadeAtividade">Finalidade da Atividade</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtCargaHoraria" value="${proposta.cargaHoraria}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtCargaHoraria" value="${proposta.cargaHoraria}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtCargaHoraria">Carga Horaria</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtVagasAtividade" value="${proposta.vagasAtividade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtVagasAtividade" value="${proposta.vagasAtividade}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtVagasAtividade">Vagas p/ Atividade</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtNomeConvidado" value="${proposta.nomeConvidado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtNomeConvidado" value="${proposta.nomeConvidado}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtNomeConvidado">Nome Convidado</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtEmailConvidado" value="${proposta.emailConvidado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtEmailConvidado" value="${proposta.emailConvidado}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtEmailConvidado">E-mail do Convidado</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtFormacaoConvidado" value="${proposta.formacaoConvidado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtFormacaoConvidado" value="${proposta.formacaoConvidado}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtFormacaoConvidado">Formação do Convidado</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtOrigem" value="${proposta.origem}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtOrigem" value="${proposta.origem}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtOrigem">Origem do Convidado</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtInformacoesComplementares" value="${proposta.informacoesComplementares}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtInformacoesComplementares" value="${proposta.informacoesComplementares}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtInformacoesComplementares">Informacoes Complemetares</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtOrigem" value="${proposta.origem}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtOrigem" value="${proposta.origem}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtOrigem">Origem do Convidado</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtDiaria" value="${proposta.diaria}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtDiaria" value="${proposta.diaria}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtDiaria">Diaria?</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtEstado" value="${proposta.estado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtEstado" value="${proposta.estado}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtEstado">Estado</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="txtDataInicioProposta" value="${proposta.dataInicio}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtDataInicioProposta" value="${proposta.dataInicio}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtDataInicioProposta">Data Inicio</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="txtDataFimProposta" value="${proposta.dataFim}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                <input type="text" name="txtDataFimProposta" value="${proposta.dataFim}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                                 <label class="active" for="txtDataFimProposta">Data Fim</label>
                             </div>
                         </div>
                         <p class="center flow-text">Publico Alvo</p>
                         <p class="center">
-                            <input id="livre" type="radio" name="radioPublicoAlvo" value="livre" <c:if test="${proposta.publico_alvo == 'livre'}"> checked</c:if>>
+                            <input id="livre" type="radio" name="radioPublicoAlvo" value="livre" <c:if test="${proposta.publicoAlvo == 'livre'}"> checked</c:if>>
                             <label for="livre">Livre</label>
-                            <input id="preferencial" type="radio" name="radioPublicoAlvo" value="preferencial" <c:if test="${proposta.publico_alvo == 'preferencial'}"> checked</c:if> >
+                            <input id="preferencial" type="radio" name="radioPublicoAlvo" value="preferencial" <c:if test="${proposta.publicoAlvo == 'preferencial'}"> checked</c:if> >
                             <label for="preferencial">Preferencial</label>
-                            <input id="especifica" type="radio" name="radioPublicoAlvo" value="especifica" <c:if test="${proposta.publico_alvo == 'especifica'}"> checked</c:if> >
+                            <input id="especifica" type="radio" name="radioPublicoAlvo" value="especifica" <c:if test="${proposta.publicoAlvo == 'especifica'}"> checked</c:if> >
                             <label for="especifica">Específica</label>
                         </p>
                         <div class="row">
                             <div class="col s2">
-                                <input type="checkbox" id="1" name="checkPublicoTodos" value="${proposta.publico_todos}" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="1" name="checkPublicoTodos" value="${proposta.publicoTodos}" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="1">Todos</label>
                             </div>
                             <div class="col s2">                                
-                                <input type="checkbox" id="2" name="checkInformatica" value="${proposta.publico_informatica}" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="2" name="checkInformatica" value="${proposta.publicoInformatica}" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="2">Informática</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="3" name="checkEdificacoes" value="${proposta.publico_edificacoes}" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="3" name="checkEdificacoes" value="${proposta.publicoEdificacoes}" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="3">Edificações</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="4" name="checkEletromecanica" value="${proposta.publico_eletromecanica}" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="4" name="checkEletromecanica" value="${proposta.publicoEletromecanica}" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="4">Eletromecânica</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="5" name="checkEletrotecnica" value="${proposta.publico_eletrotecnica}" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="5" name="checkEletrotecnica" value="${proposta.publicoEletrotecnica}" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="5">Eletrotécnica</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="6" name="checkMecanica" value="${proposta.publico_mecanica}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="6" name="checkMecanica" value="${proposta.publicoMecanica}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="6">Mecânica</label> 
                             </div>
                         </div>
                         <div class="row">        
                             <div class="col s2">
-                                <input type="checkbox" id="7" name="checkMetalurgia" value="${proposta.publico_metalurgia}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="7" name="checkMetalurgia" value="${proposta.publicoMetalurgia}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="7">Metalurgia</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="8" name="checkEventos" value="${proposta.publico_eventos}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="8" name="checkEventos" value="${proposta.publicoEventos}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="8">Eventos</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="9" name="checkSecretariado" value="${proposta.publico_secretariado}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="9" name="checkSecretariado" value="${proposta.publicoSecretariado}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="9">Secretariado</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="10" name="checkDesignMoveis" value="${proposta.publico_designMoveis}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="10" name="checkDesignMoveis" value="${proposta.publicodesignMoveis}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="10">Design Móveis</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="11"  name="checkEletronica" value="${proposta.publico_eletronica}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="11"  name="checkEletronica" value="${proposta.publicoEletronica}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="11">Eletrônica</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="12"  name="checkTransacoesImobiliarias" value="${proposta.publico_transacoesImobiliarias}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="12"  name="checkTransacoesImobiliarias" value="${proposta.publicotransacoesImobiliarias}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="12">Transações Imobiliárias</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s2">
-                                <input type="checkbox"  id="13" name="checkTransporteFerroviario" value="${proposta.publico_transporteFerroviario}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox"  id="13" name="checkTransporteFerroviario" value="${proposta.publicotransporteFerroviario}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="13">Transporte Ferroviario</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox"  id="14" name="checkSistemasInformacao" value="${proposta.publico_sistemasInformacao}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox"  id="14" name="checkSistemasInformacao" value="${proposta.publicosistemasInformacao}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="14">Sistemas de Informação</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox"  id="15" name="checkEngMecatronica" value="${proposta.publico_engMecatronica}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox"  id="15" name="checkEngMecatronica" value="${proposta.publicoengMecatronica}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="15">Engenharia Mecatrônica</label>
                             </div>
                             <div class="col s2">                            
-                                <input type="checkbox"  id="16" name="checkEngMetalurgica" value="${proposta.publico_engMetalurgica}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox"  id="16" name="checkEngMetalurgica" value="${proposta.publicoengMetalurgica}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="16">Engenharia Metalúrgica</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox"  id="17" name="checkFisica" value="${proposta.publico_fisica}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox"  id="17" name="checkFisica" value="${proposta.publicoFisica}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="17">Física</label>
                             </div>
                         </div>
@@ -222,44 +222,44 @@
                         <p class="center flow-text">Dias da Semana</p>
                         <div class="row">
                             <div class="col s2">
-                                <input type="checkbox" id="18" name="checkSegunda" value="${proposta.segunda}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="18" name="checkSegunda" value="${proposta.segunda}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="18">Segunda</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="19" name="checkTerca" value="${proposta.terca}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="19" name="checkTerca" value="${proposta.terca}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="19">Terça</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="20" name="checkQuarta" value="${proposta.quarta}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="20" name="checkQuarta" value="${proposta.quarta}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="20">Quarta</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="21" name="checkQuinta" value="${proposta.quinta}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="21" name="checkQuinta" value="${proposta.quinta}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="21">Quinta</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="22" name="checkSexta" value="${proposta.sexta}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="22" name="checkSexta" value="${proposta.sexta}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="22">Sexta</label>
                             </div>
                             <div class="col s2">
-                                <input type="checkbox" id="23" name="checkSabado" value="${proposta.sabado}"<c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                                <input type="checkbox" id="23" name="checkSabado" value="${proposta.sabado}"<c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                                 <label for="23">Sábado</label>
                             </div>
                         </div>
                         <div class="input-field row">
-                            <select name="optGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                            <select name="optGerente" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                             <option value="0" <c:if test="${gerente.codGerente == null}"> selected</c:if>></option>
                             <c:forEach items="${gerentes}" var="gerente">
-                                <option value="${gerente.codGerente}" <c:if test="${proposta.gerente.codGerente == gerente.codGerente}"> selected</c:if>>${gerente.nome}</option>
+                                <option value="${gerente.codGerente}" <c:if test="${proposta.gerentecodGerente.codGerente == gerente.codGerente}"> selected</c:if>>${gerente.nome}</option>
                             </c:forEach>
                         </select>
                         <label>Gerente</label>
                     </div>                             
                     <div class="input-field row">
-                        <select name="optLocal" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                        <select name="optLocal" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                             <option value="0" <c:if test="${local.idLocal == null}"> selected</c:if>></option>
                             <c:forEach items="${locais}" var="local">
-                                <option value="${local.idLocal}" <c:if test="${proposta.local.idLocal == local.idLocal}"> selected</c:if>>${local.descricao}</option>
+                                <option value="${local.idLocal}" <c:if test="${proposta.localId.idLocal == local.idLocal}"> selected</c:if>>${local.descricao}</option>
                             </c:forEach>
                         </select>
                         <label>Local</label>
@@ -268,10 +268,10 @@
                     </div>
 
                     <div class="input-field row">
-                        <select name="optEvento" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
+                        <select name="optEvento" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
                             <option value="0" <c:if test="${evento.idEvento == null}"> selected</c:if>></option>
                             <c:forEach items="${eventos}" var="evento">
-                                <option value="${evento.idEvento}" <c:if test="${proposta.evento.idEvento == evento.idEvento}"> selected</c:if>>${evento.nomeEvento}</option>
+                                <option value="${evento.idEvento}" <c:if test="${proposta.eventoId.idEvento == evento.idEvento}"> selected</c:if>>${evento.nomeEvento}</option>
                             </c:forEach>
                         </select>
                         <label>Evento</label>
