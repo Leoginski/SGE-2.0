@@ -64,7 +64,7 @@
                         <select name="optEvento" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <option value="0" <c:if test="${evento.idEvento == null}"> selected</c:if>> </option>  
                         <c:forEach items="${eventos}" var="evento">
-                            <option value="${evento.idEvento}" <c:if test="${noticia.evento.idEvento == evento.idEvento}"> selected</c:if>>${evento.nomeEvento}</option>
+                            <option value="${evento.idEvento}" <c:if test="${noticia.eventoidEvento.idEvento == evento.idEvento}"> selected</c:if>>${evento.nomeEvento}</option>
                         </c:forEach>
                     </select>
                     <label>Evento</label>

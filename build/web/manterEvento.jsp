@@ -43,52 +43,52 @@
         </header>
     <main>
         <h5 class="flow-text center">Manter Evento - ${operacao}</h5>
-        <form action="ManterEventoController?acao=confirmar${operacao}" method="post" name="frmManterEvento" onsubmit="return validarFormulario(this)">
+        <form action="ManterEventoController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEvento" onsubmit="return validarFormulario(this)">
             <div class="row">
                 <div class="input-field col s6">
-                    <input type="text" name="txtIdEvento" value="${evento.idEvento}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                    <input type="text" name="txtIdEvento" value="${evento.idEvento}" <c:if test="${operacao != 'incluir'}"> readonly</c:if>>
                         <label class="active" for="txtIdEvento">Id Evento</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="txtNomeEvento" value="${evento.nomeEvento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtNomeEvento" value="${evento.nomeEvento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtNomeEvento">Nome do Evento</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtDuracaoEvento" value="${evento.duracao}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtDuracaoEvento" value="${evento.duracao}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtDuracaoEvento">Duração do Evento</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="txtTemaEvento" value="${evento.tema}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtTemaEvento" value="${evento.tema}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtTemaEvento">Tema</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtDataInicioEvento" value="${evento.dataInicioEvento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtDataInicioEvento" value="${evento.dataInicioEvento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtDataInicioEvento">Data Inicio</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="txtDataFimEvento" value="${evento.dataFimEvento}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtDataFimEvento" value="${evento.dataFimEvento}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtDataFimEvento">Data Fim</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" name="txtDataInicioInscricao" value="${evento.dataInicioInscricao}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtDataInicioInscricao" value="${evento.dataInicioInscricao}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtDataInicioInscricao">Início Inscrições</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="txtDataFimInscricao" value="${evento.dataFimInscricao}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <input type="text" name="txtDataFimInscricao" value="${evento.dataFimInscricao}" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                         <label class="active" for="txtDataFimInscricao">Fim Inscrições</label>
                     </div>
                 </div>
                 <div class="input-field center">
-                    <select name="optAdministrador" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                    <select name="optAdministrador" <c:if test="${operacao == 'excluir'}"> readonly</c:if>>
                     <option value="0" <c:if test="${administrador.codAdministrador == null}"> selected</c:if>> </option>  
                     <c:forEach items="${administradores}" var="administrador">
-                        <option value="${administrador.codAdministrador}" <c:if test="${evento.administrador.codAdministrador == administrador.codAdministrador}"> selected</c:if>>${administrador.nome}</option>  
+                        <option value="${administrador.codAdministrador}" <c:if test="${evento.administradorcodAdministrador.codAdministrador == administrador.codAdministrador}"> selected</c:if>>${administrador.nome}</option>  
                     </c:forEach>
                 </select>    
                 <label>Administrador</label>

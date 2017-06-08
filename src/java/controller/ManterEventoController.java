@@ -106,7 +106,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
          try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("eventos", EventoDAO.getInstance().getAllEventos());
+            request.setAttribute("eventos", EventoDAO.getAllEventos());
             request.setAttribute("administradores", AdministradorDAO.getAllAdministradores());
             if (!operacao.equals("incluir")) {
                 int codEvento = Integer.parseInt(request.getParameter("idEvento"));
@@ -134,7 +134,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         String dataInicioInscricao = request.getParameter("txtDataInicioInscricao");
         String dataFimInscricao = request.getParameter("txtDataFimInscricao");
         
-         int codAdministrador = Integer.parseInt(request.getParameter("administrador"));
+         int codAdministrador = Integer.parseInt(request.getParameter("optAdministrador"));
             
             Administrador administrador = null;
             if (codAdministrador != 0) {

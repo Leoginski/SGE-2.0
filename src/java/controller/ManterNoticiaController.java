@@ -6,6 +6,7 @@
 package controller;
 
 import DAO.EventoDAO;
+import DAO.GerenteDAO;
 import DAO.NoticiaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -106,7 +107,7 @@ public class ManterNoticiaController extends HttpServlet {
          try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            //request.setAttribute("gerentes", LocalDAO.getInstance().getAllLocais());
+            request.setAttribute("eventos", EventoDAO.getAllEventos());
             if (!operacao.equals("incluir")) {
                 int idNoticia = Integer.parseInt(request.getParameter("idNoticia"));
                 noticia = NoticiaDAO.getInstance().getNoticia(idNoticia);
