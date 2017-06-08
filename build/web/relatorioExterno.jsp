@@ -9,7 +9,7 @@ and open the template in the editor.
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
     <head>
-        <title>Relatorio Alunos</title>
+        <title>Relatorio Externos</title>
         <!--jQuery-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <!--Css Materialize-->

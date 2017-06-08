@@ -80,7 +80,9 @@
             </div>
             
             <div class="container center">
-                    <a href="RelatorioLocalController"> <button class="btn waves-effect waves-light center" > Relatório</button></a>
+                <form action="RelatorioLocalController?acao=prepararRelatorio" method="post">
+                    <button type="submit" class="btn waves-effect waves-light center" name="btnRelatorio" value="Exibir">Relatórios</button>                
+                </form>
             </div>
             
         </main>

@@ -88,7 +88,7 @@ public class RelatorioLocalController extends HttpServlet {
         public void prepararRelatorio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException{
         try{
             request.setAttribute("operacao", "Imprimir");
-            request.setAttribute("gerentes", LocalDAO.getAllLocais());
+            request.setAttribute("locais", LocalDAO.getAllLocais());
             RequestDispatcher view = request.getRequestDispatcher("/relatorioLocal.jsp");
             view.forward(request, response);
         }catch(ServletException ex){

@@ -93,7 +93,7 @@ $P{P_Capacidade} = local.`capacidade`]]>
 				<textFieldExpression><![CDATA[$F{local_descricao}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="370" y="0" width="185" height="20" uuid="afef96ce-5f4f-461d-8eff-42c6b6e4ee19"/>
+				<reportElement x="375" y="0" width="180" height="20" uuid="afef96ce-5f4f-461d-8eff-42c6b6e4ee19"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>

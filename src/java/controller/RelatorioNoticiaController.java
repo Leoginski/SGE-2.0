@@ -63,7 +63,7 @@ public class RelatorioNoticiaController extends HttpServlet {
             String relatorio = null;
 
             if (pData != null && !pData.equals("")) {
-                parametros.put("p_Data", pData);
+                parametros.put("P_Data", pData);
                 relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + "Parametro.jasper";
                 response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + "Parametro.pdf");
 
