@@ -247,7 +247,7 @@
                             </div>
                         </div>
                         <div class="input-field row">
-                            <select name="optGerente" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
+                            <select name="optGerente" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
                             <option value="0" <c:if test="${gerente.codGerente == null}"> selected</c:if>></option>
                             <c:forEach items="${gerentes}" var="gerente">
                                 <option value="${gerente.codGerente}" <c:if test="${proposta.gerentecodGerente.codGerente == gerente.codGerente}"> selected</c:if>>${gerente.nome}</option>
@@ -256,7 +256,7 @@
                         <label>Gerente</label>
                     </div>                             
                     <div class="input-field row">
-                        <select name="optLocal" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
+                        <select name="optLocal" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
                             <option value="0" <c:if test="${local.idLocal == null}"> selected</c:if>></option>
                             <c:forEach items="${locais}" var="local">
                                 <option value="${local.idLocal}" <c:if test="${proposta.localId.idLocal == local.idLocal}"> selected</c:if>>${local.descricao}</option>
@@ -268,7 +268,7 @@
                     </div>
 
                     <div class="input-field row">
-                        <select name="optEvento" <c:if test="${operacao == 'excluir'}"> disabled</c:if>>
+                        <select name="optEvento" <c:if test="${operacao == 'Excluir'}"> disabled</c:if>>
                             <option value="0" <c:if test="${evento.idEvento == null}"> selected</c:if>></option>
                             <c:forEach items="${eventos}" var="evento">
                                 <option value="${evento.idEvento}" <c:if test="${proposta.eventoId.idEvento == evento.idEvento}"> selected</c:if>>${evento.nomeEvento}</option>
