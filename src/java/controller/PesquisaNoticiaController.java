@@ -6,14 +6,15 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Evento;
-import modelo.Noticia;
+import DAO.NoticiaDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,14 +32,10 @@ public class PesquisaNoticiaController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            request.setAttribute("noticias", Noticia.obterNoticias());
-            request.setAttribute("eventos", Evento.obterEventos());
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            request.setAttribute("noticias", NoticiaDAO.getInstance().getAllNoticias());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaNoticia.jsp");
             view.forward(request, response);
-        } catch (ClassNotFoundException ex){
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,7 +50,13 @@ public class PesquisaNoticiaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -67,7 +70,13 @@ public class PesquisaNoticiaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisaNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

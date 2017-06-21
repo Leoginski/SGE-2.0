@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Abr-2017 às 02:38
+-- Generation Time: 08-Jun-2017 às 00:40
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -43,8 +43,7 @@ INSERT INTO `administrador` (`codAdministrador`, `nome`, `dataNascimento`, `emai
 (1, 'Luiz Filipy', '01011997', 'lipe@lipe', '123'),
 (2, 'Leonardo', '12111995', 'leo@leo', '1234'),
 (3, 'Matheus', '01041997', 'matsouzaleao@gmail.com', '012345'),
-(4, 'Stela', '12012009', 'stela@stela', '1234567'),
-(111, 'nome', '10/10/2010', 'email', '12345');
+(4, 'Stela', '12012009', 'stela@stela', '1234567');
 
 -- --------------------------------------------------------
 

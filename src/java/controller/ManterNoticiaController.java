@@ -5,17 +5,22 @@
  */
 package controller;
 
+import DAO.EventoDAO;
+import DAO.GerenteDAO;
+import DAO.NoticiaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Evento;
-import modelo.Noticia;
+import model.Evento;
+import model.Noticia;
 
 /**
  *
@@ -24,6 +29,8 @@ import modelo.Noticia;
 @WebServlet(name = "ManterNoticiaController", urlPatterns = {"/ManterNoticiaController"})
 public class ManterNoticiaController extends HttpServlet {
 
+    private Noticia noticia;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,36 +40,15 @@ public class ManterNoticiaController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException{
         String acao = request.getParameter("acao");
-        if(acao.equals("prepararIncluir")){
-            prepararIncluir(request, response);
-        }else{
-            if(acao.equals("confirmarIncluir")){
-                confirmarIncluir(request, response);
-            }else{
-                if(acao.equals("prepararEditar")){
-                    prepararEditar(request, response);
-                }else{
-                    if(acao.equals("confirmarEditar")){
-                        confirmarEditar(request, response);
-                    }else{
-                        if (acao.equals("prepararExcluir")){
-                            prepararExcluir(request, response);
-                        }else{
-                            if(acao.equals("confirmarExcluir")){
-                                confirmarExcluir(request, response);
-                            }
-                        }
-                    }
-                }
-            }
+        if (acao.equals("prepararOperacao")) {
+            prepararOperacao(request, response);
         }
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
+        if (acao.equals("confirmarOperacao")) {
+            confirmarOperacao(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,7 +63,13 @@ public class ManterNoticiaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManterNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -91,7 +83,13 @@ public class ManterNoticiaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManterNoticiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -104,110 +102,59 @@ public class ManterNoticiaController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void prepararIncluir(HttpServletRequest request, HttpServletResponse response) {
-        try{
-            request.setAttribute("operacao", "Incluir");
-            request.setAttribute(("eventos"), Evento.obterEventos());
-            RequestDispatcher view = request.getRequestDispatcher("/manterNoticia.jsp");
-            view.forward(request, response);
-        }catch(ServletException ex){
-        }catch(IOException ex){
-        }catch(ClassNotFoundException ex){
-        }
-    }
-
-
-    private void confirmarIncluir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        int idNoticia = Integer.parseInt(request.getParameter("txtIdNoticia"));
-        String data = request.getParameter("txtDataNoticia");
-        String descricao = request.getParameter("txtDescricaoNoticia");
-        int idEvento = Integer.parseInt(request.getParameter("optEvento"));
-        try{
-            Evento evento = null;
-            if(idEvento != 0){
-                evento = Evento.obterEvento(idEvento);
-            }
-            Noticia noticia = new Noticia(idNoticia, data, descricao, idEvento);
-            noticia.gravar();
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaNoticiaController");
-            view.forward(request, response);
-        }catch(IOException ex){
-        }catch(SQLException ex){
-        }catch(ClassNotFoundException ex){
-        }catch(ServletException ex){
-    }
-    }
     
-    private void prepararEditar(HttpServletRequest request, HttpServletResponse response) {
-        try{
-            request.setAttribute("operacao", "Editar");
-            request.setAttribute(("eventos"), Evento.obterEventos());
-            int idNoticia = Integer.parseInt(request.getParameter("idNoticia"));
-            Noticia noticia = Noticia.obterNoticia(idNoticia);
-            request.setAttribute("noticia", noticia);
+    private void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException{
+         try {
+            String operacao = request.getParameter("operacao");
+            request.setAttribute("operacao", operacao);
+            request.setAttribute("eventos", EventoDAO.getAllEventos());
+            if (!operacao.equals("incluir")) {
+                int idNoticia = Integer.parseInt(request.getParameter("idNoticia"));
+                noticia = NoticiaDAO.getInstance().getNoticia(idNoticia);
+                request.setAttribute("noticia", noticia);
+            }
             RequestDispatcher view = request.getRequestDispatcher("/manterNoticia.jsp");
             view.forward(request, response);
-        }catch(ServletException ex){
-        }catch(IOException ex){
-        }catch(ClassNotFoundException ex){
+        } catch (ServletException e) {
+            throw e;
+        } catch (IOException e) {
+            throw new ServletException(e);
         }
-    }
+        }
 
-        private void confirmarEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    private void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException, SQLException, ClassNotFoundException{
+        try{
+        String operacao = request.getParameter("operacao");
         int idNoticia = Integer.parseInt(request.getParameter("txtIdNoticia"));
         String data = request.getParameter("txtDataNoticia");
         String descricao = request.getParameter("txtDescricaoNoticia");
         int idEvento = Integer.parseInt(request.getParameter("optEvento"));
-        try{
+         
+            
             Evento evento = null;
-            if(idEvento != 0){
-                evento = Evento.obterEvento(idEvento);
+            if (idEvento != 0) {
+                evento = EventoDAO.getInstance().getEvento(idEvento);
             }
-            Noticia noticia = new Noticia(idNoticia, data, descricao, idEvento);
-            noticia.alterar();
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaNoticiaController");
-            view.forward(request, response);
-        }catch(IOException ex){
-        }catch(SQLException ex){
-        }catch(ClassNotFoundException ex){
-        }catch(ServletException ex){
-    }
-    }
-
-        private void prepararExcluir(HttpServletRequest request, HttpServletResponse response) {
-        try{
-            request.setAttribute("operacao", "Excluir");
-            request.setAttribute(("eventos"), Evento.obterEventos());
-            int idNoticia = Integer.parseInt(request.getParameter("idNoticia"));
-            Noticia noticia = Noticia.obterNoticia(idNoticia);
-            request.setAttribute("noticia", noticia);
-            RequestDispatcher view = request.getRequestDispatcher("/manterNoticia.jsp");
-            view.forward(request, response);
-        }catch(ServletException ex){
-        }catch(IOException ex){
-        }catch(ClassNotFoundException ex){
+        
+        if(operacao.equals("incluir")){
+            noticia = new Noticia(idNoticia, data, descricao, evento);
+            NoticiaDAO.getInstance().salvar(noticia);
+        } else if(operacao.equals("editar")){
+            noticia.setData(data);
+            noticia.setDescricao(descricao);
+            noticia.setEventoidEvento(evento);
+            NoticiaDAO.getInstance().salvar(noticia);
+        }else if(operacao.equals("excluir")){
+            NoticiaDAO.getInstance().excluir(noticia);
         }
-    }
-
-        private void confirmarExcluir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        int idNoticia = Integer.parseInt(request.getParameter("txtIdNoticia"));
-        String data = request.getParameter("txtDataNoticia");
-        String descricao = request.getParameter("txtDescricaoNoticia");
-        int idEvento = Integer.parseInt(request.getParameter("optEvento"));
-        try{
-            Evento evento = null;
-            if(idEvento != 0){
-                evento = Evento.obterEvento(idEvento);
-            }
-            Noticia noticia = new Noticia(idNoticia, data, descricao, idEvento);
-            noticia.excluir();
             RequestDispatcher view = request.getRequestDispatcher("PesquisaNoticiaController");
             view.forward(request, response);
-        }catch(IOException ex){
-        }catch(SQLException ex){
-        }catch(ClassNotFoundException ex){
-        }catch(ServletException ex){
-    }
+        } catch (ServletException e) {
+            throw e;
+        } catch (IOException e) {
+            throw new ServletException(e);
+        }
     }
     
 }

@@ -6,18 +6,21 @@
 package controller;
 
 import DAO.BD;
+import DAO.GerenteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Gerente;
+import model.Gerente;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -30,70 +33,59 @@ import net.sf.jasperreports.engine.JasperPrint;
 @WebServlet(name = "RelatorioGerenteController", urlPatterns = {"/RelatorioGerenteController"})
 public class RelatorioGerenteController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String acao = request.getParameter("acao");
-        if (acao.equals("prepararImprimir")) {
-            prepararImprimir(request, response);
-        } else {
-            if (acao.equals("confirmarImprimir")) {
-                confirmarImprimir(request, response);
-            }
+        if (acao.equals("prepararRelatorio")) {
+            prepararRelatorio(request, response);
+        } else if (acao.equals("exibirRelatorio")) {
+            exibirRelatorio(request, response);
         }
-        
     }
 
-    private void prepararImprimir(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararRelatorio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setAttribute("operacao", "Imprimir");
-            request.setAttribute(("gerentes"), Gerente.obterGerentes());
+            request.setAttribute("gerentes", GerenteDAO.getAllGerentes());
             RequestDispatcher view = request.getRequestDispatcher("/relatorioGerente.jsp");
             view.forward(request, response);
-        } catch (ServletException ex) {
-        } catch (IOException ex) {
-        }catch(ClassNotFoundException ex){
+        } catch (ServletException | IOException ex) {
+            throw ex;
         }
     }
 
-    private void confirmarImprimir(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    private void exibirRelatorio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
         Connection conexao = null;
         try {
             conexao = BD.getConexao();
+            String nomeRelatorio = "Gerente";
+            String pNome = request.getParameter("nomeGerente");
             HashMap parametros = new HashMap();
-            parametros.put("PAR dataNascimento", request.getParameter("txtDataNascimento"));
-            String relatorio = getServletContext().getRealPath("\\WEB-INF\\classes\\Reports") + "\\reportGerente.jasper";
+            String relatorio = null;
+
+            if (pNome != null && !pNome.equals("")) {
+                parametros.put("P_Nome", pNome);
+                relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + "Parametro.jasper";
+                response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + "Parametro.pdf");
+
+            } else {
+                relatorio = getServletContext().getRealPath("/WEB-INF/reports") + "/report" + nomeRelatorio + ".jasper";
+                response.setHeader("Content-Disposition", "attachment;filename=Relatorio" + nomeRelatorio + ".pdf");
+            }
+
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=" + "reportGerente" + ".pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+
+        } catch (IOException | ClassNotFoundException | SQLException | JRException ex) {
             ex.printStackTrace();
         } finally {
-            try {
-                if (!conexao.isClosed()) {
-                    conexao.close();
-                }
-            } catch (SQLException ex) {
-            }
+            BD.fecharConexao(conexao);
         }
-    }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }
 
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -105,7 +97,11 @@ public class RelatorioGerenteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGerenteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -117,9 +113,12 @@ public class RelatorioGerenteController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {       
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioGerenteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

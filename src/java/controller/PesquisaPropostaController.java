@@ -5,14 +5,13 @@
  */
 package controller;
 
+import DAO.PropostaDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Proposta;
 
 /**
  *
@@ -31,12 +30,9 @@ public class PesquisaPropostaController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            request.setAttribute("propostas", Proposta.obterPropostas());
+            request.setAttribute("propostas", PropostaDAO.getInstance().getAllPropostas());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaProposta.jsp");
             view.forward(request, response);
-        } catch (ClassNotFoundException ex){
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

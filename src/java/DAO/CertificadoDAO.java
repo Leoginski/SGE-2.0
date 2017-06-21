@@ -11,7 +11,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Certificado;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
+import model.Certificado;
 
 /**
  *
@@ -19,63 +23,93 @@ import modelo.Certificado;
  */
 public class CertificadoDAO {
 
-    public static List<Certificado> obterCertificados() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Certificado> certificados = new ArrayList<Certificado>();
+     private static CertificadoDAO instance = new CertificadoDAO();
+
+    public static CertificadoDAO getInstance() {
+        return instance;
+    }
+
+    private CertificadoDAO() {
+    }
+
+    public static List<Certificado> getAllCertificadoes() {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Certificado> certificados = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            ResultSet rs = comando.executeQuery("select * from Certificado");
-            while (rs.next()) {
-                Certificado certificado = new Certificado(
-                        rs.getInt("codCertificado"),
-                        rs.getString("descricao"),
-                        rs.getInt("codProposta"));
-                certificados.add(certificado);
+            tx.begin();
+            TypedQuery<Certificado> query = em.createQuery("select c from Certificado c", Certificado.class);
+            certificados = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
-            fecharConexao(conexao, comando);
+            PersistenceUtil.close(em);
         }
         return certificados;
     }
-
-    public static void gravar(Certificado certificado) throws SQLException, ClassNotFoundException{
-        Connection conexao = null;
-        try{
-            conexao = BD.getConexao();
-//            String sql = "insert into aluno(idAluno, nome, email, dataNascimento, senha) values (?,?,?,?,?,?)";
-//            PreparedStatement comando = conexao.prepareStatement(sql);
-//            comando.setInt(1, aluno.getIdAluno());
-//            comando.setString(2, aluno.getNome());
-//            comando.setString(3, aluno.getEmail());
-//            comando.setString(4, aluno.getDataNascimento());
-//            comando.setString(5, aluno.getSenha());
-
-            //só descomentar daqui pra baixo
-//        comando.execute();
-//        comando.close();
-        conexao.close();
-        }catch(SQLException e){
-            throw e;
+    
+    public static Certificado getCertificado(int codCertificado){
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Certificado certificador = null;
+        try {
+            tx.begin();
+            certificador = em.find(Certificado.class, codCertificado);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
+        }
+        return certificador;
+    }
+    
+    
+    public static void salvar(Certificado certificador){
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            if(certificador.getCodAutencidade()!=null){
+                em.merge(certificador);
+            }else{
+                em.persist(certificador);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
         }
     }
     
-    private static void fecharConexao(Connection conexao, Statement comando) {
+    
+    
+        public static void excluir(Certificado certificador){
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            if (comando != null) {
-                comando.close();
+            tx.begin();
+            em.remove(em.getReference(Certificado.class, certificador.getCodAutencidade()));
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
-            if (conexao != null) {
-                conexao.close();
-            }
-        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
         }
     }
-
-    public static void alterar(Certificado aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
