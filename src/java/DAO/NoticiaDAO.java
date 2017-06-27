@@ -5,34 +5,29 @@
  */
 package DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import exception.ErroSistema;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import model.Noticia;
+
 /**
  *
  * @author Math
  */
-public class NoticiaDAO {
+public class NoticiaDAO implements CrudDAO<Noticia> {
 
-     private static NoticiaDAO instance = new NoticiaDAO();
+    private static NoticiaDAO instance = new NoticiaDAO();
 
     public static NoticiaDAO getInstance() {
         return instance;
     }
 
-    private NoticiaDAO() {
+    public NoticiaDAO() {
     }
-    
-    
-    public static List<Noticia> getAllNoticias(){
+
+    public static List<Noticia> getAllNoticias() {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Noticia> noticias = null;
@@ -70,15 +65,16 @@ public class NoticiaDAO {
         }
         return noticia;
     }
-    
-    public static void salvar(Noticia noticia){
+
+    @Override
+    public void salvar(Noticia noticia) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if(noticia.getIdNoticia()!=null){
+            if (noticia.getIdNoticia() != null) {
                 em.merge(noticia);
-            }else{
+            } else {
                 em.persist(noticia);
             }
             tx.commit();
@@ -92,7 +88,8 @@ public class NoticiaDAO {
         }
     }
 
-public static void excluir(Noticia noticia){
+    @Override
+    public void excluir(Noticia noticia) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -108,5 +105,25 @@ public static void excluir(Noticia noticia){
             PersistenceUtil.close(em);
         }
     }
-    
+
+    @Override
+    public List<Noticia> buscar() throws ErroSistema {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Noticia> noticias = null;
+        try {
+            tx.begin();
+            TypedQuery<Noticia> query = em.createQuery("select c from Noticia c", Noticia.class);
+            noticias = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
+        }
+        return noticias;
+    }
 }

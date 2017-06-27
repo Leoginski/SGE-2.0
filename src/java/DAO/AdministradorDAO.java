@@ -5,7 +5,7 @@
  */
 package DAO;
 
-
+import exception.ErroSistema;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -17,15 +17,15 @@ import model.Administrador;
 // *
 // * @author Leonardo
 // */
-public class AdministradorDAO {
-    
-     private static AdministradorDAO instance = new AdministradorDAO();
+public class AdministradorDAO implements CrudDAO<Administrador> {
+
+    private static AdministradorDAO instance = new AdministradorDAO();
 
     public static AdministradorDAO getInstance() {
         return instance;
     }
 
-    private AdministradorDAO() {
+    public AdministradorDAO() {
     }
 
     public static List<Administrador> getAllAdministradores() {
@@ -47,8 +47,8 @@ public class AdministradorDAO {
         }
         return administradores;
     }
-    
-    public static Administrador getAdministrador(int codAdministrador){
+
+    public static Administrador getAdministrador(int codAdministrador) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Administrador administrador = new Administrador();
@@ -66,16 +66,16 @@ public class AdministradorDAO {
         }
         return administrador;
     }
-    
-    
-    public static void salvar(Administrador administrador){
+
+    @Override
+    public void salvar(Administrador administrador) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if(administrador.getCodAdministrador()!=null){
+            if (administrador.getCodAdministrador() != null) {
                 em.merge(administrador);
-            }else{
+            } else {
                 em.persist(administrador);
             }
             tx.commit();
@@ -88,10 +88,9 @@ public class AdministradorDAO {
             PersistenceUtil.close(em);
         }
     }
-    
-    
-    
-        public static void excluir(Administrador administrador){
+
+    @Override
+    public void excluir(Administrador administrador) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -107,7 +106,26 @@ public class AdministradorDAO {
             PersistenceUtil.close(em);
         }
     }
-    
-    
+
+    @Override
+    public List<Administrador> buscar() throws ErroSistema {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Administrador> administradores = null;
+        try {
+            tx.begin();
+            TypedQuery<Administrador> query = em.createQuery("select c from Administrador c", Administrador.class);
+            administradores = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
+        }
+        return administradores;
+    }
+
 }
-    

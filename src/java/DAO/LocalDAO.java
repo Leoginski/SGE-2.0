@@ -5,10 +5,7 @@
  */
 package DAO;
 
-
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import exception.ErroSistema;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -20,18 +17,18 @@ import model.Local;
  *
  * @author Aluno
  */
-public class LocalDAO {
-    
-     private static LocalDAO instance = new LocalDAO();
+public class LocalDAO implements CrudDAO<Local> {
+
+    private static LocalDAO instance = new LocalDAO();
 
     public static LocalDAO getInstance() {
         return instance;
     }
-    
-        private LocalDAO() {
+
+    public LocalDAO() {
     }
 
-    public static List<Local> getAllLocais() throws ClassNotFoundException {
+    public static List<Local> getAllLocais() {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Local> locais = null;
@@ -50,7 +47,7 @@ public class LocalDAO {
         }
         return locais;
     }
-    
+
     public static Local getLocal(int idLocal) throws ClassNotFoundException {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -70,14 +67,15 @@ public class LocalDAO {
         return local;
     }
 
-    public static void salvar(Local local) throws SQLException, ClassNotFoundException{
+    @Override
+    public void salvar(Local local) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if(local.getIdLocal()!=null){
+            if (local.getIdLocal() != null) {
                 em.merge(local);
-            }else{
+            } else {
                 em.persist(local);
             }
             tx.commit();
@@ -90,10 +88,9 @@ public class LocalDAO {
             PersistenceUtil.close(em);
         }
     }
-    
-    
-    
-        public static void excluir(Local local) throws SQLException, ClassNotFoundException{
+
+    @Override
+    public void excluir(Local local) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -109,5 +106,26 @@ public class LocalDAO {
             PersistenceUtil.close(em);
         }
     }
-    
+
+    @Override
+    public List<Local> buscar() throws ErroSistema {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Local> locais = null;
+        try {
+            tx.begin();
+            TypedQuery<Local> query = em.createQuery("select c from Local c", Local.class);
+            locais = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
+        }
+        return locais;
+    }
+
 }

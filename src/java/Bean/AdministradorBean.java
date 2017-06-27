@@ -5,8 +5,10 @@
  */
 package Bean;
 
+import DAO.AdministradorDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import model.Administrador;
 
 /**
  *
@@ -14,13 +16,20 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class AdministradorBean {
+public class AdministradorBean extends CrudBean<Administrador, AdministradorDAO> {
 
-    /**
-     * Creates a new instance of AdministradorBean
-     */
-    public AdministradorBean() {
-        
+    private AdministradorDAO administradorDAO;
+
+    @Override
+    public AdministradorDAO getDao() {
+        if (administradorDAO == null) {
+            administradorDAO = new AdministradorDAO();
+        }
+        return administradorDAO;
     }
-    
+
+    @Override
+    public Administrador criarNovaEntidade() {
+        return new Administrador();
+    }
 }

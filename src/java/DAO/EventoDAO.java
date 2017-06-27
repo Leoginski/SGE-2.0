@@ -5,12 +5,8 @@
  */
 package DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import exception.ErroSistema;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -22,19 +18,18 @@ import model.Evento;
  *
  * @author Aluno
  */
-public class EventoDAO {
+public class EventoDAO implements CrudDAO<Evento> {
 
-    
     private static final EventoDAO instance = new EventoDAO();
 
     public static EventoDAO getInstance() {
         return instance;
     }
 
-    private EventoDAO() {
+    public EventoDAO() {
     }
-    
-    public static List<Evento> getAllEventos(){
+
+    public static List<Evento> getAllEventos() {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Evento> eventos = null;
@@ -54,7 +49,7 @@ public class EventoDAO {
         return eventos;
     }
 
-    public static Evento getEvento(int idEvento){
+    public static Evento getEvento(int idEvento) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Evento evento = null;
@@ -72,17 +67,16 @@ public class EventoDAO {
         }
         return evento;
     }
-    
-    
 
-    public static void salvar(Evento evento) throws SQLException, ClassNotFoundException{
+    @Override
+    public void salvar(Evento evento) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if(evento.getIdEvento()!=null){
+            if (evento.getIdEvento() != null) {
                 em.merge(evento);
-            }else{
+            } else {
                 em.persist(evento);
             }
             tx.commit();
@@ -95,9 +89,10 @@ public class EventoDAO {
             PersistenceUtil.close(em);
         }
     }
-    
-    public static void excluir(Evento evento) throws SQLException, ClassNotFoundException{
-    EntityManager em = PersistenceUtil.getEntityManager();
+
+    @Override
+    public void excluir(Evento evento) {
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -111,5 +106,26 @@ public class EventoDAO {
         } finally {
             PersistenceUtil.close(em);
         }
+    }
+
+    @Override
+    public List<Evento> buscar() throws ErroSistema {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Evento> eventos = null;
+        try {
+            tx.begin();
+            TypedQuery<Evento> query = em.createQuery("select c from Evento c", Evento.class);
+            eventos = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
+        }
+        return eventos;
     }
 }

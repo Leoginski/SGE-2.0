@@ -5,34 +5,26 @@
  */
 package DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.ArrayList;
+import exception.ErroSistema;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.Administrador;
 import model.Aluno;
 
 /**
  *
  * @author Aluno
  */
-public class AlunoDAO {
+public class AlunoDAO implements CrudDAO<Aluno> {
 
-    
     private static AlunoDAO instance = new AlunoDAO();
 
     public static AlunoDAO getInstance() {
         return instance;
     }
-    
-    public static List<Aluno> getAllAlunos(){
+
+    public static List<Aluno> getAllAlunos() {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Aluno> alunos = null;
@@ -51,9 +43,9 @@ public class AlunoDAO {
         }
         return alunos;
     }
-    
-    public static Aluno getAluno(int idAluno){
-       EntityManager em = PersistenceUtil.getEntityManager();
+
+    public static Aluno getAluno(int idAluno) {
+        EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Aluno aluno = null;
         try {
@@ -71,15 +63,15 @@ public class AlunoDAO {
         return aluno;
     }
 
-
-    public static void salvar(Aluno aluno){
+    @Override
+    public void salvar(Aluno aluno) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if(aluno.getIdAluno()!=null){
+            if (aluno.getIdAluno() != null) {
                 em.merge(aluno);
-            }else{
+            } else {
                 em.persist(aluno);
             }
             tx.commit();
@@ -93,10 +85,8 @@ public class AlunoDAO {
         }
     }
 
-   
-    
-
-    public static void excluir(Aluno aluno){
+    @Override
+    public void excluir(Aluno aluno) {
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -112,6 +102,26 @@ public class AlunoDAO {
             PersistenceUtil.close(em);
         }
     }
-    
-    
+
+    @Override
+    public List<Aluno> buscar() throws ErroSistema {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Aluno> alunos = null;
+        try {
+            tx.begin();
+            TypedQuery<Aluno> query = em.createQuery("select c from Aluno c", Aluno.class);
+            alunos = query.getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            PersistenceUtil.close(em);
+        }
+        return alunos;
+    }
+
 }
