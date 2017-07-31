@@ -4,6 +4,11 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <servlet>
         <servlet-name>PesquisaAlunoController</servlet-name>
         <servlet-class>controller.PesquisaAlunoController</servlet-class>
