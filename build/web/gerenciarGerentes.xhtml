@@ -1,12 +1,59 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml">
 
+    <h:form>
+        <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:fieldset legend="Objetos">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Novo" action="#{gerenteBean.novo()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{gerenteBean.salva()}" disabled="#{gerenteBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Buscar" action="#{gerenteBean.busca()}" update="@form"></p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:panelGrid columns="2" rendered="#{gerenteBean.busca == false}">
+                <h:outputLabel value="Código"></h:outputLabel>
+                <p:inputText value="#{gerenteBean.entidade.codGerente}"></p:inputText>
+                
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <p:inputText value="#{gerenteBean.entidade.nome}"></p:inputText>
+                
+                <h:outputLabel value="Email"></h:outputLabel>
+                <p:inputText value="#{gerenteBean.entidade.email}"></p:inputText>
+                
+                <h:outputLabel value="Data Nascimento"></h:outputLabel>
+                <p:inputText value="#{gerenteBean.entidade.dataNascimento}"></p:inputText>
+                
+                <h:outputLabel value="Senha"></h:outputLabel>
+                <p:inputText value="#{gerenteBean.entidade.senha}"></p:inputText>
+            </p:panelGrid>
+            <p:dataTable value="#{gerenteBean.entidades}" var="gerente" rendered="#{AdministradirBean.busca == true}">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{gerentesBean.edita(gerente)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{gerentesBean.exclui(gerente)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Código" sortBy="#{gerente.codgerente}">
+                    <h:outputText value="#{gerente.codgerente}"></h:outputText>
+                </p:column>
+                <p:column headerText="Nome" sortBy="#{gerente.nome}">
+                    <h:outputText value="#{gerente.nome}"></h:outputText>
+                </p:column>
+                <p:column headerText="Email" sortBy="#{gerente.email}">
+                    <h:outputText value="#{gerente.email}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Data Nascimento" sortBy="#{gerente.dataNascimento}">
+                    <h:outputText value="#{gerente.dataNascimento}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Senha" sortBy="#{gerente.senha}">
+                    <h:outputText value="#{gerente.senha}"></h:outputText>
+                </p:column>    
+            </p:dataTable>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>

@@ -23,11 +23,13 @@
                 
                 <h:outputLabel value="Data"></h:outputLabel>
                 <p:inputText value="#{NoticiaBean.entidade.data}"></p:inputText>
-                
-                
+                                
                 <h:outputLabel value="Descricao"></h:outputLabel>
                 <p:inputText value="#{NoticiaBean.entidade.descricao}"></p:inputText>
 
+                <h:outputLabel value="Evento "></h:outputLabel>
+                <p:inputText value="#{NoticiaBean.entidade.eventoidEvento}"></p:inputText>
+                
             </p:panelGrid>
             <p:dataTable value="#{NoticiaBean.entidades}" var="Noticia" rendered="#{NoticiaBean.busca == true}">
                 <p:column>
@@ -42,6 +44,9 @@
                 </p:column>
                 <p:column headerText="Descrição" sortBy="#{Noticia.descricao}">
                     <h:outputText value="#{Noticia.descricao}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Evento" sortBy="#{Noticia.eventoIdEvento}">
+                    <h:outputText value="#{Noticia.eventoIdEvento}"></h:outputText>
                 </p:column>    
             </p:dataTable>
         </p:fieldset>

@@ -1,12 +1,85 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml">
 
+    <h:form>
+        <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:fieldset legend="Objetos">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Novo" action="#{eventoBean.novo()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{eventoBean.salva()}" disabled="#{eventoBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Buscar" action="#{eventoBean.busca()}" update="@form"></p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:panelGrid columns="2" rendered="#{eventoBean.busca == false}">
+                <h:outputLabel value="Código"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.idEvento}"></p:inputText>
+                
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.nomeEvento}"></p:inputText>
+
+                <h:outputLabel value="Duracao"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.duracao}"></p:inputText>
+                
+                <h:outputLabel value="Tema"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.tema}"></p:inputText>
+                
+                <h:outputLabel value="Data de Inicio do Evento"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.dataInicioEvento}"></p:inputText>
+                
+                <h:outputLabel value="Data de Fim do Evento"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.dataFimEvento}"></p:inputText>
+                
+                <h:outputLabel value="Data de Inicio da Inscricao"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.dataInicioInscricao}"></p:inputText>
+                
+                <h:outputLabel value="Data de Fim da Inscricao"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.dataFimInscricao}"></p:inputText>
+                
+                <h:outputLabel value="Administrador"></h:outputLabel>
+                <p:inputText value="#{eventoBean.entidade.administradorcodAdministrador}"></p:inputText>
+                
+            </p:panelGrid>
+            <p:dataTable value="#{eventoBean.entidades}" var="evento" rendered="#{EventosBean.busca == true}">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{eventosBean.edita(evento)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{eventosBean.exclui(evento)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Código" sortBy="#{evento.idEvento}">
+                    <h:outputText value="#{evento.idEvento}"></h:outputText>
+                </p:column>
+                <p:column headerText="Nome" sortBy="#{evento.nomeEvento}">
+                    <h:outputText value="#{evento.nomeEvento}"></h:outputText>
+                </p:column>
+                <p:column headerText="Duracao" sortBy="#{evento.duracao}">
+                    <h:outputText value="#{evento.duracao}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Tema" sortBy="#{evento.tema}">
+                    <h:outputText value="#{evento.tema}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Data Inicio Evento" sortBy="#{evento.dataInicioEvento}">
+                    <h:outputText value="#{evento.senha}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Data Fim Evento" sortBy="#{evento.dataFimEvento}">
+                    <h:outputText value="#{evento.dataFimEvento}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Data Inicio Inscricao" sortBy="#{evento.dataInicioInscricao}">
+                    <h:outputText value="#{evento.dataInicioInscricao}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Data Fim Inscricao" sortBy="#{evento.dataFimInscricao}">
+                    <h:outputText value="#{evento.dataFimInscricao}"></h:outputText>
+                </p:column>    
+                <p:column headerText="Administrador" sortBy="#{evento.administradorcodAdministrador}">
+                    <h:outputText value="#{evento.administradorcodAdministrador}"></h:outputText>
+                </p:column>    
+                
+            </p:dataTable>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>

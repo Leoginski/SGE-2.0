@@ -19,7 +19,7 @@
             </p:toolbar>
             <p:panelGrid columns="2" rendered="#{administradorBean.busca == false}">
                 <h:outputLabel value="Código"></h:outputLabel>
-                <p:inputText value="#{administradorBean.entidade.codAdministrador}"></p:inputText>
+                <p:inputText value="#{administradorBean.entidade.codadministrador}"></p:inputText>
                 
                 <h:outputLabel value="Nome"></h:outputLabel>
                 <p:inputText value="#{administradorBean.entidade.nome}"></p:inputText>
@@ -38,8 +38,8 @@
                     <p:commandButton value="Editar" action="#{administradorsBean.edita(administrador)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{administradorsBean.exclui(administrador)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{administrador.codAdministrador}">
-                    <h:outputText value="#{administrador.codAdministrador}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{administrador.codadministrador}">
+                    <h:outputText value="#{administrador.codadministrador}"></h:outputText>
                 </p:column>
                 <p:column headerText="Nome" sortBy="#{administrador.nome}">
                     <h:outputText value="#{administrador.nome}"></h:outputText>
