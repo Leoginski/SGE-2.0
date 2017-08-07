@@ -6,10 +6,15 @@
 
 package Bean;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class FotosBean {
     
 }

@@ -7,12 +7,16 @@
 package Bean;
 
 import DAO.EventoDAO;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.Evento;
 
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class EventoBean extends CrudBean<Evento, EventoDAO> {
 
     private EventoDAO eventoDAO;

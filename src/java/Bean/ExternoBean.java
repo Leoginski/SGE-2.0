@@ -6,12 +6,16 @@
 package Bean;
 
 import DAO.ExternoDAO;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.Externo;
 
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class ExternoBean extends CrudBean<Externo, ExternoDAO> {
 
     private ExternoDAO externoDAO;

@@ -13,11 +13,11 @@
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Novo" action="#{gerenteBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{gerenteBean.salva()}" disabled="#{gerenteBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{gerenteBean.salva()}" disabled="#{gerenteBean.isBusca() == true}" update="@form"></p:commandButton>
                     <p:commandButton value="Buscar" action="#{gerenteBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{gerenteBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{gerenteBean.isBusca() == false}">
                 <h:outputLabel value="Código"></h:outputLabel>
                 <p:inputText value="#{gerenteBean.entidade.codGerente}"></p:inputText>
                 
@@ -33,13 +33,13 @@
                 <h:outputLabel value="Senha"></h:outputLabel>
                 <p:inputText value="#{gerenteBean.entidade.senha}"></p:inputText>
             </p:panelGrid>
-            <p:dataTable value="#{gerenteBean.entidades}" var="gerente" rendered="#{AdministradirBean.busca == true}">
+            <p:dataTable value="#{gerenteBean.entidades}" var="gerente" rendered="#{gerenteBean.isBusca() == true}">
                 <p:column>
                     <p:commandButton value="Editar" action="#{gerentesBean.edita(gerente)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{gerentesBean.exclui(gerente)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{gerente.codgerente}">
-                    <h:outputText value="#{gerente.codgerente}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{gerente.codGerente}">
+                    <h:outputText value="#{gerente.codGerente}"></h:outputText>
                 </p:column>
                 <p:column headerText="Nome" sortBy="#{gerente.nome}">
                     <h:outputText value="#{gerente.nome}"></h:outputText>

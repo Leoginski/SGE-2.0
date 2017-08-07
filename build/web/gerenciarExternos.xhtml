@@ -13,11 +13,11 @@
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Novo" action="#{externoBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{externoBean.salva()}" disabled="#{externoBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{externoBean.salva()}" disabled="#{externoBean.isBusca() == true}" update="@form"></p:commandButton>
                     <p:commandButton value="Buscar" action="#{externoBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{externoBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{externoBean.isBusca() == false}">
                 <h:outputLabel value="Código"></h:outputLabel>
                 <p:inputText value="#{externoBean.entidade.idExterno}"></p:inputText>
                 
@@ -36,13 +36,13 @@
                 <h:outputLabel value="Senha"></h:outputLabel>
                 <p:inputText value="#{externoBean.entidade.senha}"></p:inputText>
             </p:panelGrid>
-            <p:dataTable value="#{externoBean.entidades}" var="externo" rendered="#{AdministradirBean.busca == true}">
+            <p:dataTable value="#{externoBean.entidades}" var="externo" rendered="#{externoBean.isBusca() == true}">
                 <p:column>
                     <p:commandButton value="Editar" action="#{externosBean.edita(externo)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{externosBean.exclui(externo)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{externo.codexterno}">
-                    <h:outputText value="#{externo.codexterno}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{externo.idExterno}">
+                    <h:outputText value="#{externo.idExterno}"></h:outputText>
                 </p:column>
                 <p:column headerText="Como tomou conhecimento" sortBy="#{externo.conhecimento}">
                     <h:outputText value="#{externo.conhecimento}"></h:outputText>

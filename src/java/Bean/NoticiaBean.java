@@ -6,12 +6,16 @@
 package Bean;
 
 import DAO.NoticiaDAO;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.Noticia;
 
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class NoticiaBean extends CrudBean<Noticia, NoticiaDAO> {
 
     private NoticiaDAO noticiaDAO;

@@ -6,12 +6,16 @@
 package Bean;
 
 import DAO.LocalDAO;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.Local;
 
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class LocalBean extends CrudBean<Local, LocalDAO> {
 
     private LocalDAO localDAO;

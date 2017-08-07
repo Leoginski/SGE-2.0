@@ -6,12 +6,16 @@
 package Bean;
 
 import DAO.PropostaDAO;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.Proposta;
 
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class PropostaBean extends CrudBean<Proposta, PropostaDAO> {
 
     private PropostaDAO propostaDAO;

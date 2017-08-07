@@ -21,6 +21,7 @@
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="hibernate.classloading.use_current_tccl_as_parent" value="false" />
     </properties>
   </persistence-unit>
 </persistence>

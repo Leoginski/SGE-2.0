@@ -6,12 +6,16 @@
 package Bean;
 
 import DAO.GerenteDAO;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.Gerente;
 
 /**
  *
  * @author Aluno
  */
+@ManagedBean
+@RequestScoped
 public class GerenteBean extends CrudBean<Gerente, GerenteDAO> {
 
     private GerenteDAO gerenteDAO;

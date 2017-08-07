@@ -13,11 +13,11 @@
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Novo" action="#{eventoBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{eventoBean.salva()}" disabled="#{eventoBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{eventoBean.salva()}" disabled="#{eventoBean.isBusca() == true}" update="@form"></p:commandButton>
                     <p:commandButton value="Buscar" action="#{eventoBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{eventoBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{eventoBean.isBusca() == false}">
                 <h:outputLabel value="Código"></h:outputLabel>
                 <p:inputText value="#{eventoBean.entidade.idEvento}"></p:inputText>
                 
@@ -46,10 +46,10 @@
                 <p:inputText value="#{eventoBean.entidade.administradorcodAdministrador}"></p:inputText>
                 
             </p:panelGrid>
-            <p:dataTable value="#{eventoBean.entidades}" var="evento" rendered="#{EventosBean.busca == true}">
+            <p:dataTable value="#{eventoBean.entidades}" var="evento" rendered="#{eventoBean.isBusca() == true}">
                 <p:column>
-                    <p:commandButton value="Editar" action="#{eventosBean.edita(evento)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{eventosBean.exclui(evento)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{eventoBean.edita(evento)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{eventoBean.exclui(evento)}" update="@form"></p:commandButton>
                 </p:column>
                 <p:column headerText="Código" sortBy="#{evento.idEvento}">
                     <h:outputText value="#{evento.idEvento}"></h:outputText>
@@ -75,9 +75,9 @@
                 <p:column headerText="Data Fim Inscricao" sortBy="#{evento.dataFimInscricao}">
                     <h:outputText value="#{evento.dataFimInscricao}"></h:outputText>
                 </p:column>    
-                <p:column headerText="Administrador" sortBy="#{evento.administradorcodAdministrador}">
+<!--                <p:column headerText="Administrador" sortBy="#{evento.administradorcodAdministrador}">
                     <h:outputText value="#{evento.administradorcodAdministrador}"></h:outputText>
-                </p:column>    
+                </p:column>    -->
                 
             </p:dataTable>
         </p:fieldset>

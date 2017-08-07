@@ -13,13 +13,13 @@
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Novo" action="#{administradorBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{administradorBean.salva()}" disabled="#{administradorBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{administradorBean.salva()}" disabled="#{administradorBean.isBusca() == true}" update="@form"></p:commandButton>
                     <p:commandButton value="Buscar" action="#{administradorBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{administradorBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{administradorBean.isEdita() == true || administradorBean.isInseri() == true}">
                 <h:outputLabel value="Código"></h:outputLabel>
-                <p:inputText value="#{administradorBean.entidade.codadministrador}"></p:inputText>
+                <p:inputText value="#{administradorBean.entidade.codAdministrador}"></p:inputText>
                 
                 <h:outputLabel value="Nome"></h:outputLabel>
                 <p:inputText value="#{administradorBean.entidade.nome}"></p:inputText>
@@ -33,13 +33,13 @@
                 <h:outputLabel value="Senha"></h:outputLabel>
                 <p:inputText value="#{administradorBean.entidade.senha}"></p:inputText>
             </p:panelGrid>
-            <p:dataTable value="#{administradorBean.entidades}" var="administrador" rendered="#{AdministradirBean.busca == true}">
+            <p:dataTable value="#{administradorBean.entidades}" var="administrador" rendered="#{administradorBean.isBusca() == true}">
                 <p:column>
-                    <p:commandButton value="Editar" action="#{administradorsBean.edita(administrador)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{administradorsBean.exclui(administrador)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{administradorBean.edita(administrador)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{administradorBean.exclui(administrador)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{administrador.codadministrador}">
-                    <h:outputText value="#{administrador.codadministrador}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{administrador.codAdministrador}">
+                    <h:outputText value="#{administrador.codAdministrador}"></h:outputText>
                 </p:column>
                 <p:column headerText="Nome" sortBy="#{administrador.nome}">
                     <h:outputText value="#{administrador.nome}"></h:outputText>

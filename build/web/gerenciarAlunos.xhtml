@@ -13,11 +13,11 @@
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="Novo" action="#{alunoBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{alunoBean.salva()}" disabled="#{alunoBean.busca == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{alunoBean.salva()}" disabled="#{alunoBean.isBusca() == true}" update="@form"></p:commandButton>
                     <p:commandButton value="Buscar" action="#{alunoBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{alunoBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{alunoBean.isBusca() == false}">
                 <h:outputLabel value="Código"></h:outputLabel>
                 <p:inputText value="#{alunoBean.entidade.idAluno}"></p:inputText>
                 
@@ -34,13 +34,13 @@
                 <h:outputLabel value="Senha"></h:outputLabel>
                 <p:inputText value="#{alunoBean.entidade.senha}"></p:inputText>
             </p:panelGrid>
-            <p:dataTable value="#{alunoBean.entidades}" var="aluno" rendered="#{AdministradirBean.busca == true}">
+            <p:dataTable value="#{alunoBean.entidades}" var="aluno" rendered="#{alunoBean.isBusca() == true}">
                 <p:column>
-                    <p:commandButton value="Editar" action="#{alunosBean.edita(aluno)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{alunosBean.exclui(aluno)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{alunoBean.edita(aluno)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{alunoBean.exclui(aluno)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{aluno.codaluno}">
-                    <h:outputText value="#{aluno.codaluno}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{aluno.idAluno}">
+                    <h:outputText value="#{aluno.idAluno}"></h:outputText>
                 </p:column>
                 <p:column headerText="Nome" sortBy="#{aluno.nome}">
                     <h:outputText value="#{aluno.nome}"></h:outputText>

@@ -5,43 +5,43 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template.html">
+             template="template.xhtml">
 
     <h:form>
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
         <p:fieldset legend="Objetos">
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="Novo" action="#{LocalBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{LocalBean.salva()}" disabled="#{LocalBean.busca == true}" update="@form"></p:commandButton>
-                    <p:commandButton value="Buscar" action="#{LocalBean.busca()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Novo" action="#{localBean.novo()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{localBean.salva()}" disabled="#{localBean.isBusca() == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Buscar" action="#{localBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{LocalBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{localBean.isBusca() == false}">
                 <h:outputLabel value="Codigo"></h:outputLabel>
-                <p:inputText value="#{LocalBean.entidade.idLocal}"></p:inputText>
+                <p:inputText value="#{localBean.entidade.idLocal}"></p:inputText>
                 
                 <h:outputLabel value="Descrição"></h:outputLabel>
-                <p:inputText value="#{LocalBean.entidade.descricao}"></p:inputText>
+                <p:inputText value="#{localBean.entidade.descricao}"></p:inputText>
                 
                 
                 <h:outputLabel value="Capacidade"></h:outputLabel>
-                <p:inputText value="#{LocalBean.entidade.capacidade}"></p:inputText>
+                <p:inputText value="#{localBean.entidade.capacidade}"></p:inputText>
 
             </p:panelGrid>
-            <p:dataTable value="#{LocalBean.entidades}" var="Local" rendered="#{LocalBean.busca == true}">
+            <p:dataTable value="#{localBean.entidades}" var="local" rendered="#{localBean.isBusca() == true}">
                 <p:column>
-                    <p:commandButton value="Editar" action="#{LocalBean.edita(locais)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{LocalBean.exclui(locais)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{localBean.edita(local)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{localBean.exclui(local)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{Local.idLocal}">
-                    <h:outputText value="#{Local.idLocal}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{local.idLocal}">
+                    <h:outputText value="#{local.idLocal}"></h:outputText>
                 </p:column>
-                <p:column headerText="Nome" sortBy="#{Local.capacidade}">
-                    <h:outputText value="#{Local.nome}"></h:outputText>
+                <p:column headerText="Nome" sortBy="#{local.capacidade}">
+                    <h:outputText value="#{local.nome}"></h:outputText>
                 </p:column>
-                <p:column headerText="Descrição" sortBy="#{Local.descricao}">
-                    <h:outputText value="#{Local.descricao}"></h:outputText>
+                <p:column headerText="Descrição" sortBy="#{local.descricao}">
+                    <h:outputText value="#{local.descricao}"></h:outputText>
                 </p:column>    
             </p:dataTable>
         </p:fieldset>

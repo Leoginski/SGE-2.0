@@ -12,41 +12,41 @@
         <p:fieldset legend="Objetos">
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="Novo" action="#{NoticiaBean.novo()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Salvar" action="#{NoticiasBean.salva()}" disabled="#{NoticiaBean.busca == true}" update="@form"></p:commandButton>
-                    <p:commandButton value="Buscar" action="#{NoticiaBean.busca()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Novo" action="#{noticiaBean.novo()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Salvar" action="#{noticiasBean.salva()}" disabled="#{noticiaBean.isBusca() == true}" update="@form"></p:commandButton>
+                    <p:commandButton value="Buscar" action="#{noticiaBean.busca()}" update="@form"></p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-            <p:panelGrid columns="2" rendered="#{NoticiaBean.busca == false}">
+            <p:panelGrid columns="2" rendered="#{noticiaBean.isBusca() == false}">
                 <h:outputLabel value="Codigo"></h:outputLabel>
-                <p:inputText value="#{NoticiaBean.entidade.idNoticia}"></p:inputText>
+                <p:inputText value="#{noticiaBean.entidade.idNoticia}"></p:inputText>
                 
                 <h:outputLabel value="Data"></h:outputLabel>
-                <p:inputText value="#{NoticiaBean.entidade.data}"></p:inputText>
+                <p:inputText value="#{noticiaBean.entidade.data}"></p:inputText>
                                 
                 <h:outputLabel value="Descricao"></h:outputLabel>
-                <p:inputText value="#{NoticiaBean.entidade.descricao}"></p:inputText>
+                <p:inputText value="#{noticiaBean.entidade.descricao}"></p:inputText>
 
                 <h:outputLabel value="Evento "></h:outputLabel>
-                <p:inputText value="#{NoticiaBean.entidade.eventoidEvento}"></p:inputText>
+                <p:inputText value="#{noticiaBean.entidade.eventoidEvento}"></p:inputText>
                 
             </p:panelGrid>
-            <p:dataTable value="#{NoticiaBean.entidades}" var="Noticia" rendered="#{NoticiaBean.busca == true}">
+            <p:dataTable value="#{noticiaBean.entidades}" var="noticia" rendered="#{noticiaBean.isBusca() == true}">
                 <p:column>
-                    <p:commandButton value="Editar" action="#{NoticiaBean.edita(locais)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{NoticiaBean.exclui(locais)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{noticiaBean.edita(noticia)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{noticiaBean.exclui(noticia)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Código" sortBy="#{Noticia.idLocal}">
-                    <h:outputText value="#{Noticia.idLocal}"></h:outputText>
+                <p:column headerText="Código" sortBy="#{noticia.idNoticia}">
+                    <h:outputText value="#{noticia.idNoticia}"></h:outputText>
                 </p:column>
-                <p:column headerText="Nome" sortBy="#{Noticia.capacidade}">
-                    <h:outputText value="#{Noticia.nome}"></h:outputText>
+                <p:column headerText="Data" sortBy="#{noticia.data}">
+                    <h:outputText value="#{noticia.data}"></h:outputText>
                 </p:column>
-                <p:column headerText="Descrição" sortBy="#{Noticia.descricao}">
-                    <h:outputText value="#{Noticia.descricao}"></h:outputText>
+                <p:column headerText="Descrição" sortBy="#{noticia.descricao}">
+                    <h:outputText value="#{noticia.descricao}"></h:outputText>
                 </p:column>    
-                <p:column headerText="Evento" sortBy="#{Noticia.eventoIdEvento}">
-                    <h:outputText value="#{Noticia.eventoIdEvento}"></h:outputText>
+                <p:column headerText="Evento" sortBy="#{noticia.eventoidEvento}">
+                    <h:outputText value="#{noticia.eventoidEvento}"></h:outputText>
                 </p:column>    
             </p:dataTable>
         </p:fieldset>
