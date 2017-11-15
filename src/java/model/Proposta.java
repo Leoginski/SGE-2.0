@@ -634,4 +634,34 @@ public class Proposta implements Serializable {
         return "model.Proposta[ idProposta=" + idProposta + " ]";
     }
     
+    public Boolean verificacao(){
+    if(idProposta == null){
+        return false;
+    }else if(proponente == null){
+        return false;
+    }else if(emailProponente==null){
+        return false;
+    }else if(tipoAtividade==null){
+        return false;
+    }else if(tituloAtividade==null){
+        return false;
+    }else if(cargaHoraria==null){
+        return false;
+    }else if(vagasAtividade==null){
+        return false;
+    }else if(estado==null){
+        return false;
+    }else if(gerentecodGerente==null){
+        return false;
+    }else if(localId==null){
+        return false;
+    }else if(eventoId==null){
+        return false;
+    }else{
+        return true;        
+    }
+            
+    
+    }
+    
 }
